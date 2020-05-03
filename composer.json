@@ -1,7 +1,7 @@
 {
     "type": "project",
     "license": "proprietary",
-    "name": "breengrow",
+    "name": "buba71/breengrow",
     "description": "breengrow-backend",
     "authors": [{
         "name": "David De Lima"
@@ -11,7 +11,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
-        "api-platform/core": "2.5.4",
+        "api-platform/core": "^2.1",
         "beberlei/assert": "^3.2",
         "doctrine/doctrine-migrations-bundle": "^2.1",
         "fig/link-util": "^1.1",
