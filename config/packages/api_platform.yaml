@@ -1,0 +1,16 @@
+api_platform:
+    swagger:
+        api_keys:
+            apikey:
+                name: Authorization
+                type: header
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Presentation/Api/Grower/Model'
+            - '%kernel.project_dir%/config/api_platform'
+    formats:
+        jsonld: ['application/ld+json']
+        json:   ['application/json']
+        html: ['text/html']
+
+

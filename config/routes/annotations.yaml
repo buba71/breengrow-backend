@@ -1,0 +1,7 @@
+controllers:
+    resource: ../../src/Presentation/Api/
+    type: annotation
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

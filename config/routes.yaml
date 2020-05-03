@@ -1,0 +1,10 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+api_login_check:
+  path: /api/login
+
+logged_user:
+  path: /api/user
+  controller: App\Presentation\Api\Handler\Security\GetLoggedInUser

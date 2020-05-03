@@ -1,0 +1,33 @@
+version: '3.1'
+services:
+  apache:
+    container_name: breengrow_back
+    build: ./docker/
+    volumes:
+      - /var/www:/var/www/app
+    ports:
+      - 8000:80
+    links:
+      - dbserver
+
+  dbserver:
+    container_name: breengrow_db
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  phpmyadmin:
+    container_name: breengrow_phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: dbserver
+    links:
+      - dbserver
+
