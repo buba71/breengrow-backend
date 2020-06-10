@@ -15,7 +15,7 @@ class Grower
     private string $lastName;
     private string $email;
     private string $password;
-    private string $salt;
+    private ?string $salt;
     /**
      * @var array<string>
      */
@@ -37,7 +37,7 @@ class Grower
         string $lastName,
         string $email,
         string $password,
-        string $salt,
+        ?string $salt,
         array $role
     ) {
         $this->id = $id;
@@ -92,7 +92,7 @@ class Grower
     /**
      * @return string
      */
-    public function getSalt(): string
+    public function getSalt(): ?string
     {
         return $this->salt;
     }

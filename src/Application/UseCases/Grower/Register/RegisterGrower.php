@@ -41,8 +41,8 @@ final class RegisterGrower
     {
         $response = new RegisterGrowerResponse();
 
-        $isValid = $this->checkRequest($request, $response);
-        //$isValid = $this->validateGrower($request, $response) && $isValid;
+        $isValid = $this->checkRequest($request, $response) && $this->validateGrower($request, $response);
+
 
         if ($isValid) {
             $this->saveGrower($request, $response);

@@ -81,7 +81,4 @@ class Grower
         $this->siret_number = $siret_number;
     }
 
-
-
-
 }
