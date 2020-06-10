@@ -15,7 +15,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserEntity::class);
+        parent::__construct($registry, GrowerEntity::class);
     }
 
 
@@ -27,6 +27,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
      */
     public function addGrower(Grower $user): GrowerEntity
     {
+        dump($user);
         $userEntity = new UserEntity();
 
         $userEntity->setFirstName($user->getFirstName());
@@ -50,7 +51,15 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
 
     public function getGrowerByEmail(string $email)
     {
-         return $this->getEntityManager()->getRepository(Grower::class)->findOneBy(['email' => $email]);
+        $query = $this->createQueryBuilder('g');
+        $query->innerJoin('g.user', 'u')
+            ->addSelect('u')
+            ->where('u.email = :email')
+            ->setParameter('email', $email);
+
+        return $query
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 }

@@ -9,7 +9,6 @@ use App\Application\UseCases\Grower\Register\RegisterGrower;
 use App\Application\UseCases\Grower\Register\RegisterGrowerPresenter;
 use App\Application\UseCases\Grower\Register\RegisterGrowerResponse;
 use App\Domain\Model\Grower\Grower;
-use App\Infrastructure\Symfony\Doctrine\Repository\GrowerDoctrineRepository;
 use App\SharedKernel\Error\Error;
 use App\SharedKernel\Error\Notifier;
 use App\SharedKernel\Service\PasswordHash;
@@ -114,10 +113,26 @@ class RegisterGrowerTest extends TestCase
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
 
-        $this->register->saveGrower($request, $this->response);
+        $growerRegistered = new Grower(
+            '1',
+            $request->firstName,
+            $request->lastName,
+            $request->email,
+            $request->password,
+            $request->salt,
+            $request->role
+        );
         // Should be.
+        $this->response->setGrower($growerRegistered);
         $this->response->setStatus(201);
 
+        $this->idGenerator->expects($this->once())
+                  ->method('nextIdentity')
+                  ->willReturn('1');
+
+        $this->passwordHasher->expects($this->once())
+                  ->method('hashPassword')
+                  ->willReturn($request->password);
 
         $this->presenter->expects($this->once())
                   ->method('present')
@@ -166,10 +181,6 @@ class RegisterGrowerTest extends TestCase
         $shouldBe ->addError(new Error('Email', 'Cette adresse mail éxiste déjà.'));
 
         static::assertEquals($shouldBe, $this->response->getNotifier());
-
-
-
     }
-
-
 }
+

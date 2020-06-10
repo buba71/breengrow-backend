@@ -14,7 +14,7 @@ class RegisterGrowerRequest
     public string $lastName;
     public string $email;
     public string $password;
-    public string $salt;
+    public ?string $salt = null;
     /**
      * @var array<string>
      */
@@ -55,7 +55,7 @@ class RegisterGrowerRequest
     /**
      * @param string $salt
      */
-    public function setSalt(string $salt): void
+    public function setSalt(?string $salt): void
     {
         $this->salt = $salt;
     }

@@ -46,10 +46,10 @@ class User implements UserInterface
     private string $password;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", name="salt")
+     * @var string|null
+     * @ORM\Column(type="string", name="salt", nullable=true)
      */
-    private string $salt;
+    private ?string $salt;
 
     /**
      * @var array<string>
@@ -132,7 +132,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getSalt(): string
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
@@ -140,7 +140,7 @@ class User implements UserInterface
     /**
      * @param string $salt
      */
-    public function setSalt(string $salt): void
+    public function setSalt(?string $salt): void
     {
         $this->salt = $salt;
     }
