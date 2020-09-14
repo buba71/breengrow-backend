@@ -2,15 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Grower;
+namespace App\Presentation\Api\Consumer;
 
-use App\Domain\Model\Grower\Grower;
+use App\Domain\Model\Consumer\Consumer;
 
-/**
- * Class RegisterGrowerApiViewModel
- * @package App\Presentation\Api\Grower
- */
-final class RegisterGrowerApiViewModel
+final class RegisterConsumerApiViewModel
 {
     /**
      * @var array<array>
@@ -20,7 +16,7 @@ final class RegisterGrowerApiViewModel
     /**
      * @var array<array>
      */
-    public array $growerModel;
+    public array $consumerModel;
 
     /**
      * @var array<array>
@@ -43,17 +39,16 @@ final class RegisterGrowerApiViewModel
     }
 
     /**
-     * @param Grower $model
+     * @param Consumer $model
      */
-    public function modelTransformer(Grower $model): void
+    public function modelTransformer(Consumer $model): void
     {
-        $this->growerModel['grower'] = [
+        $this->consumerModel['consumer'] = [
             'id' => $model->getId(),
             'firstName' => $model->getFirstName(),
             'lastName'  => $model->getLastName()
         ];
 
-        $this->data = $this->growerModel;
+        $this->data = $this->consumerModel;
     }
 }
-

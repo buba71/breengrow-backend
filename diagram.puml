@@ -1,0 +1,12 @@
+@startuml
+class Consumer
+class ConsumerAddress
+class Order
+class OrderLine
+class Grower
+class Hive
+class Deliverer
+class Catalog
+class Product
+
+@enduml

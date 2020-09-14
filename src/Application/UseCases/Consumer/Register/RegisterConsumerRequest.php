@@ -2,15 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCases\Grower\Register;
+namespace App\Application\UseCases\Consumer\Register;
 
-use App\Presentation\Api\Grower\Model\HiveModel;
+use App\Presentation\Api\Consumer\Model\ConsumerAddressModel;
+use App\Presentation\Api\Order\Model\OrderModel;
 
-/**
- * Class RegisterGrowerRequest
- * @package App\Application\UseCases\Grower
- */
-class RegisterGrowerRequest
+class RegisterConsumerRequest
 {
     /**
      * @var string
@@ -42,9 +39,14 @@ class RegisterGrowerRequest
     public array $role = [];
 
     /**
-     * @var HiveModel
+     * @var array<ConsumerAddressModel>
      */
-    public HiveModel $hive;
+    public array $addresses = [];
+
+    /**
+     * @var OrderModel
+     */
+    public OrderModel $order;
 
     // /**
     //  * @param string $firstName
@@ -79,9 +81,9 @@ class RegisterGrowerRequest
     // }
 
     // /**
-    //  * @param string|null $salt
+    //  * @param string $salt
     //  */
-    // public function setSalt(?string $salt): void
+    // public function setSalt(string $salt): void
     // {
     //     $this->salt = $salt;
     // }
@@ -95,18 +97,22 @@ class RegisterGrowerRequest
     // }
 
     // /**
-    //  * @return HiveModel
+    //  * @param ConsumerAddressModel $address
     //  */
-    // public function getHive(): HiveModel
+    // public function addAddress(ConsumerAddressModel $address): void
     // {
-    //     return $this->hive;
+    //     if (!in_array($address, $this->addresses)) {
+    //         $this->addresses[] = $address;
+    //     }
     // }
 
     // /**
-    //  * @param HiveModel $hive
+    //  * @param OrderModel $order
     //  */
-    // public function setHive(HiveModel $hive): void
+    // public function addOrder(OrderModel $order): void
     // {
-    //     $this->hive = $hive;
+    //     if (!in_array($order, $this->orders)) {
+    //         $this->orders[] = $order;
+    //     }
     // }
-}//
+}

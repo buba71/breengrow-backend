@@ -21,9 +21,9 @@ use PHPUnit\Framework\TestCase;
  */
 class RegisterGrowerTest extends TestCase
 {
+    private IdGenerator $idGenerator;
     private InMemoryGrowerRepository $growerRepository;
-    private $idGenerator;
-    private $passwordHasher;
+    private PasswordHash $passwordHasher;
     private $presenter;
     private RegisterGrower $register;
     private RegisterGrowerResponse $response;
@@ -40,7 +40,6 @@ class RegisterGrowerTest extends TestCase
         $this->presenter = $this->getMockBuilder(RegisterGrowerPresenter::class)
                                 ->setMethods(['present'])
                                 ->getMock();
-
         $this->growerRepository = new InMemoryGrowerRepository();
         $this->register = new RegisterGrower(
             $this->growerRepository,
@@ -90,8 +89,9 @@ class RegisterGrowerTest extends TestCase
             $request->email,
             base64_encode($request->password),
             $request->salt,
-            $request->role
+            $request->role,
         );
+        $grower->addHive('Breengrow', '123456789', '20 rue François Ducarouge', 'Digoin', '71160');
 
         $this->idGenerator
             ->method('nextIdentity')
@@ -118,10 +118,12 @@ class RegisterGrowerTest extends TestCase
             $request->firstName,
             $request->lastName,
             $request->email,
-            $request->password,
+            base64_encode($request->password),
             $request->salt,
-            $request->role
+            $request->role,
         );
+        $growerRegistered->addHive('Breengrow', '123456789', '20 rue François Ducarouge', 'Digoin', '71160');
+
         // Should be.
         $this->response->setGrower($growerRegistered);
         $this->response->setStatus(201);
@@ -132,7 +134,7 @@ class RegisterGrowerTest extends TestCase
 
         $this->passwordHasher->expects($this->once())
                   ->method('hashPassword')
-                  ->willReturn($request->password);
+                  ->willReturn(base64_encode($request->password));
 
         $this->presenter->expects($this->once())
                   ->method('present')
@@ -170,17 +172,16 @@ class RegisterGrowerTest extends TestCase
             $request->email,
             base64_encode($request->password),
             $request->salt,
-            $request->role
+            $request->role,
         );
+        $grower->addHive('Breengrow', '123456789', '20 rue François Ducarouge', 'Digoin', '71160');
 
         $this->growerRepository->addGrower($grower);
-
         $this->register->validateGrower($request, $this->response);
 
         $shouldBe = new Notifier();
-        $shouldBe ->addError(new Error('Email', 'Cette adresse mail éxiste déjà.'));
+        $shouldBe ->addError(new Error('Email', 'This address already exist.'));
 
         static::assertEquals($shouldBe, $this->response->getNotifier());
     }
 }
-

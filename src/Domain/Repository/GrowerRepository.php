@@ -14,6 +14,12 @@ interface GrowerRepository
     public function addGrower(Grower $user);
 
     /**
+     * @param string $id
+     * @return Grower
+     */
+    public function getGrowerById(string $id): ?Grower;
+
+    /**
      * @param string $email
      * @return mixed
      */

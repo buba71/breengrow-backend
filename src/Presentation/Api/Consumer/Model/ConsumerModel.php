@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Grower\Model;
+namespace App\Presentation\Api\Consumer\Model;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Application\UseCases\Grower\Register\RegisterGrowerRequest;
+use App\Application\UseCases\Consumer\Register\RegisterConsumerRequest;
+use App\Presentation\Api\Order\Model\OrderModel;
 
 /**
- * Class GrowerModelDto
+ * Class ConsumerModelDto
  * @ApiResource(
- *     input=RegisterGrowerRequest::class,
+ *     input=RegisterConsumerRequest::class,
  *     output=false
- * ),
- * @package App\Presentation\Api\Grower\ModelDto
+ * )
+ * @package App\Pesentation\Api\Consumer\ModelDto
  */
-class GrowerModel
+class ConsumerModel
 {
     /**
      * @var string
@@ -35,7 +36,6 @@ class GrowerModel
      * @ApiProperty()
      */
     public string $email;
-
     /**
      * @var string
      * @ApiProperty()
@@ -55,8 +55,14 @@ class GrowerModel
     public array $role = [];
 
     /**
-     * @var HiveModel
+     * @var array<ConsumerAddressModel>
+     * @ApiProperty()
      */
-    public HiveModel $hive;
+    public array $addresses = [];
 
+    /**
+     * @var OrderModel|null
+     * @ApiProperty()
+     */
+    public ?OrderModel $order;
 }

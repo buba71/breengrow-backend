@@ -17,6 +17,7 @@ class InMemoryGrowerRepository implements GrowerRepository
     public function addGrower(Grower $user): void
     {
         $this->growers[] = $user;
+
     }
 
     /**
