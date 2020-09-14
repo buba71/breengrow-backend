@@ -24,17 +24,6 @@ class User implements UserInterface
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="first_name")
-     */
-    private string $firstName;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", name="last_name")
-     */
-    private string $lastName;
-    /**
-     * @var string
      * @ORM\Column(type="string", name="user_email", unique=true)
      */
     private string $email;
@@ -63,38 +52,6 @@ class User implements UserInterface
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstName(): string
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName(string $firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @param string $lastName
-     */
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
     }
 
     /**
@@ -170,9 +127,9 @@ class User implements UserInterface
     }
 
     /**
-     * @inheritDoc
+     *
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // TODO: Implement eraseCredentials() method.
     }

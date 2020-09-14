@@ -69,7 +69,6 @@ final class RegisterGrower
                 ->verifyNow();
 
             return true;
-
         } catch (LazyAssertionException $errors) {
             foreach ($errors->getErrorExceptions() as $error) {
                 $response->addError(new Error($error->getPropertyPath(), $error->getMessage()));
@@ -85,6 +84,7 @@ final class RegisterGrower
     public function saveGrower(RegisterGrowerRequest $request, RegisterGrowerResponse $response): void
     {
         $hashedPassword = $this->passwordHasher->hashPassword($request->password);
+
         $grower = new Grower(
             $this->idGenerator->nextIdentity(),
             $request->firstName,
@@ -92,19 +92,32 @@ final class RegisterGrower
             $request->email,
             $hashedPassword,
             $request->salt,
-            $request->role
+            $request->role,
+        );
+
+        $grower->addHive(
+            $request->hive->name,
+            $request->hive->siret_number,
+            $request->hive->street,
+            $request->hive->city,
+            $request->hive->zip_code
         );
         $this->repository->addGrower($grower);
 
         $response->setGrower($grower);
     }
 
-    public function validateGrower(RegisterGrowerRequest $request, RegisterGrowerResponse $response)
+    /**
+     * @param RegisterGrowerRequest $request
+     * @param RegisterGrowerResponse $response
+     * @return bool
+     */
+    public function validateGrower(RegisterGrowerRequest $request, RegisterGrowerResponse $response): bool
     {
         $result = $this->repository->getGrowerByEmail($request->email);
 
         if (null !== $result) {
-            $response->addError(new Error('Email', 'Cette adresse mail éxiste déjà.'));
+            $response->addError(new Error('Email', 'This address already exist.'));
             return false;
         }
         return true;

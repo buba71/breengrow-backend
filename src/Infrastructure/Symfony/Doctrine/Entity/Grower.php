@@ -20,10 +20,16 @@ class Grower
     private string $id;
 
     /**
-     * @var int
-     * @ORM\Column(type="string", name="siret_number")
+     * @var string
+     * @ORM\Column(type="string", name="first_name")
      */
-    private int $siret_number;
+    private string $firstName;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="last_name")
+     */
+    private string $lastName;
 
     /**
      * @var User
@@ -32,6 +38,12 @@ class Grower
      */
     private User $user;
 
+    /**
+     * @var Company
+     * @ORM\OneToOne(targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Company", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Company $company;
 
     /**
      * @param string $id
@@ -50,6 +62,39 @@ class Grower
     }
 
     /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+
+    /**
      * @return User
      */
     public function getUser(): User
@@ -66,19 +111,20 @@ class Grower
     }
 
     /**
-     * @return int
+     * @return Company
      */
-    public function getSiretNumber(): int
+    public function getCompany(): Company
     {
-        return $this->siret_number;
+        return $this->company;
     }
 
     /**
-     * @param int $siret_number
+     * @param Company $company
      */
-    public function setSiretNumber(int $siret_number): void
+    public function setCompany(Company $company): void
     {
-        $this->siret_number = $siret_number;
+        $this->company = $company;
     }
+
 
 }
