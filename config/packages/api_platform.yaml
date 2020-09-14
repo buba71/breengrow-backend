@@ -6,7 +6,8 @@ api_platform:
                 type: header
     mapping:
         paths:
-            - '%kernel.project_dir%/src/Presentation/Api/Grower/Model'
+            - '%kernel.project_dir%/src/Presentation/Api/Consumer/'
+            - '%kernel.project_dir%/src/Presentation/Api/Grower/'
             - '%kernel.project_dir%/config/api_platform'
     formats:
         jsonld: ['application/ld+json']

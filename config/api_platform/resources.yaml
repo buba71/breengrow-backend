@@ -1,7 +1,18 @@
 App\Presentation\Api\Grower\Model\GrowerModel:
-    collectionOperations:
-      create_grower:
-        method: POST
-        path: /grower/create
-        controller: App\Presentation\Api\Handler\RegisterGrowerHandler
-        #security: is_granted('ROLE_GROWER')
+  collectionOperations:
+    create_grower:
+      method: POST
+      path: /grower/create
+      controller: App\Presentation\Api\Handler\RegisterGrowerHandler
+      # security: is_granted('ROLE_GROWER')
+
+App\Presentation\Api\Consumer\Model\ConsumerModel:
+  collectionOperations:
+    create_consumer:
+      method: POST
+      path: /consumer/create
+      controller: App\Presentation\Api\Handler\RegisterConsumerHandler
+
+    #get_consumers:
+    #  method: GET
+

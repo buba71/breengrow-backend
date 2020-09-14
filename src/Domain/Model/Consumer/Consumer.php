@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model\Grower;
+namespace App\Domain\Model\Consumer;
+
+use App\Domain\Model\Order\Order;
 
 /**
- * Class Grower
- * @package App\Domain\Model
+ * Class Consumer
+ * @package App\Domain\Model\Consumer
  * Entity
  */
-class Grower
+class Consumer
 {
     /**
      * @var string
@@ -39,20 +41,25 @@ class Grower
     /**
      * @var string|null
      */
-    private ?string $salt;
+    private ?string $salt = null;
 
     /**
      * @var array<string>
      */
-    private array $role = [];
+    private array $role;
 
     /**
-     * @var Hive
+     * @var array<ConsumerAddress>
      */
-    private Hive $hive;
+    private array $addresses;
 
     /**
-     * Grower constructor.
+     * @var array<Order>
+     */
+    private array $orders = [];
+
+    /**
+     * Consumer constructor.
      * @param string $id
      * @param string $firstName
      * @param string $lastName
@@ -120,7 +127,7 @@ class Grower
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getSalt(): ?string
     {
@@ -135,16 +142,41 @@ class Grower
         return $this->role;
     }
 
-    public function addHive(string $name, string $siretNumber, string $street, string $city, string $zipCode): void
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $street
+     * @param string $zipCode
+     * @param string $city
+     */
+    public function addAddress(string $firstName, string $lastName, string $street, string $zipCode, string $city): void
     {
-        $this->hive =  new Hive($name, $siretNumber, $street, $city, $zipCode);
+        $this->addresses[] = new ConsumerAddress($firstName, $lastName, $street, $zipCode, $city);
     }
 
     /**
-     * @return Hive
+     * @return array<ConsumerAddress>
      */
-    public function getHive(): Hive
+    public function getAddresses(): array
     {
-        return $this->hive;
+        return $this->addresses;
+    }
+
+    /**
+     * @param float $amount
+     * @param string $number
+     * @param string $status
+     */
+    public function addOrder(float $amount, string $number, string $status): void
+    {
+        $this->orders[] = new Order($amount, $number, $status);
+    }
+
+    /**
+     * @return array<Order>
+     */
+    public function getOrders(): array
+    {
+        return $this->orders;
     }
 }

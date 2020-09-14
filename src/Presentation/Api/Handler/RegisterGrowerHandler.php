@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class RegisterGrowerHandler
- * @package App\Presentation\Api
+ * @package App\Presentation\Api\Handler
  */
 final class RegisterGrowerHandler
 {
@@ -29,7 +29,6 @@ final class RegisterGrowerHandler
     ): JsonResponse {
 
         $createGrower->execute($data, $presenter);
-
         return new JsonResponse($presenter->viewModel()->data, $presenter->viewModel()->status);
     }
 }
