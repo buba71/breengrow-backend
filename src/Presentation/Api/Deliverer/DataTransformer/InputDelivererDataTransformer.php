@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Consumer\DataTransformer;
+namespace App\Presentation\Api\Deliverer\DataTransformer;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Presentation\Api\Consumer\Model\ConsumerModel;
+use App\Domain\Model\Deliverer\Deliverer;
+use App\Presentation\Api\Deliverer\Model\DelivererModel;
 
-class InputConsumerDataTransformer implements DataTransformerInterface
+final class InputDelivererDataTransformer implements DataTransformerInterface
 {
 
     /**
@@ -29,6 +30,6 @@ class InputConsumerDataTransformer implements DataTransformerInterface
      */
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
-        return ConsumerModel::class === $to && null !== ($context['input']['class'] ?? null);
+        return DelivererModel::class === $to && null !== ($context['input']['class'] ?? null);
     }
 }

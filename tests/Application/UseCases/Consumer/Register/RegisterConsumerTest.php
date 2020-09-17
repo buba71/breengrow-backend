@@ -7,6 +7,7 @@ namespace App\Tests\Application\UseCases\Consumer\Register;
 use App\Application\Services\IdGenerator;
 use App\Application\UseCases\Consumer\Register\RegisterConsumer;
 use App\Application\UseCases\Consumer\Register\RegisterConsumerPresenter;
+use App\Application\UseCases\Consumer\Register\RegisterConsumerRequest;
 use App\Application\UseCases\Consumer\Register\RegisterConsumerResponse;
 use App\Domain\Model\Consumer\Consumer;
 use App\SharedKernel\Error\Error;
@@ -67,27 +68,7 @@ class RegisterConsumerTest extends TestCase
     public function testSaveConsumer(): void
     {
         $request = RegisterConsumerRequestBuilder::defaultRequest()->build();
-
-
-        $consumer = new Consumer(
-            '1',
-            $request->firstName,
-            $request->lastName,
-            $request->email,
-            \base64_encode($request->password),
-            $request->salt,
-            $request->role,
-        );
-
-        foreach ($request->addresses as $address) {
-            $consumer->addAddress(
-                $address->firstName,
-                $address->lastName,
-                $address->street,
-                $address->zipCode,
-                $address->city
-            );
-        }
+        $consumer = self::createConsumer($request);
 
         $this->idGenerator
             ->method('nextIdentity')
@@ -106,35 +87,17 @@ class RegisterConsumerTest extends TestCase
     {
         $request = RegisterConsumerRequestBuilder::defaultRequest()->build();
 
-        $consumerRegistered = new Consumer(
-            '1',
-            $request->firstName,
-            $request->lastName,
-            $request->email,
-            base64_encode($request->password),
-            $request->salt,
-            $request->role,
-        );
-
-        foreach ($request->addresses as $address) {
-            $consumerRegistered->addAddress(
-                $address->firstName,
-                $address->lastName,
-                $address->street,
-                $address->zipCode,
-                $address->city
-            );
-        }
+        $consumerRegistered = self::createConsumer($request);
 
         // Should be.
         $this->response->setConsumer($consumerRegistered);
         $this->response->setStatus(201);
 
-        $this->idGenerator->expects($this->once())
+        $this->idGenerator
             ->method('nextIdentity')
             ->willReturn('1');
 
-        $this->passwordHasher->expects($this->once())
+        $this->passwordHasher
             ->method('hashPassword')
             ->willReturn(base64_encode($request->password));
 
@@ -164,15 +127,7 @@ class RegisterConsumerTest extends TestCase
     {
         $request = RegisterConsumerRequestBuilder::defaultRequest()->build();
 
-        $consumer = new Consumer(
-            '1',
-            $request->firstName,
-            $request->lastName,
-            $request->email,
-            base64_encode($request->password),
-            $request->salt,
-            $request->role,
-        );
+        $consumer = static::createConsumer($request);
 
         // Add a consumer in bdd before checking if already exist.
         $this->consumerRepository->addConsumer($consumer);
@@ -183,5 +138,34 @@ class RegisterConsumerTest extends TestCase
         $shouldBe ->addError(new Error('Email', 'Cette adresse mail éxiste déjà.'));
 
         static::assertEquals($shouldBe, $this->response->getNotifier());
+    }
+
+    /**
+     * @param RegisterConsumerRequest $request
+     * @return Consumer
+     */
+    public static function createConsumer(RegisterConsumerRequest $request): Consumer
+    {
+        $consumer = new Consumer(
+            '1',
+            $request->firstName,
+            $request->lastName,
+            $request->email,
+            base64_encode($request->password),
+            $request->salt,
+            $request->role,
+        );
+
+        foreach ($request->addresses as $address) {
+            $consumer->addAddress(
+                $address->firstName,
+                $address->lastName,
+                $address->street,
+                $address->zipCode,
+                $address->city
+            );
+        }
+
+        return $consumer;
     }
 }

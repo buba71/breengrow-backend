@@ -49,4 +49,5 @@ security:
          - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api/grower/create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api/consumer/create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/deliverers, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }

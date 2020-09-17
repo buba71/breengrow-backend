@@ -29,7 +29,7 @@ class Consumer
      *     cascade={"persist", "remove"}
      *     )
      */
-    private $consumerAddresses;
+    private ArrayCollection $consumerAddresses;
 
     /**
      * @var string

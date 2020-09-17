@@ -6,8 +6,6 @@ namespace App\Application\UseCases\Consumer\Register;
 
 use App\Application\Services\IdGenerator;
 use App\Domain\Model\Consumer\Consumer;
-use App\Domain\Model\Consumer\ConsumerAddress;
-use App\Domain\Model\Order\Order;
 use App\Domain\Repository\ConsumerRepository;
 use App\SharedKernel\Error\Error;
 use App\SharedKernel\Service\PasswordHash;
@@ -47,12 +45,9 @@ final class RegisterConsumer
     /**
      * @param RegisterConsumerRequest $request
      * @param RegisterConsumerPresenter $presenter
-     * @return RegisterConsumerPresenter
      */
-    public function execute(
-        RegisterConsumerRequest $request,
-        RegisterConsumerPresenter $presenter
-    ) {
+    public function execute(RegisterConsumerRequest $request, RegisterConsumerPresenter $presenter
+    ): void {
 
         $response = new RegisterConsumerResponse();
 
@@ -65,7 +60,7 @@ final class RegisterConsumer
             $response->setStatus(RegisterConsumerResponse::HTTP_BAD_REQUEST);
         }
 
-        return $presenter->present($response);
+        $presenter->present($response);
     }
 
     public function checkRequest(RegisterConsumerRequest $request, RegisterConsumerResponse $response): bool
