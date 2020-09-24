@@ -66,10 +66,6 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
             $consumerEntity->addOrder($consumerOrderEntity);
         }
 
-        // dump($consumerEntity);
-
-        //dd($consumerEntity);
-
         $this->getEntityManager()->persist($consumerEntity);
         $this->getEntityManager()->flush();
     }

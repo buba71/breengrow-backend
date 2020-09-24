@@ -32,10 +32,6 @@ services:
         resource: '../src/Presentation/Api/Handler'
         tags: ['controller.service_arguments']
 
-    App\Presentation\Api\Grower\DataTransformer\:
-        resource: '../src/Presentation/Api/Grower/DataTransformer'
-        tags: ['api_platform.data_transformer']
-
     App\Infrastructure\Symfony\Security\SetApiAuthenticationSuccessResponse:
         arguments: ['%lexik_jwt_authentication.token_ttl%']
         tags:

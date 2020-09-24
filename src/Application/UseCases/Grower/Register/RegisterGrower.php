@@ -18,7 +18,6 @@ final class RegisterGrower
     private PasswordHash $passwordHasher;
     private GrowerRepository $repository;
 
-
     /**
      * RegisterGrower constructor.
      * @param GrowerRepository $repository
@@ -35,9 +34,8 @@ final class RegisterGrower
     /**
      * @param RegisterGrowerRequest $request
      * @param RegisterGrowerPresenter $presenter
-     * @return mixed
      */
-    public function execute(RegisterGrowerRequest $request, RegisterGrowerPresenter $presenter)
+    public function execute(RegisterGrowerRequest $request, RegisterGrowerPresenter $presenter): void
     {
         $response = new RegisterGrowerResponse();
 
@@ -51,7 +49,7 @@ final class RegisterGrower
             $response->setStatus(RegisterGrowerResponse::HTTP_BAD_REQUEST);
         }
 
-        return $presenter->present($response);
+        $presenter->present($response);
     }
 
     /**

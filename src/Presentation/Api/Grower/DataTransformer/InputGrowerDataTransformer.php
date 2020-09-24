@@ -13,7 +13,7 @@ final class InputGrowerDataTransformer implements DataTransformerInterface
     /**
      * @param object $object
      * @param string $to
-     * @param array $context
+     * @param array<array> $context
      * @return object
      */
     public function transform($object, string $to, array $context = [])
@@ -22,9 +22,9 @@ final class InputGrowerDataTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param array|object $data
+     * @param array<array>|object $data
      * @param string $to
-     * @param array $context
+     * @param array<array> $context
      * @return bool
      */
     public function supportsTransformation($data, string $to, array $context = []): bool

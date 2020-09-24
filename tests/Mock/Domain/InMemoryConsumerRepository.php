@@ -42,7 +42,7 @@ class InMemoryConsumerRepository implements ConsumerRepository
     {
         $consumerFound = array_filter($this->consumers, fn(Consumer $consumer) => $consumer->getEmail() === $email);
 
-        if(count($consumerFound) === 1 ) {
+        if (count($consumerFound) === 1) {
             return $consumerFound[0];
         }
         return null;

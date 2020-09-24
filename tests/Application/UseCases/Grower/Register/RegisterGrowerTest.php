@@ -7,6 +7,7 @@ namespace App\Tests\Application\UseCases\Grower\Register;
 use App\Application\Services\IdGenerator;
 use App\Application\UseCases\Grower\Register\RegisterGrower;
 use App\Application\UseCases\Grower\Register\RegisterGrowerPresenter;
+use App\Application\UseCases\Grower\Register\RegisterGrowerRequest;
 use App\Application\UseCases\Grower\Register\RegisterGrowerResponse;
 use App\Domain\Model\Grower\Grower;
 use App\SharedKernel\Error\Error;
@@ -81,17 +82,7 @@ class RegisterGrowerTest extends TestCase
     public function testSaveGrower(): void
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
-
-        $grower = new Grower(
-            '1',
-            $request->firstName,
-            $request->lastName,
-            $request->email,
-            base64_encode($request->password),
-            $request->salt,
-            $request->role,
-        );
-        $grower->addHive('Breengrow', '123456789', '20 rue François Ducarouge', 'Digoin', '71160');
+        $grower = self::createGrower($request);
 
         $this->idGenerator
             ->method('nextIdentity')
@@ -112,27 +103,17 @@ class RegisterGrowerTest extends TestCase
     public function testResponseIfGrowerIsValid(): void
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
-
-        $growerRegistered = new Grower(
-            '1',
-            $request->firstName,
-            $request->lastName,
-            $request->email,
-            base64_encode($request->password),
-            $request->salt,
-            $request->role,
-        );
-        $growerRegistered->addHive('Breengrow', '123456789', '20 rue François Ducarouge', 'Digoin', '71160');
+        $growerRegistered = self::createGrower($request);
 
         // Should be.
         $this->response->setGrower($growerRegistered);
         $this->response->setStatus(201);
 
-        $this->idGenerator->expects($this->once())
+        $this->idGenerator
                   ->method('nextIdentity')
                   ->willReturn('1');
 
-        $this->passwordHasher->expects($this->once())
+        $this->passwordHasher
                   ->method('hashPassword')
                   ->willReturn(base64_encode($request->password));
 
@@ -164,7 +145,19 @@ class RegisterGrowerTest extends TestCase
     public function testFailsWhenEmailAlreadyExist()
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
+        $grower = self::createGrower($request);
 
+        $this->growerRepository->addGrower($grower);
+        $this->register->validateGrower($request, $this->response);
+
+        $shouldBe = new Notifier();
+        $shouldBe ->addError(new Error('Email', 'This address already exist.'));
+
+        static::assertEquals($shouldBe, $this->response->getNotifier());
+    }
+
+    public static function createGrower(RegisterGrowerRequest $request)
+    {
         $grower = new Grower(
             '1',
             $request->firstName,
@@ -174,14 +167,14 @@ class RegisterGrowerTest extends TestCase
             $request->salt,
             $request->role,
         );
-        $grower->addHive('Breengrow', '123456789', '20 rue François Ducarouge', 'Digoin', '71160');
+        $grower->addHive(
+            'Breengrow',
+            '123456789',
+            '20 rue François Ducarouge',
+            'Digoin',
+            '71160'
+        );
 
-        $this->growerRepository->addGrower($grower);
-        $this->register->validateGrower($request, $this->response);
-
-        $shouldBe = new Notifier();
-        $shouldBe ->addError(new Error('Email', 'This address already exist.'));
-
-        static::assertEquals($shouldBe, $this->response->getNotifier());
+        return $grower;
     }
 }
