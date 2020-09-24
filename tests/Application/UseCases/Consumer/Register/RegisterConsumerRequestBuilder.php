@@ -82,6 +82,10 @@ final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
         return $request;
     }
 
+    /**
+     * @param string $firstName
+     * @return $this
+     */
     public function withFirstName(string $firstName)
     {
         $this->firstName = $firstName;

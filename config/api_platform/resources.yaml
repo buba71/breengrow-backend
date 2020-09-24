@@ -16,3 +16,12 @@ App\Presentation\Api\Consumer\Model\ConsumerModel:
     #get_consumers:
     #  method: GET
 
+App\Presentation\Api\Deliverer\Model\DelivererModel:
+  collectionOperations:
+    create_consumer:
+      method: POST
+      path: /deliverers
+      controller: App\Presentation\Api\Handler\RegisterDelivererHandler
+
+
+
