@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Symfony\Doctrine\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,14 +23,14 @@ class Consumer
     private string $id;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(
      *     targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\ConsumerAddress",
      *     mappedBy="consumer",
      *     cascade={"persist", "remove"}
      *     )
      */
-    private ArrayCollection $consumerAddresses;
+    private Collection $consumerAddresses;
 
     /**
      * @var string
@@ -44,7 +45,7 @@ class Consumer
     private string $lastName;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(
      *     targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Order",
      *      mappedBy="consumer",
@@ -160,7 +161,7 @@ class Consumer
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection<ConsumerAddress>
      */
     public function getConsumerAddresses(): ArrayCollection
     {
