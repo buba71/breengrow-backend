@@ -37,9 +37,9 @@ class Deliverer
     private string $phone;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $salt;
+    private ?string $salt = null;
 
     /**
      * @var array<string>
@@ -54,7 +54,7 @@ class Deliverer
      * @param string $lastName
      * @param string $password
      * @param string $phone
-     * @param string $salt
+     * @param string|null $salt
      * @param array<string> $role
      */
     public function __construct(
@@ -64,7 +64,7 @@ class Deliverer
         string $lastName,
         string $password,
         string $phone,
-        string $salt,
+        ?string $salt,
         array $role
     ) {
         $this->id = $id;
@@ -126,9 +126,9 @@ class Deliverer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSalt(): string
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
