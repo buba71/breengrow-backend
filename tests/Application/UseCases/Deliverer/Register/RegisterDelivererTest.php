@@ -153,7 +153,8 @@ class RegisterDelivererTest extends TestCase
             $request->lastName,
             \base64_encode($request->password),
             $request->phone,
-            $request->salt
+            $request->salt,
+            $request->role
         );
     }
 }

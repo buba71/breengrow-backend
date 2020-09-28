@@ -14,6 +14,7 @@ final class RegisterDelivererRequestBuilder extends RegisterDelivererRequest
     private const PHONE_NUMBER = '0662255276';
     private const PASSWORD = 'azeaze';
     private const SALT = 'abcd1234';
+    private const ROLE = ['ROLE_DELIVERER'];
 
     /**
      * @return static
@@ -27,6 +28,7 @@ final class RegisterDelivererRequestBuilder extends RegisterDelivererRequest
         $request->phone = self::PHONE_NUMBER;
         $request->password = self::PASSWORD;
         $request->salt = self::SALT;
+        $request->role = self::ROLE;
 
         return $request;
     }
@@ -43,6 +45,7 @@ final class RegisterDelivererRequestBuilder extends RegisterDelivererRequest
         $request->phone = $this->phone;
         $request->password = $this->password;
         $request->salt = $this->salt;
+        $request->role = $this->role;
 
         return $request;
     }
