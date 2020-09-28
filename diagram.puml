@@ -1,12 +1,46 @@
 @startuml
 class Consumer
-class ConsumerAddress
-class Order
-class OrderLine
+class ConsumerAddresses
+
 class Grower
 class Hive
 class Deliverer
-class Catalog
+
+
+class DeliveryAddress
+
+Together {
+class Order
+class OrderLine
 class Product
+class Catalog
+}
+
+Together {
+class DeliveryAddress
+class Deliverer
+}
+
+Consumer *-- ConsumerAddresses
+Grower o-- Hive
+
+Order *-- OrderLine
+
+Catalog *-- Product
+
+OrderLine *-- Product
+
+Consumer -- Order
+
+Grower -- Order
+
+Order *-- DeliveryAddress
+
+Deliverer *-- DeliveryAddress
+
+Hive o-- Catalog
+
+
+
 
 @enduml
