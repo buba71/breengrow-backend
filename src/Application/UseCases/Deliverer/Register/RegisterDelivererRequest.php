@@ -32,9 +32,9 @@ class RegisterDelivererRequest
     public string $password;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $salt;
+    public ?string $salt = null;
 
     /**
      * @var array<string>
