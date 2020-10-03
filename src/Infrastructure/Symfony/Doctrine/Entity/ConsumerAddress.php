@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  * @ORM\Entity()
  */
-class ConsumerAddress
+final class ConsumerAddress
 {
     /**
      * @var int

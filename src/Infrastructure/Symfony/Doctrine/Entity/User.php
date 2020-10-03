@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity()
  * @package App\Infrastructure\Symfony\Doctrine
  */
-class User implements UserInterface
+final class User implements UserInterface
 {
     /**
      * @var int

@@ -75,6 +75,6 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
 
     public function getGrowerById(string $id): ?Grower
     {
-        // TODO: Implement getGrowerById() method.
+        return null;
     }
 }

@@ -25,6 +25,7 @@ final class RegisterGrowerRequestBuilder extends RegisterGrowerRequest
     private const HIVE_STREET = '20 rue François Ducarouge';
     private const HIVE_CITY = 'Digoin';
     private const HIVE_ZIP_CODE = '71160';
+    private const HIVE_PRODUCTS = [];
 
     /**
      * @return static
@@ -71,6 +72,7 @@ final class RegisterGrowerRequestBuilder extends RegisterGrowerRequest
         $hive->street = self::HIVE_STREET;
         $hive->city = self::HIVE_CITY;
         $hive->zip_code = self::HIVE_ZIP_CODE;
+        $hive->products = self::HIVE_PRODUCTS;
 
         return $hive;
     }
