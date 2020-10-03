@@ -9,7 +9,6 @@ use App\Application\UseCases\Deliverer\Register\RegisterDeliverer;
 use App\Application\UseCases\Deliverer\Register\RegisterDelivererPresenter;
 use App\Application\UseCases\Deliverer\Register\RegisterDelivererRequest;
 use App\Application\UseCases\Deliverer\Register\RegisterDelivererResponse;
-use App\Application\UseCases\Grower\Register\RegisterGrowerRequest;
 use App\Domain\Model\Deliverer\Deliverer;
 use App\SharedKernel\Error\Error;
 use App\SharedKernel\Error\Notifier;

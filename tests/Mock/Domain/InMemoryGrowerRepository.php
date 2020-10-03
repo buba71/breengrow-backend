@@ -7,7 +7,7 @@ namespace App\Tests\Mock\Domain;
 use App\Domain\Model\Grower\Grower;
 use App\Domain\Repository\GrowerRepository;
 
-class InMemoryGrowerRepository implements GrowerRepository
+final class InMemoryGrowerRepository implements GrowerRepository
 {
     private array $growers = [];
 

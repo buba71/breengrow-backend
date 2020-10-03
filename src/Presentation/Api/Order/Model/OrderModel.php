@@ -12,11 +12,15 @@ use ApiPlatform\Core\Annotation\ApiProperty;
  */
 class OrderModel
 {
-    public const ORDER_PROCESSING = 0;
+
+    public const ORDER_DELIVERED = 0;
     public const ORDER_IN_TRANSIT = 1;
-    public const ORDER_DELIVERED = 2;
-    public const ORDER_RETURNED = 3;
-    public const ORDER_PROBLEM = 4;
+    public const ORDER_PAID = 2;
+    public const ORDER_PROBLEM = 3;
+    public const ORDER_PROCESSING = 4;
+    public const ORDER_RETURNED = 5;
+    public const ORDER_SHIPPED = 6;
+
 
     /**
      * @var string
