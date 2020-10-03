@@ -42,7 +42,7 @@ class DelivererDoctrineRepository extends ServiceEntityRepository implements Del
 
     public function getDelivererById(string $id): ?Deliverer
     {
-        // TODO: Implement getDelivererById() method.
+        return null;
     }
 
     public function getDelivererByEmail(string $email): ?Deliverer

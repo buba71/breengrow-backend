@@ -7,7 +7,7 @@ namespace App\Tests\Mock\Domain;
 use App\Domain\Model\Consumer\Consumer;
 use App\Domain\Repository\ConsumerRepository;
 
-class InMemoryConsumerRepository implements ConsumerRepository
+final class InMemoryConsumerRepository implements ConsumerRepository
 {
     private array $consumers = [];
 

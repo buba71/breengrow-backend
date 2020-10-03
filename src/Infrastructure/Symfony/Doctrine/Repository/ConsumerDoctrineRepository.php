@@ -72,7 +72,7 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
 
     public function getConsumerById(string $id): ?Consumer
     {
-        // TODO: Implement getConsumerById() method.
+        return null;
     }
 
     public function getConsumerByEmail(string $email)

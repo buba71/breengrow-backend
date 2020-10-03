@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  */
-class Consumer
+final class Consumer
 {
     /**
      * @var string
@@ -161,9 +161,9 @@ class Consumer
     }
 
     /**
-     * @return ArrayCollection<ConsumerAddress>
+     * @return Collection
      */
-    public function getConsumerAddresses(): ArrayCollection
+    public function getConsumerAddresses(): Collection
     {
         return $this->consumerAddresses;
     }
@@ -195,9 +195,9 @@ class Consumer
     }
 
     /**
-     * @return ArrayCollection<Order>
+     * @return Collection
      */
-    public function getOrders(): ArrayCollection
+    public function getOrders(): Collection
     {
         return $this->orders;
     }
