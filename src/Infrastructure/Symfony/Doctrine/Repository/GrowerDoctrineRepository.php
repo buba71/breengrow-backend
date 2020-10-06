@@ -31,6 +31,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
         $userEntity = new UserEntity();
 
         $userEntity->setEmail($grower->getEmail());
+        $userEntity->setParentId($grower->getId());
         $userEntity->setPassword($grower->getPassword());
         $userEntity->setSalt($grower->getSalt());
         $userEntity->setRoles($grower->getRole());

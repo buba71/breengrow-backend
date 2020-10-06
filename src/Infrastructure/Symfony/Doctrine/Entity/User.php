@@ -30,6 +30,12 @@ final class User implements UserInterface
 
     /**
      * @var string
+     * @ORM\Column(type="string", name="parent_id", nullable=false)
+     */
+    private string $parentId;
+
+    /**
+     * @var string
      * @ORM\Column(type="string", name="user_password")
      */
     private string $password;
@@ -71,6 +77,22 @@ final class User implements UserInterface
     }
 
     /**
+     * @param string $parentId
+     */
+    public function setParentId(string $parentId): void
+    {
+        $this->parentId = $parentId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentId(): string
+    {
+        return $this->parentId;
+    }
+
+    /**
      * @return string
      */
     public function getPassword(): string
@@ -95,7 +117,7 @@ final class User implements UserInterface
     }
 
     /**
-     * @param string $salt
+     * @param string|null $salt
      */
     public function setSalt(?string $salt): void
     {
