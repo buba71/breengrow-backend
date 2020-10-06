@@ -21,7 +21,7 @@ final class GetLoggedInUser
         $user = $serializer->serialize(
             $security->getUser(),
             'json',
-            ['attributes' => ['username', 'roles']]
+            ['attributes' => ['parentId', 'username', 'roles']]
         );
         return new JsonResponse($user);
     }
