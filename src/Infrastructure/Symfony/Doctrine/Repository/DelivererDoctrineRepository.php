@@ -28,6 +28,7 @@ class DelivererDoctrineRepository extends ServiceEntityRepository implements Del
 
         $userEntity = new userEntity();
         $userEntity->setEmail($deliverer->getEmail());
+        $userEntity->setParentId($deliverer->getId());
         $userEntity->setPassword($deliverer->getPassword());
         $userEntity->setSalt($deliverer->getSalt());
         $userEntity->setRoles($deliverer->getRole());

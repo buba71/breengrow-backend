@@ -6,6 +6,9 @@ namespace App\Tests\Api\Grower;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use App\Domain\Model\Grower\Grower;
+use App\Infrastructure\Symfony\Doctrine\Entity\User;
+use App\Infrastructure\Symfony\Doctrine\Repository\GrowerDoctrineRepository;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 final class ApiGrowerControllerTest extends ApiTestCase
@@ -17,9 +20,16 @@ final class ApiGrowerControllerTest extends ApiTestCase
      */
     protected Client $client;
 
+    /**
+     * @var GrowerDoctrineRepository
+     */
+    private GrowerDoctrineRepository $growerRepository;
+
     protected function setUp(): void
     {
         $this->client = static::createClient();
+        $this->client->disableReboot();
+
     }
 
     /**
@@ -52,5 +62,59 @@ final class ApiGrowerControllerTest extends ApiTestCase
 
         static::assertEquals(201, $response->getStatusCode());
         static::assertArrayHasKey('grower', json_decode($response->getContent(), true));
+    }
+
+    public function testShowGrower()
+    {
+        $user = new User();
+        $user->setEmail('johndoe@test.com');
+        $user->setParentId('fakeId');
+        $user->setPassword('$2y$13$awPKXaqVfbkXX9tQkgyXWeHzKdsCwdRA3pnvtGRaPuMbCUmw3luDu');
+        $user->setSalt('$salt');
+        $user->setRoles(['ROLE_GROWER']);
+
+        $entityManager = self::$container->get('doctrine')->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // user log in api as grower.
+        $this->client->request('POST', '/api/login', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json'    => [
+                'email'    => 'johndoe@test.com',
+                'password' => 'azeaze'
+            ]
+        ]);
+
+        $registeredGrower = static::$container->get(GrowerDoctrineRepository::class);
+        $registeredGrower->addGrower(self::createGrower());
+
+
+        $response = $this->client->request('GET', '/api/growers/12345');
+
+
+        static::assertEquals(200, $response->getStatusCode());
+
+    }
+
+    public static function createGrower()
+    {
+        $grower =  new Grower(
+            '12345', 'John',
+            'Doe',
+            'test@test.com',
+            'azeaze',
+            'salt',
+            ['ROLE_GROWER']
+        );
+        $grower->addHive(
+            'Breengrow',
+            '8491254561',
+            'street test',
+            'city test',
+            '75000'
+        );
+
+        return $grower;
     }
 }

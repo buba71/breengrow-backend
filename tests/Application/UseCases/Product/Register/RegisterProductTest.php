@@ -8,7 +8,7 @@ use App\Application\Services\IdGenerator;
 use App\Application\UseCases\Product\Register\RegisterProduct;
 use App\Application\UseCases\Product\Register\RegisterProductPresenter;
 use App\Application\UseCases\Product\Register\RegisterProductRequest;
-use App\Application\UseCases\Product\Register\RegisterProductResponse;
+use App\Application\UseCases\Product\Register\ProductResponse;
 use App\Domain\Model\Product\Product;
 use App\SharedKernel\Error\Error;
 use App\Tests\Mock\Domain\InMemoryProductRepository;
@@ -20,7 +20,7 @@ class RegisterProductTest extends TestCase
     private InMemoryProductRepository $productRepository;
     private $presenter;
     private RegisterProduct $registerProduct;
-    private RegisterProductResponse $response;
+    private ProductResponse $response;
 
     /**
      * @return void
@@ -36,7 +36,7 @@ class RegisterProductTest extends TestCase
             $this->idGenerator,
             $this->productRepository
         );
-        $this->response = new RegisterProductResponse();
+        $this->response = new ProductResponse();
     }
 
     /**

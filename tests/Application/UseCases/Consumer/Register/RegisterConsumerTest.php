@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  * Class RegisterConsumerTest
  * @package App\Tests\Application\UseCases\Consumer\Register
  */
-class RegisterConsumerTest extends TestCase
+final class RegisterConsumerTest extends TestCase
 {
     private IdGenerator $idGenerator;
     private inMemoryConsumerRepository $consumerRepository;

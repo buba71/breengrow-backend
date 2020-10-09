@@ -15,7 +15,7 @@ interface GrowerRepository
 
     /**
      * @param string $id
-     * @return Grower
+     * @return Grower|null
      */
     public function getGrowerById(string $id): ?Grower;
 

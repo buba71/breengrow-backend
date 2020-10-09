@@ -16,7 +16,7 @@ use App\SharedKernel\Service\PasswordHash;
 use App\Tests\Mock\Domain\InMemoryDelivererRepository;
 use PHPUnit\Framework\TestCase;
 
-class RegisterDelivererTest extends TestCase
+final class RegisterDelivererTest extends TestCase
 {
     private IdGenerator $idGenerator;
     private InMemoryDelivererRepository $delivererRepository;

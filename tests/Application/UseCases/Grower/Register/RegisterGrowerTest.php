@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  * Class RegisterGrowerTest
  * @package App\Tests\Application\UseCases\Grower\Register
  */
-class RegisterGrowerTest extends TestCase
+final class RegisterGrowerTest extends TestCase
 {
     private IdGenerator $idGenerator;
     private InMemoryGrowerRepository $growerRepository;
@@ -151,7 +151,7 @@ class RegisterGrowerTest extends TestCase
         $this->register->validateGrower($request, $this->response);
 
         $shouldBe = new Notifier();
-        $shouldBe ->addError(new Error('Email', 'This address already exist.'));
+        $shouldBe->addError(new Error('Email', 'This address already exist.'));
 
         static::assertEquals($shouldBe, $this->response->getNotifier());
     }
