@@ -69,7 +69,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "stan": "vendor\\bin\\phpstan analyse src --level 8"
     },
     "conflict": {
         "symfony/symfony": "*"

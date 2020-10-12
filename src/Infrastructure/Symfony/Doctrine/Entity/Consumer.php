@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  */
-final class Consumer
+class Consumer
 {
     /**
      * @var string

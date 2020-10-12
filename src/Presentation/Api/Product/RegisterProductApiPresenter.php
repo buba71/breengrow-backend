@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Presentation\Api\Product;
 
 use App\Application\UseCases\Product\Register\RegisterProductPresenter;
-use App\Application\UseCases\Product\Register\RegisterProductResponse;
+use App\Application\UseCases\Product\Register\ProductResponse;
 
 final class RegisterProductApiPresenter implements RegisterProductPresenter
 {
@@ -15,9 +15,9 @@ final class RegisterProductApiPresenter implements RegisterProductPresenter
     private RegisterProductApiViewModel $viewModel;
 
     /**
-     * @param RegisterProductResponse $response
+     * @param ProductResponse $response
      */
-    public function present(RegisterProductResponse $response): void
+    public function present(ProductResponse $response): void
     {
         $this->viewModel = new RegisterProductApiViewModel();
 

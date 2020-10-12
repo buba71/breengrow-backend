@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Product\Register;
 
-use App\Application\UseCases\RegisterResponse;
+use App\Application\UseCases\Response;
 use App\Domain\Model\Product\Product;
 
-final class RegisterProductResponse extends RegisterResponse
+final class ProductResponse extends Response
 {
     /**
      * @var Product

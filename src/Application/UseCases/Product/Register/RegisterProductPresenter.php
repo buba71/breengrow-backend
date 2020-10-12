@@ -7,7 +7,7 @@ namespace App\Application\UseCases\Product\Register;
 interface RegisterProductPresenter
 {
     /**
-     * @param RegisterProductResponse $response
+     * @param ProductResponse $response
      */
-    public function present(RegisterProductResponse $response): void;
+    public function present(ProductResponse $response): void;
 }

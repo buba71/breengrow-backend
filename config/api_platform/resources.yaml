@@ -22,6 +22,11 @@ App\Presentation\Api\Grower\Model\GrowerModel:
       path: /grower/create
       controller: App\Presentation\Api\Handler\RegisterGrowerHandler
       #security: is_granted('ROLE_GROWER')
+  itemOperations:
+    show_grower:
+      method: GET
+      path: /growers/{id}
+      controller: App\Presentation\Api\Handler\ShowGrowerHandler
 
 App\Presentation\Api\Product\Model\ProductModel:
   collectionOperations:

@@ -38,6 +38,7 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
         $userEntity = new UserEntity();
 
         $userEntity->setEmail($consumer->getEmail());
+        $userEntity->setParentId($consumer->getId());
         $userEntity->setPassword($consumer->getPassword());
         $userEntity->setSalt($consumer->getSalt());
         $userEntity->setRoles($consumer->getRole());

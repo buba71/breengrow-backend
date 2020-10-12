@@ -7,10 +7,11 @@ namespace App\Application\UseCases;
 use App\SharedKernel\Error\Error;
 use App\SharedKernel\Error\Notifier;
 
-abstract class RegisterResponse
+abstract class Response
 {
     public const HTTP_CREATED = 201;
     public const HTTP_BAD_REQUEST = 400;
+    public const HTTP_OK = 200;
 
     private Notifier $notifier;
     private int $status;

@@ -42,6 +42,7 @@ final class ApiProductControllerTest extends ApiTestCase
     {
         $user = new User();
         $user->setEmail('johndoe@test.com');
+        $user->setParentId('fakeId');
         $user->setPassword('$2y$13$awPKXaqVfbkXX9tQkgyXWeHzKdsCwdRA3pnvtGRaPuMbCUmw3luDu');
         $user->setSalt('$salt');
         $user->setRoles(['ROLE_GROWER']);

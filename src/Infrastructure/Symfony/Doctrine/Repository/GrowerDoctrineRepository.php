@@ -76,6 +76,25 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
 
     public function getGrowerById(string $id): ?Grower
     {
-        return null;
+        $result = $this->find($id);
+
+         $grower = new Grower(
+             $result->getId(),
+             $result->getFirstName(),
+             $result->getLastName(),
+             $result->getUser()->getEmail(),
+             $result->getUser()->getPassword(),
+             $result->getUser()->getSalt(),
+             $result->getUser()->getRoles()
+         );
+         $grower->addHive(
+             $result->getCompany()->getName(),
+             $result->getCompany()->getSiretNumber(),
+             $result->getCompany()->getStreet(),
+             $result->getCompany()->getCity(),
+             $result->getCompany()->getZipCode()
+         );
+
+         return $grower;
     }
 }

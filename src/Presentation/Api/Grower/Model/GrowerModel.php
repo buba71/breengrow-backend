@@ -20,6 +20,12 @@ class GrowerModel
 {
     /**
      * @var string
+     * @ApiProperty(identifier=true)
+     */
+    public string $id;
+
+    /**12
+     * @var string
      * @ApiProperty()
      */
     public string $firstName;

@@ -45,7 +45,7 @@ final class RegisterProduct
      */
     public function execute(RegisterProductRequest $request, RegisterProductPresenter $presenter): void
     {
-        $response = new RegisterProductResponse();
+        $response = new ProductResponse();
 
         $isValid = $this->checkRequest($request, $response);
 
@@ -61,10 +61,10 @@ final class RegisterProduct
 
     /**
      * @param RegisterProductRequest $request
-     * @param RegisterProductResponse $response
+     * @param ProductResponse $response
      * @return bool
      */
-    public function checkRequest(RegisterProductRequest $request, RegisterProductResponse $response): bool
+    public function checkRequest(RegisterProductRequest $request, ProductResponse $response): bool
     {
         try {
             Assert::lazy()
@@ -84,9 +84,9 @@ final class RegisterProduct
 
     /**
      * @param RegisterProductRequest $request
-     * @param RegisterProductResponse $response
+     * @param ProductResponse $response
      */
-    public function saveProduct(RegisterProductRequest $request, RegisterProductResponse $response): void
+    public function saveProduct(RegisterProductRequest $request, ProductResponse $response): void
     {
         $product = new Product(
             $this->idGenerator->nextIdentity(),
