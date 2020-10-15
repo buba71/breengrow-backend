@@ -46,8 +46,8 @@ final class RegisterConsumer
      * @param RegisterConsumerRequest $request
      * @param RegisterConsumerPresenter $presenter
      */
-    public function execute(RegisterConsumerRequest $request, RegisterConsumerPresenter $presenter
-    ): void {
+    public function execute(RegisterConsumerRequest $request, RegisterConsumerPresenter $presenter): void
+    {
 
         $response = new RegisterConsumerResponse();
 

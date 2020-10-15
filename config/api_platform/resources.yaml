@@ -28,12 +28,5 @@ App\Presentation\Api\Grower\Model\GrowerModel:
       path: /growers/{id}
       controller: App\Presentation\Api\Handler\ShowGrowerHandler
 
-App\Presentation\Api\Product\Model\ProductModel:
-  collectionOperations:
-    create_product:
-      method: POST
-      path: /products
-      controller: App\Presentation\Api\Handler\RegisterProductHandler
-      security: is_granted('ROLE_GROWER')
 
 

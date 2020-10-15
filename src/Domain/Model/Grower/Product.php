@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model\Product;
+namespace App\Domain\Model\Grower;
 
 use DateTimeImmutable;
 

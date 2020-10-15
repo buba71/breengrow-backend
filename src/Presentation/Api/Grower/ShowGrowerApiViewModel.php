@@ -24,6 +24,11 @@ final class ShowGrowerApiViewModel
     public array $hiveModel = [];
 
     /**
+     * @var array<array>
+     */
+    public array $productsModel = [];
+
+    /**
      * @var int
      */
     public int $status;
@@ -35,6 +40,7 @@ final class ShowGrowerApiViewModel
      */
     public function transformModel(Grower $model): array
     {
+
         $this->growerModel['grower'] = [
             'firstName' => $model->getFirstName(),
             'lastName'  => $model->getLastName(),
@@ -48,9 +54,15 @@ final class ShowGrowerApiViewModel
             'zipCode'       => $model->getHive()->getZipCode()
         ];
 
-        $this->data[] = $this->growerModel;
-        $this->data[] = $this->hiveModel;
+        foreach ($model->getHive()->getProducts() as $product) {
+            $this->productsModel['products'][] = [
+                'name' => $product->getName(),
+                'description' => $product->getDescription(),
+                'price' => $product->getPrice()
+            ];
+        }
 
+        $this->data = array_merge($this->growerModel, $this->hiveModel, $this->productsModel);
         return $this->data;
     }
 }

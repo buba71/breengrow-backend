@@ -13,7 +13,6 @@ Together {
 class Order
 class OrderLine
 class Product
-class Catalog
 }
 
 Together {
@@ -26,7 +25,7 @@ Grower o-- Hive
 
 Order *-- OrderLine
 
-Catalog *-- Product
+Hive o-- Product
 
 OrderLine *-- Product
 
@@ -37,8 +36,6 @@ Grower -- Order
 Order *-- DeliveryAddress
 
 Deliverer *-- DeliveryAddress
-
-Hive o-- Catalog
 
 
 

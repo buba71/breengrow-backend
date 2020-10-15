@@ -10,28 +10,23 @@ use App\Domain\Model\Grower\Grower;
 final class ShowGrowerResponse extends Response
 {
     /**
-     * @var Grower
+     * @var Grower|null
      */
-    private Grower $grower;
+    private ?Grower $grower;
 
     /**
      * @return Grower
      */
-    public function getGrower(): Grower
+    public function getGrower(): ?Grower
     {
         return $this->grower;
     }
 
     /**
-     * @param Grower $grower
+     * @param Grower|null $grower
      */
-    public function setGrower(Grower $grower): void
+    public function setGrower(?Grower $grower): void
     {
         $this->grower = $grower;
     }
-
-
-
-
-
 }

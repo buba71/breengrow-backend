@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Presentation\Api\Grower\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
-
 use ApiPlatform\Core\DataProvider\SerializerAwareDataProviderInterface;
 use ApiPlatform\Core\DataProvider\SerializerAwareDataProviderTrait;
 use App\Application\UseCases\Grower\Show\ShowGrowerRequest;
@@ -25,8 +24,12 @@ final class GrowerDataProvider implements ItemDataProviderInterface
      * @param array<array> $context
      * @return ShowGrowerRequest
      */
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []) :ShowGrowerRequest
-    {
+    public function getItem(
+        string $resourceClass,
+        $id,
+        string $operationName = null,
+        array $context = []
+    ): ShowGrowerRequest {
         $growerRequest = new ShowGrowerRequest();
         $growerRequest->id = $id;
 
@@ -43,5 +46,4 @@ final class GrowerDataProvider implements ItemDataProviderInterface
     {
         return GrowerModel::class === $resourceClass;
     }
-
 }

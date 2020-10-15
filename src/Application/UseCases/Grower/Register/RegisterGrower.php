@@ -100,6 +100,15 @@ final class RegisterGrower
             $request->hive->city,
             $request->hive->zip_code
         );
+
+        foreach ($request->hive->products as $product) {
+            $grower->getHive()->addProduct(
+                $this->idGenerator->nextIdentity(),
+                $product->name,
+                $product->description,
+                $product->price
+            );
+        }
         $this->repository->addGrower($grower);
 
         $response->setGrower($grower);

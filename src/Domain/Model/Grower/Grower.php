@@ -32,9 +32,19 @@ class Grower
     private string $email;
 
     /**
+     * @var Hive
+     */
+    private Hive $hive;
+
+    /**
      * @var string
      */
     private string $password;
+
+    /**
+     * @var array<Product>
+     */
+    private array $products;
 
     /**
      * @var string|null
@@ -45,11 +55,6 @@ class Grower
      * @var array<string>
      */
     private array $role = [];
-
-    /**
-     * @var Hive
-     */
-    private Hive $hive;
 
     /**
      * Grower constructor.
@@ -77,6 +82,20 @@ class Grower
         $this->password = $password;
         $this->salt = $salt;
         $this->role = $role;
+
+
+    }
+
+    /**
+     * @param string $name
+     * @param string $siretNumber
+     * @param string $street
+     * @param string $city
+     * @param string $zipCode
+     */
+    public function addHive(string $name, string $siretNumber, string $street, string $city, string $zipCode): void
+    {
+        $this->hive =  new Hive($name, $siretNumber, $street, $city, $zipCode);
     }
 
     /**
@@ -133,11 +152,6 @@ class Grower
     public function getRole(): array
     {
         return $this->role;
-    }
-
-    public function addHive(string $name, string $siretNumber, string $street, string $city, string $zipCode): void
-    {
-        $this->hive =  new Hive($name, $siretNumber, $street, $city, $zipCode);
     }
 
     /**

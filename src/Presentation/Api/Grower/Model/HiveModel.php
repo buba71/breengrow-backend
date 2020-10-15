@@ -7,7 +7,7 @@ namespace App\Presentation\Api\Grower\Model;
 use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
- * Class Hive
+ * Class HiveDto
  * @package App\Presentation\Api\Grower\Model
  */
 class HiveModel
@@ -41,4 +41,10 @@ class HiveModel
      * @ApiProperty()
      */
     public string $zip_code;
+
+    /**
+     * @var array<ProductModel>
+     */
+    public array $products = [];
+
 }
