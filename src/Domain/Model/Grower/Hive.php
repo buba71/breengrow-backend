@@ -6,10 +6,34 @@ namespace App\Domain\Model\Grower;
 
 class Hive
 {
-    private string $name;
-    private string $siretNumber;
-    private string $street;
+    /**
+     * @var string
+     */
     private string $city;
+
+    /**
+     * @var string
+     */
+    private string $name;
+
+    /**
+     * @var array<Product>
+     */
+    private array $products = [];
+
+    /**
+     * @var string
+     */
+    private string $siretNumber;
+
+    /**
+     * @var string
+     */
+    private string $street;
+
+    /**
+     * @var string
+     */
     private string $zipCode;
 
     public function __construct(
@@ -24,6 +48,17 @@ class Hive
         $this->street =  $street;
         $this->city = $city;
         $this->zipCode = $zipCode;
+    }
+
+    /**
+     * @param string $id
+     * @param string $name
+     * @param string $description
+     * @param float $price
+     */
+    public function addProduct(string $id, string $name, string $description, float $price): void
+    {
+        $this->products[] = new Product($id, $name, $description, $price);
     }
 
     /**
@@ -65,4 +100,14 @@ class Hive
     {
         return $this->zipCode;
     }
+
+    /**
+     * @return array<Product>
+     */
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+
 }

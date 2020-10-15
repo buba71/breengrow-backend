@@ -56,7 +56,7 @@ class ConsumerModel
 
     /**
      * @var array<ConsumerAddressModel>
-     * @ApiProperty()
+     *
      */
     public array $addresses = [];
 

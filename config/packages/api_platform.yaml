@@ -9,7 +9,6 @@ api_platform:
             - '%kernel.project_dir%/src/Presentation/Api/Consumer/'
             - '%kernel.project_dir%/src/Presentation/Api/Deliverer/'
             - '%kernel.project_dir%/src/Presentation/Api/Grower/'
-            - '%kernel.project_dir%/src/Presentation/Api/Product/'
             - '%kernel.project_dir%/config/api_platform'
     formats:
         jsonld: ['application/ld+json']

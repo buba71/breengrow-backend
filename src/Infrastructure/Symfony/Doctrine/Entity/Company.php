@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Symfony\Doctrine\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +30,16 @@ class Company
     private string $name;
 
     /**
+     * @var Collection
+     * @ORM\OneToMany(
+     *     targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Product",
+     *      mappedBy="company",
+     *      cascade={"persist", "remove"}
+     *     )
+     */
+    private Collection $products;
+
+    /**
      * @var string
      * @ORM\Column(type="string", name="siret_number")
      */
@@ -50,6 +62,14 @@ class Company
      * @ORM\Column(type="string", name="zip_code")
      */
     private string $zipCode;
+
+    /**
+     * Company constructor.
+     */
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -146,5 +166,38 @@ class Company
     {
         $this->zipCode = $zipCode;
     }
-}
 
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+}
