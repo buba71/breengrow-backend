@@ -21,6 +21,13 @@ class Product
     private string $id;
 
     /**
+     * @var Company
+     * @ORM\ManyToOne(targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Company", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false, name="company_id", referencedColumnName="id")
+     */
+    private Company $company;
+
+    /**
      * @var \DateTimeImmutable
      * @ORM\Column(type="date_immutable", name="created_at")
      */
@@ -44,6 +51,10 @@ class Product
      */
     private float $price;
 
+    public function __construct() {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     /**
      * @return string
      */
@@ -61,19 +72,27 @@ class Product
     }
 
     /**
+     * @return Company
+     */
+    public function getCompany(): Company
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     */
+    public function setCompany(Company $company): void
+    {
+        $this->company = $company;
+    }
+
+    /**
      * @return \DateTimeImmutable
      */
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTimeImmutable $createdAt
-     */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 
     /**

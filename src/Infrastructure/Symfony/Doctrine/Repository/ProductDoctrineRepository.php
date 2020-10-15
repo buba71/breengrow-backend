@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Symfony\Doctrine\Repository;
 
-use App\Domain\Model\Product\Product;
+use App\Domain\Model\Grower\Product;
 use App\Domain\Repository\ProductRepository;
 use App\Infrastructure\Symfony\Doctrine\Entity\Product as ProductEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -21,7 +21,6 @@ class ProductDoctrineRepository extends ServiceEntityRepository implements Produ
     {
         $productEntity = new ProductEntity();
         $productEntity->setId($product->getId());
-        $productEntity->setCreatedAt($product->getCreatedAt());
         $productEntity->setName($product->getName());
         $productEntity->setDescription($product->getDescription());
         $productEntity->setPrice($product->getPrice());

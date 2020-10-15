@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repository;
 
-use App\Domain\Model\Product\Product;
+use App\Domain\Model\Grower\Product;
 
 interface ProductRepository
 {

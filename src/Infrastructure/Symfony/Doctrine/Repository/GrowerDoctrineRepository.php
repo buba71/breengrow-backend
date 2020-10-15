@@ -8,6 +8,7 @@ use App\Domain\Model\Grower\Grower;
 use App\Infrastructure\Symfony\Doctrine\Entity\Company as CompanyEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Grower as GrowerEntity;
+use App\Infrastructure\Symfony\Doctrine\Entity\Product as ProductEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Domain\Repository\GrowerRepository;
@@ -44,6 +45,17 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
         $companyEntity->setStreet($hive->getStreet());
         $companyEntity->setCity($hive->getCity());
         $companyEntity->setZipCode($hive->getZipCode());
+
+        foreach ($grower->getHive()->getProducts() as $product) {
+            $productEntity = new ProductEntity();
+            $productEntity->setCompany($companyEntity);
+            $productEntity->setId($product->getId());
+            $productEntity->setName($product->getName());
+            $productEntity->setDescription($product->getDescription());
+            $productEntity->setPrice($product->getPrice());
+
+            $companyEntity->addProduct($productEntity);
+        }
 
         $growerEntity = new GrowerEntity();
 
@@ -94,6 +106,10 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
              $result->getCompany()->getCity(),
              $result->getCompany()->getZipCode()
          );
+
+        foreach ($result->getCompany()->getProducts() as $product) {
+            $grower->getHive()->addProduct($product->getId(), $product->getName(), $product->getDescription(), $product->getPrice());
+        }
 
          return $grower;
     }
