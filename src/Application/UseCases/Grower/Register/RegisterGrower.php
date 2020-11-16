@@ -104,6 +104,7 @@ final class RegisterGrower
         foreach ($request->hive->products as $product) {
             $grower->getHive()->addProduct(
                 $this->idGenerator->nextIdentity(),
+                new \DateTimeImmutable('midnight'),
                 $product->name,
                 $product->description,
                 $product->price

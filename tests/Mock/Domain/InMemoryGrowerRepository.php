@@ -55,4 +55,9 @@ final class InMemoryGrowerRepository implements GrowerRepository
         }
         return null;
     }
+
+    public function updateGrower(Grower $grower)
+    {
+        // TODO: Implement updateGrower() method.
+    }
 }

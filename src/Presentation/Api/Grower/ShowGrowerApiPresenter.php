@@ -7,7 +7,7 @@ namespace App\Presentation\Api\Grower;
 use App\Application\UseCases\Grower\Show\ShowGrowerPresenter;
 use App\Application\UseCases\Grower\Show\ShowGrowerResponse;
 
-class ShowGrowerApiPresenter implements ShowGrowerPresenter
+final class ShowGrowerApiPresenter implements ShowGrowerPresenter
 {
     /**
      * @var ShowGrowerApiViewModel

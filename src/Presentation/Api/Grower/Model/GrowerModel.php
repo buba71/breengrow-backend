@@ -6,14 +6,11 @@ namespace App\Presentation\Api\Grower\Model;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Application\UseCases\Grower\Register\RegisterGrowerRequest;
+use App\Application\UseCases\Grower\GrowerRequest;
 
 /**
  * Class GrowerModelDto
- * @ApiResource(
- *     input=RegisterGrowerRequest::class,
- *     output=false
- * ),
+ * @ApiResource(),
  * @package App\Presentation\Api\Grower\ModelDto
  */
 class GrowerModel

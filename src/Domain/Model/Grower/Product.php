@@ -36,14 +36,21 @@ class Product
     /**
      * Product constructor.
      * @param string $id
+     * @param DateTimeImmutable $createdAt
      * @param string $name
      * @param string $description
      * @param float $price
      */
-    public function __construct(string $id, string $name, string $description, float $price)
+    public function __construct(
+        string $id,
+        DateTimeImmutable $createdAt,
+        string $name,
+        string $description,
+        float $price
+     )
     {
         $this->id = $id;
-        $this->createdAt = new DateTimeImmutable('midnight');
+        $this->createdAt = $createdAt;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;

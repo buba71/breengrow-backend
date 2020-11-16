@@ -14,13 +14,16 @@ final class ShowGrowerHandler
 
     /**
      * @param ShowGrowerRequest $data
-     * @param ShowGrower $showGrower
+     * @param ShowGrower $useCase
      * @param ShowGrowerApiPresenter $presenter
      * @return JsonResponse
      */
-    public function __invoke(ShowGrowerRequest $data, ShowGrower $showGrower, ShowGrowerApiPresenter $presenter): JsonResponse
-    {
-        $showGrower->execute($data, $presenter);
+    public function __invoke(
+        ShowGrowerRequest $data,
+        ShowGrower $useCase,
+        ShowGrowerApiPresenter $presenter
+    ): JsonResponse {
+        $useCase->execute($data, $presenter);
 
         return new JsonResponse($presenter->viewModel()->data, $presenter->viewModel()->status);
     }
