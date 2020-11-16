@@ -56,4 +56,3 @@ final class RegisterGrowerApiViewModel
         $this->data = $this->growerModel;
     }
 }
-

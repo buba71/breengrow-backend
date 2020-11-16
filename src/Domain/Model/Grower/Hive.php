@@ -52,13 +52,19 @@ class Hive
 
     /**
      * @param string $id
+     * @param \DateTimeImmutable $createdAt
      * @param string $name
      * @param string $description
      * @param float $price
      */
-    public function addProduct(string $id, string $name, string $description, float $price): void
-    {
-        $this->products[] = new Product($id, $name, $description, $price);
+    public function addProduct(
+        string $id,
+        \DateTimeImmutable $createdAt,
+        string $name,
+        string $description,
+        float $price
+    ): void {
+        $this->products[] = new Product($id, $createdAt, $name, $description, $price);
     }
 
     /**

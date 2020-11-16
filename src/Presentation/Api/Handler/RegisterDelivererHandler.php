@@ -18,16 +18,16 @@ final class RegisterDelivererHandler
 
     /**
      * @param RegisterDelivererRequest $data
-     * @param RegisterDeliverer $createDeliverer
+     * @param RegisterDeliverer $useCase
      * @param RegisterDelivererApiPresenter $presenter
      * @return JsonResponse
      */
     public function __invoke(
         RegisterDelivererRequest $data,
-        RegisterDeliverer $createDeliverer,
+        RegisterDeliverer $useCase,
         RegisterDelivererApiPresenter $presenter
     ): JsonResponse {
-        $createDeliverer->execute($data, $presenter);
+        $useCase->execute($data, $presenter);
 
         return new JsonResponse($presenter->viewModel()->data, $presenter->viewModel()->status);
     }

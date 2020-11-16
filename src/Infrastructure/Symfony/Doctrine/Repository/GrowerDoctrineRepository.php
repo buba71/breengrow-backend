@@ -20,7 +20,6 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
         parent::__construct($registry, GrowerEntity::class);
     }
 
-
     /**
      * @param Grower $grower
      * @return GrowerEntity
@@ -57,20 +56,20 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
             $companyEntity->addProduct($productEntity);
         }
 
-        $growerEntity = new GrowerEntity();
+        $growerDoctrineEntity = new GrowerEntity();
 
-        $growerEntity->setId($grower->getId());
-        $growerEntity->setFirstName($grower->getFirstName());
-        $growerEntity->setLastName($grower->getLastName());
-        $growerEntity->setUser($userEntity);
+        $growerDoctrineEntity->setId($grower->getId());
+        $growerDoctrineEntity->setFirstName($grower->getFirstName());
+        $growerDoctrineEntity->setLastName($grower->getLastName());
+        $growerDoctrineEntity->setUser($userEntity);
 
         // Set company static data.
-        $growerEntity->setCompany($companyEntity);
+        $growerDoctrineEntity->setCompany($companyEntity);
 
-        $this->getEntityManager()->persist($growerEntity);
+        $this->getEntityManager()->persist($growerDoctrineEntity);
         $this->getEntityManager()->flush();
 
-        return $growerEntity;
+        return $growerDoctrineEntity;
     }
 
     public function getGrowerByEmail(string $email)
@@ -88,29 +87,51 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
 
     public function getGrowerById(string $id): ?Grower
     {
-        $result = $this->find($id);
+        $growerDoctrineEntity = $this->findOneBy(['id' => $id]);
 
          $grower = new Grower(
-             $result->getId(),
-             $result->getFirstName(),
-             $result->getLastName(),
-             $result->getUser()->getEmail(),
-             $result->getUser()->getPassword(),
-             $result->getUser()->getSalt(),
-             $result->getUser()->getRoles()
+             $growerDoctrineEntity->getId(),
+             $growerDoctrineEntity->getFirstName(),
+             $growerDoctrineEntity->getLastName(),
+             $growerDoctrineEntity->getUser()->getEmail(),
+             $growerDoctrineEntity->getUser()->getPassword(),
+             $growerDoctrineEntity->getUser()->getSalt(),
+             $growerDoctrineEntity->getUser()->getRoles()
          );
          $grower->addHive(
-             $result->getCompany()->getName(),
-             $result->getCompany()->getSiretNumber(),
-             $result->getCompany()->getStreet(),
-             $result->getCompany()->getCity(),
-             $result->getCompany()->getZipCode()
+             $growerDoctrineEntity->getCompany()->getName(),
+             $growerDoctrineEntity->getCompany()->getSiretNumber(),
+             $growerDoctrineEntity->getCompany()->getStreet(),
+             $growerDoctrineEntity->getCompany()->getCity(),
+             $growerDoctrineEntity->getCompany()->getZipCode()
          );
 
-        foreach ($result->getCompany()->getProducts() as $product) {
-            $grower->getHive()->addProduct($product->getId(), $product->getName(), $product->getDescription(), $product->getPrice());
+        foreach ($growerDoctrineEntity->getCompany()->getProducts() as $product) {
+            $grower->getHive()->addProduct(
+                $product->getId(),
+                $product->getCreatedAt(),
+                $product->getName(),
+                $product->getDescription(),
+                $product->getPrice()
+            );
         }
-
          return $grower;
+    }
+
+    public function updateGrower(Grower $grower)
+    {
+        $growerDoctrineEntity = $this->findOneBy(['id' => $grower->getId()]);
+
+        foreach ($grower->getHive()->getProducts() as $product) {
+            $productDoctrineEntity = new ProductEntity();
+            $productDoctrineEntity->setId($product->getId());
+            $productDoctrineEntity->setCompany($growerDoctrineEntity->getCompany());
+            $productDoctrineEntity->setName($product->getName());
+            $productDoctrineEntity->setDescription($product->getDescription());
+            $productDoctrineEntity->setPrice($product->getPrice());
+
+            $growerDoctrineEntity->getCompany()->addProduct($productDoctrineEntity);
+        }
+        $this->getEntityManager()->flush();
     }
 }

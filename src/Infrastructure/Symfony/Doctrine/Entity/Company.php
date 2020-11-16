@@ -173,10 +173,13 @@ class Company
      */
     public function addProduct(Product $product): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
+        $found = $this->products->filter(function ($item) use ($product) {
+            return $item->getId() === $product->getId();
+        });
 
+        if ($found->isEmpty()) {
+            $this->products->add($product);
+        }
         return $this;
     }
 

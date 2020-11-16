@@ -17,18 +17,18 @@ final class RegisterGrowerHandler
 {
     /**
      * @param RegisterGrowerRequest $data
-     * @param RegisterGrower $createGrower
+     * @param RegisterGrower $useCase
      * @param RegisterGrowerApiPresenter $presenter
      * @return JsonResponse
      * $data parameter come from api platform dataTransformer.
      */
     public function __invoke(
         RegisterGrowerRequest $data,
-        RegisterGrower $createGrower,
+        RegisterGrower $useCase,
         RegisterGrowerApiPresenter $presenter
     ): JsonResponse {
 
-        $createGrower->execute($data, $presenter);
+        $useCase->execute($data, $presenter);
         return new JsonResponse($presenter->viewModel()->data, $presenter->viewModel()->status);
     }
 }

@@ -24,4 +24,10 @@ interface GrowerRepository
      * @return mixed
      */
     public function getGrowerByEmail(string $email);
+
+    /**
+     * @param Grower $grower
+     * @return mixed
+     */
+    public function updateGrower(Grower $grower);
 }

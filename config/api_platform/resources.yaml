@@ -19,6 +19,8 @@ App\Presentation\Api\Grower\Model\GrowerModel:
   collectionOperations:
     create_grower:
       method: POST
+      input: App\Application\UseCases\Grower\Register\RegisterGrowerRequest
+      output: false
       path: /grower/create
       controller: App\Presentation\Api\Handler\RegisterGrowerHandler
       #security: is_granted('ROLE_GROWER')
@@ -27,6 +29,12 @@ App\Presentation\Api\Grower\Model\GrowerModel:
       method: GET
       path: /growers/{id}
       controller: App\Presentation\Api\Handler\ShowGrowerHandler
+    update_grower:
+      method: PUT
+      input: App\Application\UseCases\Grower\AddProducts\AddProductsToHiveGrowerRequest
+      output: false
+      path: /growers/{id}
+      controller: App\Presentation\Api\Handler\UpdateGrowerHandler
 
 
 

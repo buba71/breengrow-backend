@@ -17,18 +17,18 @@ final class RegisterConsumerHandler
 {
     /**
      * @param RegisterConsumerRequest $data
-     * @param RegisterConsumer $createConsumer
+     * @param RegisterConsumer $useCase
      * @param RegisterConsumerApiPresenter $presenter
      * @return JsonResponse
      * $data parameter come from api platform dataTransformer.
      */
     public function __invoke(
         RegisterConsumerRequest $data,
-        RegisterConsumer $createConsumer,
+        RegisterConsumer $useCase,
         RegisterConsumerApiPresenter $presenter
     ): JsonResponse {
 
-        $createConsumer->execute($data, $presenter);
+        $useCase->execute($data, $presenter);
         return new JsonResponse($presenter->viewModel()->data, $presenter->viewModel()->status);
     }
 }
