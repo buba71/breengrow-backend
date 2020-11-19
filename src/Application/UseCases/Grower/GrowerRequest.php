@@ -46,4 +46,3 @@ class GrowerRequest
      */
     public HiveModel $hive;
 }
-

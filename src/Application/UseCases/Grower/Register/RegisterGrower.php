@@ -101,6 +101,8 @@ final class RegisterGrower
             $request->hive->zip_code
         );
 
+        $grower->getHive()->addGeoPoint($request->hive->geoPoint[0], $request->hive->geoPoint[1]);
+
         foreach ($request->hive->products as $product) {
             $grower->getHive()->addProduct(
                 $this->idGenerator->nextIdentity(),

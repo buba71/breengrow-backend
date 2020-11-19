@@ -53,7 +53,8 @@ final class ApiGrowerControllerTest extends ApiTestCase
                 "siret_number"  => "123456789",
                 "street"        => "20 rue François Ducarouge",
                 "city"          => "Digoin",
-                "zip_code"       => "71160"
+                "zip_code"       => "71160",
+                "geoPoint"      => [48.285, 3.412]
             ]
         ];
 
@@ -168,6 +169,8 @@ final class ApiGrowerControllerTest extends ApiTestCase
             'city test',
             '75000'
         );
+
+        $grower->getHive()->addGeoPoint(48.314, 3.412);
 
         return $grower;
     }

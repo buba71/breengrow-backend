@@ -6,6 +6,7 @@ namespace App\Infrastructure\Symfony\Doctrine\Repository;
 
 use App\Domain\Model\Grower\Grower;
 use App\Infrastructure\Symfony\Doctrine\Entity\Company as CompanyEntity;
+use App\Infrastructure\Symfony\Doctrine\Entity\GeoPoint as GeoPointEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Grower as GrowerEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Product as ProductEntity;
@@ -39,10 +40,15 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
         $companyEntity = new CompanyEntity();
         $hive = $grower->getHive();
 
+        $geoPointEntity = new GeoPointEntity();
+        $geoPointEntity->setLatitude($hive->getGeoPoint()->getLatitude());
+        $geoPointEntity->setLongitude($hive->getGeoPoint()->getLongitude());
+
         $companyEntity->setName($hive->getName());
         $companyEntity->setSiretNumber($hive->getSiretNumber());
         $companyEntity->setStreet($hive->getStreet());
         $companyEntity->setCity($hive->getCity());
+        $companyEntity->setGeoPoint($geoPointEntity);
         $companyEntity->setZipCode($hive->getZipCode());
 
         foreach ($grower->getHive()->getProducts() as $product) {
@@ -104,6 +110,10 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
              $growerDoctrineEntity->getCompany()->getStreet(),
              $growerDoctrineEntity->getCompany()->getCity(),
              $growerDoctrineEntity->getCompany()->getZipCode()
+         );
+         $grower->getHive()->addGeoPoint(
+             $growerDoctrineEntity->getCompany()->getGeoPoint()->getLatitude(),
+             $growerDoctrineEntity->getCompany()->getGeoPoint()->getLongitude()
          );
 
         foreach ($growerDoctrineEntity->getCompany()->getProducts() as $product) {

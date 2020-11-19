@@ -64,6 +64,12 @@ class Company
     private string $zipCode;
 
     /**
+     * @var GeoPoint
+     * @ORM\Embedded(class = "GeoPoint")
+     */
+    private GeoPoint $geoPoint;
+
+    /**
      * Company constructor.
      */
     public function __construct()
@@ -203,4 +209,22 @@ class Company
     {
         return $this->products;
     }
+
+    /**
+     * @return GeoPoint
+     */
+    public function getGeoPoint(): GeoPoint
+    {
+        return $this->geoPoint;
+    }
+
+    /**
+     * @param GeoPoint $geoPoint
+     */
+    public function setGeoPoint(GeoPoint $geoPoint): void
+    {
+        $this->geoPoint = $geoPoint;
+    }
+
+
 }

@@ -12,7 +12,7 @@ class AddProductsToHIveGrowerViewModel
     public array $data = [];
 
     /**
-     * @var array
+     * @var array<array>
      */
     public array $products;
 

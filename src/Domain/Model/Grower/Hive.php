@@ -12,6 +12,11 @@ class Hive
     private string $city;
 
     /**
+     * @var GeoPoint
+     */
+    private GeoPoint $geoPoint;
+
+    /**
      * @var string
      */
     private string $name;
@@ -48,6 +53,15 @@ class Hive
         $this->street =  $street;
         $this->city = $city;
         $this->zipCode = $zipCode;
+    }
+
+    /**
+     * @param float $latitude
+     * @param float $longitude
+     */
+    public function addGeoPoint(float $latitude, float $longitude): void
+    {
+        $this->geoPoint = new GeoPoint($latitude, $longitude);
     }
 
     /**
@@ -115,5 +129,11 @@ class Hive
         return $this->products;
     }
 
-
+    /**
+     * @return GeoPoint
+     */
+    public function getGeoPoint(): GeoPoint
+    {
+        return $this->geoPoint;
+    }
 }

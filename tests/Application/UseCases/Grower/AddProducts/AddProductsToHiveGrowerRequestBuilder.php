@@ -22,6 +22,7 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
     private const HIVE_STREET = '20 rue François Ducarouge';
     private const HIVE_CITY = 'Digoin';
     private const HIVE_ZIP_CODE = '71160';
+    private const HIVE_GEO_POINT = [ 48.314, 3.312];
 
     public static function defaultRequest(): self
     {
@@ -60,6 +61,7 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
         $hive->city = self::HIVE_CITY;
         $hive->zip_code = self::HIVE_ZIP_CODE;
         $hive->products = self::createValidProduct();
+        $hive->geoPoint = self::HIVE_GEO_POINT;
 
         return $hive;
     }
