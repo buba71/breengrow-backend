@@ -175,6 +175,8 @@ final class RegisterGrowerTest extends TestCase
             '71160'
         );
 
+        $grower->getHive()->addGeoPoint(48.314, 3.312);
+
         return $grower;
     }
 }

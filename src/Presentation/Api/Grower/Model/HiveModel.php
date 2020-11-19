@@ -43,6 +43,12 @@ class HiveModel
     public string $zip_code;
 
     /**
+     * @var array<float>
+     * @ApiProperty()
+     */
+    public array $geoPoint;
+
+    /**
      * @var array<ProductModel>
      */
     public array $products = [];

@@ -27,9 +27,11 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fzaninotto/faker": "^1.9",
         "hautelook/alice-bundle": "^2.7",
         "phpmetrics/phpmetrics": "^2.7",
-        "phpstan/phpstan": "^0.12.7",
+        "phpstan/phpstan": "^0.12.56",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/panther": "^0.6.1",
         "symfony/phpunit-bridge": "^5.0",
