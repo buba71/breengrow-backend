@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use App\Domain\Model\Grower\Grower;
 use App\Infrastructure\Symfony\Doctrine\Entity\User;
 use App\Infrastructure\Symfony\Doctrine\Repository\GrowerDoctrineRepository;
+use App\Presentation\Api\Grower\Model\GrowerModel;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 final class ApiGrowerControllerTest extends ApiTestCase
@@ -58,10 +59,12 @@ final class ApiGrowerControllerTest extends ApiTestCase
             ]
         ];
 
-        $response = $this->client->request('POST', '/api/grower/create', ['json' => $data]);
+        $this->client->request('POST', '/api/grower/create', ['json' => $data]);
 
-        static::assertEquals(201, $response->getStatusCode());
-        static::assertArrayHasKey('grower', json_decode($response->getContent(), true));
+        static::assertResponseIsSuccessful();
+        static::assertMatchesJsonSchema(
+            '{"grower":{"id":"88caa0b8-85ca-42d3-9f12-af995cf8e380","firstName":"David","lastName":"De Lima"}}'
+        );
     }
 
     public function testShowGrower()
@@ -87,12 +90,43 @@ final class ApiGrowerControllerTest extends ApiTestCase
         ]);
 
         $registeredGrower = static::$container->get(GrowerDoctrineRepository::class);
-        $registeredGrower->addGrower(self::createGrower());
+        $registeredGrower->addGrower(self::growerProvider());
 
-        $response = $this->client->request('GET', '/api/growers/12345');
+        $this->client->request('GET', '/api/growers/12345');
 
+        static::assertResponseIsSuccessful();
+        static::assertMatchesJsonSchema(
+            '{
+            "grower":
+            {
+            "firstName":"John",
+            "lastName":"Doe",
+            "email":"test@test.com"
+            },
+            "hive":
+            {
+            "name":"Breengrow",
+            "siretNumber":"8491254561",
+            "street":"street test",
+            "zipCode":"75000",
+            "geoPoint":{"latitude":48.314,"longitude":3.412}}}'
+        );
+    }
 
-        static::assertEquals(200, $response->getStatusCode());
+    public function testShowAllGrowers()
+    {
+        $registeredGrower = self::$container->get(GrowerDoctrineRepository::class);
+
+        foreach (static::growerListProvider() as $grower) {
+            $registeredGrower->addGrower($grower);
+        }
+
+        $response = $this->client->request('GET', '/api/growers');
+
+        static::assertResponseIsSuccessful();
+        static::assertResponseHeaderSame('content-type', 'application/json');
+        static::assertMatchesResourceCollectionJsonSchema(GrowerModel::class);
+        static::assertCount(3, json_decode($response->getContent(), true)['growers']);
     }
 
     public function testUpdateGrower()
@@ -118,7 +152,7 @@ final class ApiGrowerControllerTest extends ApiTestCase
         ]);
 
         $registeredGrower = static::$container->get(GrowerDoctrineRepository::class);
-        $registeredGrower->addGrower(self::createGrower());
+        $registeredGrower->addGrower(self::growerProvider());
 
         $data = [
             "firstName" => "David",
@@ -145,13 +179,18 @@ final class ApiGrowerControllerTest extends ApiTestCase
             ]
         ];
 
-        $response = $this->client->request('PUT', '/api/growers/12345', ['json' => $data]);
+        $this->client->request('PUT', '/api/growers/12345', ['json' => $data]);
 
-        static::assertEquals(200, $response->getStatusCode());
-        static::assertArrayHasKey('number of products', json_decode($response->getContent(), true));
+        static::assertResponseIsSuccessful();
+        static::assertMatchesJsonSchema(
+            '{
+            "number of products":1,
+            "products":[{"name":"fromage","description":"fromage de ch\u00e8vre","price":4.9}]
+            }'
+        );
     }
 
-    public static function createGrower()
+    public static function growerProvider()
     {
         $grower =  new Grower(
             '12345',
@@ -173,5 +212,32 @@ final class ApiGrowerControllerTest extends ApiTestCase
         $grower->getHive()->addGeoPoint(48.314, 3.412);
 
         return $grower;
+    }
+
+    public static function growerListProvider()
+    {
+        $growerList = [];
+        for ($i = 0; $i <= 2; $i++) {
+            $grower =  new Grower(
+                "{$i}",
+                "John{$i}",
+                "Doe{$i}",
+                "test{$i}@test.com",
+                'azeaze',
+                'salt',
+                ['ROLE_GROWER']
+            );
+            $grower->addHive(
+                "Breengrow{$i}",
+                '8491254561',
+                "street test{$i}",
+                "city test{$i}",
+                '75000'
+            );
+
+            $grower->getHive()->addGeoPoint(48.314, 3.412);
+            $growerList[] = $grower;
+        }
+        return $growerList;
     }
 }

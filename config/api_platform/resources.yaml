@@ -24,11 +24,16 @@ App\Presentation\Api\Grower\Model\GrowerModel:
       path: /grower/create
       controller: App\Presentation\Api\Handler\RegisterGrowerHandler
       #security: is_granted('ROLE_GROWER')
+    show_growers:
+      method: GET
+      path: /growers
+      controller: App\Presentation\Api\Handler\ShowAllGrowersHandler
   itemOperations:
     show_grower:
       method: GET
       path: /growers/{id}
       controller: App\Presentation\Api\Handler\ShowGrowerHandler
+      security: is_granted('ROLE_GROWER')
     update_grower:
       method: PUT
       input: App\Application\UseCases\Grower\AddProducts\AddProductsToHiveGrowerRequest

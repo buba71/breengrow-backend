@@ -13,6 +13,12 @@ interface GrowerRepository
      */
     public function addGrower(Grower $user);
 
+
+    /**
+     * @return array
+     */
+    public function getAllGrowers(): array;
+
     /**
      * @param string $id
      * @return Grower|null

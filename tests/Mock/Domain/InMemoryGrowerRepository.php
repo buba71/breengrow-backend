@@ -34,13 +34,13 @@ final class InMemoryGrowerRepository implements GrowerRepository
         return null;
     }
 
-    /**
-     * @return array
-     */
-    public function getGrowers(): array
-    {
-        return $this->growers;
-    }
+    // /**
+    //  * @return array
+    //  */
+    // public function getGrowers(): array
+    // {
+    //     return $this->growers;
+    // }
 
     /**
      * @param string $email
@@ -58,6 +58,11 @@ final class InMemoryGrowerRepository implements GrowerRepository
 
     public function updateGrower(Grower $grower)
     {
-        // TODO: Implement updateGrower() method.
+        echo 'i am here';
+    }
+
+    public function getAllGrowers(): array
+    {
+        return $this->growers;
     }
 }

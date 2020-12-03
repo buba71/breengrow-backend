@@ -78,6 +78,55 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
         return $growerDoctrineEntity;
     }
 
+    /**
+     * @return array
+     */
+    public function getAllGrowers(): array
+    {
+        $growerCollection = $this->findAll();
+        $growers = [];
+        
+        foreach ($growerCollection as $growerDoctrineEntity) {
+            $grower = new Grower(
+                $growerDoctrineEntity->getId(),
+                $growerDoctrineEntity->getFirstName(),
+                $growerDoctrineEntity->getLastName(),
+                $growerDoctrineEntity->getUser()->getEmail(),
+                $growerDoctrineEntity->getUser()->getPassword(),
+                $growerDoctrineEntity->getUser()->getSalt(),
+                $growerDoctrineEntity->getUser()->getRoles()
+            );
+            $grower->addHive(
+                $growerDoctrineEntity->getCompany()->getName(),
+                $growerDoctrineEntity->getCompany()->getSiretNumber(),
+                $growerDoctrineEntity->getCompany()->getStreet(),
+                $growerDoctrineEntity->getCompany()->getCity(),
+                $growerDoctrineEntity->getCompany()->getZipCode()
+            );
+            $grower->getHive()->addGeoPoint(
+                $growerDoctrineEntity->getCompany()->getGeoPoint()->getLatitude(),
+                $growerDoctrineEntity->getCompany()->getGeoPoint()->getLongitude()
+            );
+
+            foreach ($growerDoctrineEntity->getCompany()->getProducts() as $product) {
+                $grower->getHive()->addProduct(
+                    $product->getId(),
+                    $product->getCreatedAt(),
+                    $product->getName(),
+                    $product->getDescription(),
+                    $product->getPrice()
+                );
+            }
+            $growers[] = $grower;
+        }
+        return $growers;
+    }
+
+    /**
+     * @param string $email
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getGrowerByEmail(string $email)
     {
         $query = $this->createQueryBuilder('g');
@@ -91,6 +140,10 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param string $id
+     * @return Grower|null
+     */
     public function getGrowerById(string $id): ?Grower
     {
         $growerDoctrineEntity = $this->findOneBy(['id' => $id]);
@@ -128,6 +181,12 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
          return $grower;
     }
 
+    /**
+     * @param Grower $grower
+     * @return mixed|void
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function updateGrower(Grower $grower)
     {
         $growerDoctrineEntity = $this->findOneBy(['id' => $grower->getId()]);
