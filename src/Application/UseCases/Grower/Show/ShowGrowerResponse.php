@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Grower\Show;
 
-use App\Application\UseCases\Grower\GrowerResponse;
+use App\Application\UseCases\Response;
 use App\Domain\Model\Grower\Grower;
 
-final class ShowGrowerResponse extends GrowerResponse
+final class ShowGrowerResponse extends Response
 {
     /**
      * @var Grower|null

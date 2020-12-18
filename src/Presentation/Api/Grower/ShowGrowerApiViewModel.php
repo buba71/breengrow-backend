@@ -60,9 +60,10 @@ final class ShowGrowerApiViewModel
 
         foreach ($model->getHive()->getProducts() as $product) {
             $this->productsModel['products'][] = [
-                'name' => $product->getName(),
-                'description' => $product->getDescription(),
-                'price' => $product->getPrice()
+                'id'           => $product->getId(),
+                'name'         => $product->getName(),
+                'description'  => $product->getDescription(),
+                'price'        => $product->getPrice()
             ];
         }
 

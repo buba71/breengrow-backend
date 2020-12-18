@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Grower\ShowAlls;
 
-use App\Application\UseCases\Grower\GrowerResponse;
+use App\Application\UseCases\Response;
 
-class ShowAllGRowersResponse extends GrowerResponse
+class ShowAllGRowersResponse extends Response
 {
     /**
      * @var array

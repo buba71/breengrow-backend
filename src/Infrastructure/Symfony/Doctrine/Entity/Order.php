@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Symfony\Doctrine\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Class Order
@@ -15,12 +17,17 @@ use Doctrine\ORM\Mapping as ORM;
 class Order
 {
     /**
-     * @var int
+     * @var string
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", name="order_number")
      */
-    private int $id;
+    private string $number;
+
+    /**
+     * @var \DateTimeImmutable
+     * @ORM\Column(type="date_immutable", name="received_at")
+     */
+    private \DateTimeImmutable $receivedAt;
 
     /**
      * @var float
@@ -29,46 +36,34 @@ class Order
     private float $amount;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", name="order_number")
+     * @var int
+     * @ORM\Column(type="integer", name="order_status")
      */
-    private string $number;
+    private int $status;
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="order_status")
+     * @ORM\Column(type="string", name="consumer_id")
      */
-    private string $status;
+    private string $consumerId;
 
     /**
-     * @var Consumer
-     * @ORM\ManyToOne(targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Consumer", inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false, name="consumer_id", referencedColumnName="identifier")
+     * @var Collection
+     * @ORM\OneToMany(
+     *     targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\OrderLine",
+     *     mappedBy="order",
+     *     cascade={"persist", "remove"}
+     * )
      */
-    private Consumer $consumer;
+    private Collection $orderlines;
 
     /**
-     * @return int
+     * Order constructor.
      */
-    public function getId(): int
+    public function __construct()
     {
-        return $this->id;
-    }
-
-    /**
-     * @return float
-     */
-    public function getAmount(): float
-    {
-        return $this->amount;
-    }
-
-    /**
-     * @param float $amount
-     */
-    public function setAmount(float $amount): void
-    {
-        $this->amount = $amount;
+        $this->orderlines = new ArrayCollection();
+        $this->receivedAt = new \DateTimeImmutable();
     }
 
     /**
@@ -88,34 +83,82 @@ class Order
     }
 
     /**
-     * @return string
+     * @return \DateTimeImmutable
      */
-    public function getStatus(): string
+    public function getDate(): \DateTimeImmutable
+    {
+        return $this->receivedAt;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount(): float
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param float $amount
+     */
+    public function setAmount(float $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
     {
         return $this->status;
     }
 
     /**
-     * @param string $status
+     * @param int $status
      */
-    public function setStatus(string $status): void
+    public function setStatus(int $status): void
     {
         $this->status = $status;
     }
 
     /**
-     * @return Consumer
+     * @return string
      */
-    public function getConsumer(): Consumer
+    public function getConsumer(): string
     {
-        return $this->consumer;
+        return $this->consumerId;
     }
 
     /**
-     * @param Consumer $consumer
+     * @param string $consumer
      */
-    public function setConsumer(Consumer $consumer): void
+    public function setConsumerId(string $consumer): void
     {
-        $this->consumer = $consumer;
+        $this->consumerId = $consumer;
+    }
+
+    /**
+     * @param OrderLine $orderLine
+     * @return $this
+     */
+    public function addOrderLine(OrderLine $orderLine): self
+    {
+        if (!$this->orderlines->contains($orderLine)) {
+            $this->orderlines->add($orderLine);
+        }
+        return $this;
+    }
+
+    /**
+     * @param OrderLine $orderLine
+     * @return $this
+     */
+    public function removeOrderLine(OrderLine $orderLine): self
+    {
+        if ($this->orderlines->contains($orderLine)) {
+            $this->orderlines->removeElement($orderLine);
+        }
+        return $this;
     }
 }

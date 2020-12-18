@@ -59,7 +59,7 @@ final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
         $order = new OrderModel();
         $order->amount = 25;
         $order->number = '12345';
-        $order->status = 'ORDER_PROCESSING';
+        $order->status = 4;
 
         return $order;
     }

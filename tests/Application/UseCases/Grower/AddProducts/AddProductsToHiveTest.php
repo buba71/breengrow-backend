@@ -176,7 +176,7 @@ final class AddProductsToHiveTest extends TestCase
         );
 
         $grower->getHive()->addProduct('1', new \DateTimeImmutable('midnight'), 'fromage', 'fromage de chèvre', 2.3);
-        $grower->getHive()->addGeoPoint(48.314, 3.312);
+        $grower->getHive()->addGeoPoint(3.312, 48.314);
 
         return $grower;
     }
