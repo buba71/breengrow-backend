@@ -169,7 +169,7 @@ class Consumer
      */
     public function addOrder(float $amount, string $number, string $status): void
     {
-        $this->orders[] = new Order($amount, $number, $status);
+        $this->orders[] = new Order($number, $status);
     }
 
     /**

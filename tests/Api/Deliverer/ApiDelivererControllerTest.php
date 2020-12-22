@@ -44,7 +44,7 @@ final class ApiDelivererControllerTest extends ApiTestCase
 
         $response = $this->client->request('POST', '/api/deliverers', ['json' => $data]);
 
-        static::assertEquals(201, $response->getStatusCode());
+        static::assertResponseIsSuccessful();
         static::assertArrayHasKey('deliverer', json_decode($response->getContent(), true));
     }
 }

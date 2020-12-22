@@ -53,16 +53,17 @@ final class ShowGrowerApiViewModel
             'street'        => $model->getHive()->getStreet(),
             'zipCode'       => $model->getHive()->getZipCode(),
             'geoPoint'      => [
-                $model->getHive()->getGeoPoint()->getLatitude(),
-                $model->getHive()->getGeoPoint()->getLongitude()
+                'latitude'  => $model->getHive()->getGeoPoint()->getLatitude(),
+                'longitude' => $model->getHive()->getGeoPoint()->getLongitude()
             ]
         ];
 
         foreach ($model->getHive()->getProducts() as $product) {
             $this->productsModel['products'][] = [
-                'name' => $product->getName(),
-                'description' => $product->getDescription(),
-                'price' => $product->getPrice()
+                'id'           => $product->getId(),
+                'name'         => $product->getName(),
+                'description'  => $product->getDescription(),
+                'price'        => $product->getPrice()
             ];
         }
 

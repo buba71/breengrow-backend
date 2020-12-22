@@ -45,16 +45,6 @@ class Consumer
     private string $lastName;
 
     /**
-     * @var Collection
-     * @ORM\OneToMany(
-     *     targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Order",
-     *      mappedBy="consumer",
-     *      cascade={"persist"}
-     *     )
-     */
-    private $orders;
-
-    /**
      * @var User
      * @ORM\OneToOne(targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
@@ -141,7 +131,7 @@ class Consumer
     public function addAddress(ConsumerAddress $address): self
     {
         if (!$this->consumerAddresses->contains($address)) {
-            $this->consumerAddresses[] = $address;
+            $this->consumerAddresses->add($address);
         }
 
         return $this;
@@ -168,37 +158,4 @@ class Consumer
         return $this->consumerAddresses;
     }
 
-    /**
-     * @param Order $order
-     * @return $this
-     */
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Order $order
-     * @return $this
-     */
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
 }

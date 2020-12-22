@@ -7,6 +7,7 @@ namespace App\Infrastructure\Symfony\Fixtures;
 use App\Infrastructure\Symfony\Doctrine\Entity\Company;
 use App\Infrastructure\Symfony\Doctrine\Entity\GeoPoint;
 use App\Infrastructure\Symfony\Doctrine\Entity\Grower;
+use App\Infrastructure\Symfony\Doctrine\Entity\Product;
 use App\Infrastructure\Symfony\Doctrine\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -18,7 +19,7 @@ final class FakerFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $grower = new Grower();
             $grower->setId($faker->uuid);
             $grower->setFirstName($faker->firstName);
@@ -40,8 +41,18 @@ final class FakerFixtures extends Fixture
             $geoPoint = new GeoPoint();
             $geoPoint->setLatitude($faker->latitude);
             $geoPoint->setLongitude($faker->longitude);
-            
+
+            $product = new Product();
+            $product->setId($faker->uuid);
+            $product->setCompany($hive);
+            $product->setName('fromage');
+            $product->setDescription('fromage de chèvre');
+            $product->setPrice(4.99);
+
+            $hive->addProduct($product);
+
             $hive->setGeoPoint($geoPoint);
+
             $grower->setUser($user);
             $grower->setCompany($hive);
 

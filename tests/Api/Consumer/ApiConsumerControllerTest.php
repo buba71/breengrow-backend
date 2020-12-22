@@ -48,6 +48,6 @@ final class ApiConsumerControllerTest extends ApiTestCase
 
         $response = $this->client->request('POST', '/api/consumer/create', ['json' => $data]);
 
-        static::assertEquals(201, $response->getStatusCode());
+        static::assertResponseIsSuccessful();
         static::assertArrayHasKey('consumer', json_decode($response->getContent(), true));
     }}

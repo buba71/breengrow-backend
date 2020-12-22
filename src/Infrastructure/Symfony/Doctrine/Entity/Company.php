@@ -65,7 +65,7 @@ class Company
 
     /**
      * @var GeoPoint
-     * @ORM\Embedded(class = "GeoPoint")
+     * @ORM\Embedded(class = "GeoPoint", columnPrefix=false)
      */
     private GeoPoint $geoPoint;
 

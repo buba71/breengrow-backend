@@ -51,7 +51,8 @@ class Product
      */
     private float $price;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -142,6 +143,4 @@ class Product
     {
         $this->price = $price;
     }
-
-
 }

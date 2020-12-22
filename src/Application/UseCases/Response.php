@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCases\Grower;
+namespace App\Application\UseCases;
 
 use App\SharedKernel\Error\Error;
 use App\SharedKernel\Error\Notifier;
 
-abstract class GrowerResponse
+abstract class Response
 {
     public const HTTP_CREATED = 201;
     public const HTTP_BAD_REQUEST = 400;
@@ -56,4 +56,5 @@ abstract class GrowerResponse
     {
         return $this->status;
     }
+
 }

@@ -1,3 +1,4 @@
+# CONSUMER DTO
 App\Presentation\Api\Consumer\Model\ConsumerModel:
   collectionOperations:
     create_consumer:
@@ -8,6 +9,8 @@ App\Presentation\Api\Consumer\Model\ConsumerModel:
     #get_consumers:
     #  method: GET
 
+
+# DELIVER DTO
 App\Presentation\Api\Deliverer\Model\DelivererModel:
   collectionOperations:
     create_consumer:
@@ -15,6 +18,7 @@ App\Presentation\Api\Deliverer\Model\DelivererModel:
       path: /deliverers
       controller: App\Presentation\Api\Handler\RegisterDelivererHandler
 
+# GROWER DTO
 App\Presentation\Api\Grower\Model\GrowerModel:
   collectionOperations:
     create_grower:
@@ -24,17 +28,32 @@ App\Presentation\Api\Grower\Model\GrowerModel:
       path: /grower/create
       controller: App\Presentation\Api\Handler\RegisterGrowerHandler
       #security: is_granted('ROLE_GROWER')
+    show_growers:
+      method: GET
+      path: /growers
+      controller: App\Presentation\Api\Handler\ShowAllGrowersHandler
   itemOperations:
     show_grower:
       method: GET
       path: /growers/{id}
       controller: App\Presentation\Api\Handler\ShowGrowerHandler
+      #security: is_granted('ROLE_GROWER')
     update_grower:
       method: PUT
       input: App\Application\UseCases\Grower\AddProducts\AddProductsToHiveGrowerRequest
       output: false
       path: /growers/{id}
       controller: App\Presentation\Api\Handler\UpdateGrowerHandler
+
+#ORDER DTO
+App\Presentation\Api\Order\Model\OrderModel:
+  collectionOperations:
+    create_order:
+      method: POST
+      input:  App\Application\UseCases\Order\Register\RegisterOrderRequest
+      output: false
+      path: /orders
+      controller: App\Presentation\Api\Handler\RegisterOrderHandler
 
 
 
