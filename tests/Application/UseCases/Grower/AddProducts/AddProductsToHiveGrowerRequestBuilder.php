@@ -91,7 +91,6 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
         $products[] = $product;
 
         return $products;
-
     }
 
     public function withFirstName(string $firstName)

@@ -7,8 +7,8 @@ namespace App\Application\UseCases\Grower\ShowAlls;
 interface ShowAllGrowersPresenter
 {
     /**
-     * @param ShowAllGRowersResponse $response
+     * @param ShowAllGrowersResponse $response
      */
-    public function present(ShowAllGRowersResponse $response): void;
+    public function present(ShowAllGrowersResponse $response): void;
 
 }

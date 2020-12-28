@@ -10,7 +10,7 @@ class OrderLine
     private int $quantity;
     private float $linePrice;
 
-    public function __construct(string $productId, int $quantity, $linePrice)
+    public function __construct(string $productId, int $quantity, float $linePrice)
     {
         $this->productId = $productId;
         $this->quantity = $quantity;
@@ -40,6 +40,4 @@ class OrderLine
     {
         return $this->linePrice;
     }
-
-
 }

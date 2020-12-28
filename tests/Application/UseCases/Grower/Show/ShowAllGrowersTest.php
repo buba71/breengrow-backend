@@ -6,7 +6,7 @@ namespace App\Tests\Application\UseCases\Grower\Show;
 
 use App\Application\UseCases\Grower\ShowAlls\ShowAllGrowers;
 use App\Application\UseCases\Grower\ShowAlls\ShowAllGrowersPresenter;
-use App\Application\UseCases\Grower\ShowAlls\ShowAllGRowersResponse;
+use App\Application\UseCases\Grower\ShowAlls\ShowAllGrowersResponse;
 use App\Domain\Model\Grower\Grower;
 use App\Tests\Mock\Domain\InMemoryGrowerRepository;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +24,7 @@ final class ShowAllGrowersTest extends TestCase
             ->setMethods(['present'])
             ->getMock();
         $this->repository = new InMemoryGrowerRepository();
-        $this->response = new ShowAllGRowersResponse();
+        $this->response = new ShowAllGrowersResponse();
         $this->showAllGrowersUseCase = new ShowAllGrowers($this->repository);
     }
 

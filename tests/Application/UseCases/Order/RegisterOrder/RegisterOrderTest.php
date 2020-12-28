@@ -10,13 +10,11 @@ use App\Application\UseCases\Order\Register\RegisterOrderPresenter;
 use App\Application\UseCases\Order\Register\RegisterOrderRequest;
 use App\Application\UseCases\Order\Register\RegisterOrderResponse;
 use App\Domain\Model\Order\Order;
-use App\Domain\Model\Order\OrderLine;
 use App\SharedKernel\Error\Error;
-use App\SharedKernel\Service\PasswordHash;
 use App\Tests\Mock\Domain\InMemoryOrderRepository;
 use PHPUnit\Framework\TestCase;
 
-class RegisterOrderTest extends TestCase
+final class RegisterOrderTest extends TestCase
 {
     private IdGenerator $idGenerator;
     private InMemoryOrderRepository $repository;
@@ -44,7 +42,6 @@ class RegisterOrderTest extends TestCase
         $result = $this->registerOrder->checkRequest($request, $this->response);
 
         static::assertTrue($result);
-
     }
 
     public function testIfRegisterOrderRequestNotValid()
@@ -53,7 +50,6 @@ class RegisterOrderTest extends TestCase
         $result = $this->registerOrder->checkRequest($request, $this->response);
 
         static::assertFalse($result);
-
     }
 
     public function testSaveOrder()

@@ -9,15 +9,26 @@ use App\Domain\Repository\GrowerRepository;
 
 final class ShowAllGrowers
 {
+    /**
+     * @var GrowerRepository
+     */
     private GrowerRepository $repository;
 
+    /**
+     * ShowAllGrowers constructor.
+     * @param GrowerRepository $repository
+     */
     public function __construct(GrowerRepository $repository)
     {
         $this->repository = $repository;
     }
-    public function execute(ShowAllGrowersPresenter $presenter)
+
+    /**
+     * @param ShowAllGrowersPresenter $presenter
+     */
+    public function execute(ShowAllGrowersPresenter $presenter): void
     {
-        $response = new ShowAllGRowersResponse();
+        $response = new ShowAllGrowersResponse();
 
         $growerCollection =  $this->repository->getAllGrowers();
         $response->setGrowers($growerCollection);

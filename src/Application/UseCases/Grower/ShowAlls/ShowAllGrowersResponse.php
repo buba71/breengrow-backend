@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Application\UseCases\Grower\ShowAlls;
 
 use App\Application\UseCases\Response;
+use App\Domain\Model\Grower\Grower;
 
-class ShowAllGRowersResponse extends Response
+class ShowAllGrowersResponse extends Response
 {
     /**
-     * @var array
+     * @var array<Grower>
      */
     private array $growers;
 
     /**
-     * @return array
+     * @return array<Grower>
      */
     public function getGrowers(): array
     {
@@ -22,7 +23,7 @@ class ShowAllGRowersResponse extends Response
     }
 
     /**
-     * @param array $growers
+     * @param array<Grower> $growers
      */
     public function setGrowers(array $growers): void
     {

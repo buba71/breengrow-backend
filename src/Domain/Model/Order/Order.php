@@ -38,7 +38,7 @@ class Order
     private string $number;
 
     /**
-     * @var array
+     * @var array<OrderLine>
      */
     private array $orderLines;
 
@@ -92,7 +92,7 @@ class Order
     }
 
     /**
-     * @return array
+     * @return array<OrderLine>
      */
     public function getOrderLines(): array
     {
@@ -122,7 +122,7 @@ class Order
     {
         $totalAmount = array_reduce(
             $this->orderLines,
-            fn($accumulator, $orderline) => $accumulator += $orderline->getLinePrice()
+            fn($accumulator, $orderLine) => $accumulator += $orderLine->getQuantity() * $orderLine->getLinePrice()
         );
         $this->amount = round($totalAmount, 2);
     }

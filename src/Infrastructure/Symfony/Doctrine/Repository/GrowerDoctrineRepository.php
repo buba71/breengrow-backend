@@ -79,7 +79,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
     }
 
     /**
-     * @return array
+     * @return array<Grower>
      */
     public function getAllGrowers(): array
     {

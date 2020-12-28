@@ -15,7 +15,7 @@ interface GrowerRepository
 
 
     /**
-     * @return array
+     * @return array<Grower>
      */
     public function getAllGrowers(): array;
 

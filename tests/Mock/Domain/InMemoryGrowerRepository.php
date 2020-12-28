@@ -17,7 +17,6 @@ final class InMemoryGrowerRepository implements GrowerRepository
     public function addGrower(Grower $user): void
     {
         $this->growers[] = $user;
-
     }
 
     /**
@@ -58,7 +57,7 @@ final class InMemoryGrowerRepository implements GrowerRepository
 
     public function updateGrower(Grower $grower)
     {
-        echo 'i am here';
+        echo 'i am on InMemory Grower repository: method "updateGrower"';
     }
 
     public function getAllGrowers(): array

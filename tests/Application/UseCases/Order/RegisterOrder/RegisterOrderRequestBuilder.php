@@ -7,7 +7,7 @@ namespace App\Tests\Application\UseCases\Order\RegisterOrder;
 use App\Application\UseCases\Order\Register\RegisterOrderRequest;
 use App\Presentation\Api\Order\Model\OrderLine;
 
-class RegisterOrderRequestBuilder extends RegisterOrderRequest
+final class RegisterOrderRequestBuilder extends RegisterOrderRequest
 {
     private const CONSUMER_ID = '14c72359-f051-4681-a8a1-67037c6340df';
     private const ORDER_NUMBER = '123456789';

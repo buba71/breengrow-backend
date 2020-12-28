@@ -9,8 +9,15 @@ use App\Application\UseCases\Grower\AddProducts\AddProductsToHivePresenter;
 
 final class AddProductsToHiveGrowerApiPresenter implements AddProductsToHivePresenter
 {
+    /**
+     * @var AddProductsToHIveGrowerViewModel
+     */
     private AddProductsToHIveGrowerViewModel $viewModel;
 
+    /**
+     * @param AddProductsToHiveGrowerResponse $response
+     * @return mixed|void
+     */
     public function present(AddProductsToHiveGrowerResponse $response)
     {
         $this->viewModel = new AddProductsToHIveGrowerViewModel();
@@ -25,8 +32,6 @@ final class AddProductsToHiveGrowerApiPresenter implements AddProductsToHivePres
         }
 
         $this->viewModel->status = $response->getStatus();
-
-
     }
 
     /**

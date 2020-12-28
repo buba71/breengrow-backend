@@ -57,7 +57,6 @@ class Consumer
     public function __construct()
     {
         $this->consumerAddresses = new ArrayCollection();
-        $this->orders = new ArrayCollection();
     }
 
     /**
