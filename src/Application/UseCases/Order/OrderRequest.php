@@ -24,7 +24,7 @@ abstract class OrderRequest
     public array $orderLines;
 
     /**
-     * @var string|null
+     * @var int|null
      */
     public ?int $status = null;
 }

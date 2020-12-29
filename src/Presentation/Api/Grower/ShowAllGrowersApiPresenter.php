@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Presentation\Api\Grower;
 
 use App\Application\UseCases\Grower\ShowAlls\ShowAllGrowersPresenter;
-use App\Application\UseCases\Grower\ShowAlls\ShowAllGRowersResponse;
+use App\Application\UseCases\Grower\ShowAlls\ShowAllGrowersResponse;
 
 final class ShowAllGrowersApiPresenter implements ShowAllGrowersPresenter
 {
@@ -15,9 +15,9 @@ final class ShowAllGrowersApiPresenter implements ShowAllGrowersPresenter
     private ShowAllGrowersApiViewModel $viewModel;
 
     /**
-     * @param ShowAllGRowersResponse $response
+     * @param ShowAllGrowersResponse $response
      */
-    public function present(ShowAllGRowersResponse $response): void
+    public function present(ShowAllGrowersResponse $response): void
     {
         $this->viewModel = new ShowAllGrowersApiViewModel();
 

@@ -225,6 +225,4 @@ class Company
     {
         $this->geoPoint = $geoPoint;
     }
-
-
 }

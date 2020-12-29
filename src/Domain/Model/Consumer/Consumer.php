@@ -161,22 +161,4 @@ class Consumer
     {
         return $this->addresses;
     }
-
-    /**
-     * @param float $amount
-     * @param string $number
-     * @param string $status
-     */
-    public function addOrder(float $amount, string $number, string $status): void
-    {
-        $this->orders[] = new Order($number, $status);
-    }
-
-    /**
-     * @return array<Order>
-     */
-    public function getOrders(): array
-    {
-        return $this->orders;
-    }
 }

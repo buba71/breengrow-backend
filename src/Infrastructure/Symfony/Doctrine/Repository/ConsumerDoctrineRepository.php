@@ -56,17 +56,6 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
             $consumerEntity->addAddress($consumerAddressEntity);
         }
 
-        foreach ($consumer->getOrders() as $order) {
-            $consumerOrderEntity = new OrderEntity();
-
-            $consumerOrderEntity->setAmount($order->getAmount());
-            $consumerOrderEntity->setNumber($order->getNumber());
-            $consumerOrderEntity->setStatus($order->getStatus());
-            $consumerOrderEntity->setConsumer($consumerEntity);
-
-            $consumerEntity->addOrder($consumerOrderEntity);
-        }
-
         $this->getEntityManager()->persist($consumerEntity);
         $this->getEntityManager()->flush();
     }

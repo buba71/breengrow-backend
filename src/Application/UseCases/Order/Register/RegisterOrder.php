@@ -35,7 +35,7 @@ final class RegisterOrder
      * @param RegisterOrderRequest $request
      * @param RegisterOrderPresenter $presenter
      */
-    public function execute(RegisterOrderRequest $request, RegisterOrderPresenter $presenter)
+    public function execute(RegisterOrderRequest $request, RegisterOrderPresenter $presenter): void
     {
         $response = new RegisterOrderResponse();
 
@@ -77,7 +77,7 @@ final class RegisterOrder
      * @param RegisterOrderRequest $request
      * @param RegisterOrderResponse $response
      */
-    public function saveOrder(RegisterOrderRequest $request, RegisterOrderResponse $response)
+    public function saveOrder(RegisterOrderRequest $request, RegisterOrderResponse $response): void
     {
         $order = new Order($request->consumerId, $this->idGenerator->nextIdentity(), Order::ORDER_PENDING);
 

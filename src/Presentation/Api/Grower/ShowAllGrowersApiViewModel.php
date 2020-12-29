@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Presentation\Api\Grower;
 
+use App\Domain\Model\Grower\Grower;
+
 final class ShowAllGrowersApiViewModel
 {
     /**
-     * @var array
+     * @var array<array>
      */
     public array $data;
 
     /**
-     * @var array
+     * @var array<array>
      */
     public array $growers;
 
@@ -22,9 +24,9 @@ final class ShowAllGrowersApiViewModel
     public int $status;
 
     /**
-     * @param array $growersModel
+     * @param array<Grower> $growersModel
      */
-    public function transformModel(array $growersModel)
+    public function transformModel(array $growersModel): void
     {
         foreach ($growersModel as $grower) {
             $products = [];
