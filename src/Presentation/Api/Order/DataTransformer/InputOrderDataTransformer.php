@@ -10,7 +10,7 @@ use phpDocumentor\Reflection\Types\Mixed_;
 
 final class InputOrderDataTransformer implements DataTransformerInterface
 {
-
+  
     /**
      * @param object $object
      * @param string $to

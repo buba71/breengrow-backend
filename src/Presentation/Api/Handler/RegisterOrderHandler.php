@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class RegisterOrderHandler
 {
-
+  
     /**
      * @param RegisterOrderRequest $data
      * @param RegisterOrder $useCase
