@@ -50,7 +50,7 @@ final class ShowAllGrowersApiViewModel
                 'city'          => $grower->getHive()->getCity(),
                 'products'      => $products,
                 'geoPoint'      => [
-                    'latitude' => $grower->getHive()->getGeoPoint()->getLatitude(),
+                    'latitude'  => $grower->getHive()->getGeoPoint()->getLatitude(),
                     'longitude' => $grower->getHive()->getGeoPoint()->getLongitude()
                 ]
             ];

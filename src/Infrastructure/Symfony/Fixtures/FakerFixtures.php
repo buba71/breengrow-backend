@@ -32,11 +32,11 @@ final class FakerFixtures extends Fixture
             $user->setRoles(['ROLE_GROWER']);
             
             $hive = new Company();
+            $hive->setSiretNumber("849545455{$i}");
             $hive->setName($faker->company);
             $hive->setStreet($faker->streetAddress);
             $hive->setZipCode($faker->postcode);
             $hive->setCity($faker->city);
-            $hive->setSiretNumber('849545455');
             
             $geoPoint = new GeoPoint();
             $geoPoint->setLatitude($faker->latitude);

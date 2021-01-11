@@ -41,7 +41,7 @@ class Grower
     /**
      * @var Company
      * @ORM\OneToOne(targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Company", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
      */
     private Company $company;
 

@@ -1,0 +1,54 @@
+@startuml
+
+abstract OrdersProvider {
+- orderRepository
+
++ __construct()
+{abstract} + getOrders()
+
+}
+
+class AllOrdersProvider {
++ getOrders()
+}
+
+class ConsumerOrdersProvider {
++ getOrders()
+}
+
+class HiveOrdersProvider {
++getOrders()
+}
+
+class OrdersLoader {
+- provider
+- requestFilter
+
++ setProvider()
++ execute()
+}
+
+class LoadOrdersResolver {
+- hiveOrders
+- consumerOrders
+- allOrders
+
++ __construct()
++ getStrategy()
+}
+
+class ShowAllOrders {
++ execute()
+}
+
+HiveOrdersProvider <|-- OrdersProvider
+ConsumerOrdersProvider <|-- OrdersProvider
+AllOrdersProvider <|-- OrdersProvider
+
+
+ShowAllOrders <|-- LoadOrdersResolver
+LoadOrdersResolver <|-- OrdersLoader
+OrdersProvider <|-- OrdersLoader
+
+
+@enduml

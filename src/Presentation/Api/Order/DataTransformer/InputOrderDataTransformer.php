@@ -6,7 +6,6 @@ namespace App\Presentation\Api\Order\DataTransformer;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\Presentation\Api\Order\Model\OrderModel;
-use phpDocumentor\Reflection\Types\Mixed_;
 
 final class InputOrderDataTransformer implements DataTransformerInterface
 {

@@ -63,6 +63,7 @@ final class AddProductsToHiveTest extends TestCase
     {
         // At the begin, register a grower in Bdd(InMemory).
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
+
         $this->idGenerator
             ->method('nextIdentity')
             ->willReturn('1');
@@ -97,7 +98,7 @@ final class AddProductsToHiveTest extends TestCase
 
         // Then update this grower on adding a new product.
         $growerUpdatedRequest = AddProductsToHiveGrowerRequestBuilder::defaultRequest()->build();
-        $growerUpdated = self::createGrower($growerUpdatedRequest);
+        $growerUpdated = static::createGrower($growerUpdatedRequest);
 
 
         $this->updateGrowerResponse->setGrower($growerUpdated);

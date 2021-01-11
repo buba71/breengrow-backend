@@ -10,6 +10,7 @@ use App\Presentation\Api\Order\Model\OrderLine;
 final class RegisterOrderRequestBuilder extends RegisterOrderRequest
 {
     private const CONSUMER_ID = '14c72359-f051-4681-a8a1-67037c6340df';
+    private const HIVE_SIRET = '8495461236';
     private const ORDER_NUMBER = '123456789';
     private const ORDER_STATUS = 7;
 
@@ -18,6 +19,7 @@ final class RegisterOrderRequestBuilder extends RegisterOrderRequest
         $request = new self();
         $request->number = self::ORDER_NUMBER;
         $request->consumerId = self::CONSUMER_ID;
+        $request->hive_siret = self::HIVE_SIRET;
         $request->status = self::ORDER_STATUS;
         $request->orderLines = self::createOrderLine();
 
@@ -29,6 +31,7 @@ final class RegisterOrderRequestBuilder extends RegisterOrderRequest
         $request = new self();
         $request->number = $this->number;
         $request->consumerId = $this->consumerId;
+        $request->hive_siret = $this->hive_siret;
         $request->status = $this->status;
         $request->orderLines = $this->orderLines;
 

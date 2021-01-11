@@ -43,9 +43,15 @@ class Order
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="consumer_id")
+     * @ORM\Column(type="string", name="consumer_id", nullable=false)
      */
     private string $consumerId;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="company_siret", nullable=false)
+     */
+    private string $companySiret;
 
     /**
      * @var Collection
@@ -63,7 +69,6 @@ class Order
     public function __construct()
     {
         $this->orderlines = new ArrayCollection();
-        $this->receivedAt = new \DateTimeImmutable();
     }
 
     /**
@@ -88,6 +93,22 @@ class Order
     public function getDate(): \DateTimeImmutable
     {
         return $this->receivedAt;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getReceivedAt(): \DateTimeImmutable
+    {
+        return $this->receivedAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $receivedAt
+     */
+    public function setReceivedAt(\DateTimeImmutable $receivedAt): void
+    {
+        $this->receivedAt = $receivedAt;
     }
 
     /**
@@ -136,6 +157,30 @@ class Order
     public function setConsumerId(string $consumer): void
     {
         $this->consumerId = $consumer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompanySiret(): string
+    {
+        return $this->companySiret;
+    }
+
+    /**
+     * @param string $companySiret
+     */
+    public function setCompanySiret(string $companySiret): void
+    {
+        $this->companySiret = $companySiret;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getOrderlines(): Collection
+    {
+        return $this->orderlines;
     }
 
     /**

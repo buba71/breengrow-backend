@@ -54,6 +54,10 @@ App\Presentation\Api\Order\Model\OrderModel:
       output: false
       path: /orders
       controller: App\Presentation\Api\Handler\RegisterOrderHandler
+    show_orders:
+      method: GET
+      path: /orders
+      controller: App\Presentation\Api\Handler\ShowAllOrdersHandler
 
 
 

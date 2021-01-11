@@ -30,7 +30,7 @@ final class ShowAllGrowersTest extends TestCase
 
     public function testIfReturnGrowerList()
     {
-        $growerList = $this->createGrowers();
+        $growerList = static::createGrowers();
 
         foreach ($growerList as $grower) {
             $this->repository->addGrower($grower);
@@ -46,7 +46,7 @@ final class ShowAllGrowersTest extends TestCase
         $this->showAllGrowersUseCase->execute($this->presenter);
     }
 
-    public function createGrowers()
+    public static function createGrowers()
     {
         $growers = [];
         for ($i = 1; $i >= 0; $i--) {

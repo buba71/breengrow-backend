@@ -24,6 +24,12 @@ class OrderModel
      * @var string
      * @ApiProperty()
      */
+    public string $hive_siret;
+
+    /**
+     * @var string
+     * @ApiProperty()
+     */
     public string $number;
 
     /**

@@ -47,8 +47,7 @@ class Product
         string $name,
         string $description,
         float $price
-     )
-    {
+    ) {
         $this->id = $id;
         $this->createdAt = $createdAt;
         $this->name = $name;

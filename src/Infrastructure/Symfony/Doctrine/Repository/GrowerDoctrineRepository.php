@@ -195,6 +195,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
             $productDoctrineEntity = new ProductEntity();
             $productDoctrineEntity->setId($product->getId());
             $productDoctrineEntity->setCompany($growerDoctrineEntity->getCompany());
+            $productDoctrineEntity->setCreatedAt($product->getCreatedAt());
             $productDoctrineEntity->setName($product->getName());
             $productDoctrineEntity->setDescription($product->getDescription());
             $productDoctrineEntity->setPrice($product->getPrice());

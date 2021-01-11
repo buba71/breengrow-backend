@@ -16,6 +16,11 @@ abstract class OrderRequest
     /**
      * @var string
      */
+    public string $hive_siret;
+
+    /**
+     * @var string
+     */
     public string $number;
 
     /**
