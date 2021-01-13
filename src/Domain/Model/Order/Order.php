@@ -32,6 +32,11 @@ class Order
 
     /**
      * @var string
+     */
+    private string $hiveSiret;
+
+    /**
+     * @var string
      * Adding an order id and order number properties can make sense too. In case
      * we would like to have two different uses of them. Here, order number and order id are the same.
      */
@@ -56,14 +61,22 @@ class Order
     /**
      * Order constructor.
      * @param string $consumerId
+     * @param string $hiveSiret
+     * @param \DateTimeImmutable $receivedAt
      * @param string $number
      * @param int|null $status
      */
-    public function __construct(string $consumerId, string $number, ?int $status)
-    {
+    public function __construct(
+        string $consumerId,
+        string $hiveSiret,
+        \DateTimeImmutable $receivedAt,
+        string $number,
+        ?int $status
+    ) {
         $this->consumerId = $consumerId;
+        $this->hiveSiret = $hiveSiret;
         $this->number = $number;
-        $this->receivedAt = new \DateTimeImmutable('midnight');
+        $this->receivedAt = $receivedAt;
         $this->status = $status;
     }
 
@@ -86,9 +99,25 @@ class Order
     /**
      * @return string
      */
+    public function getHiveSiret(): string
+    {
+        return $this->hiveSiret;
+    }
+
+    /**
+     * @return string
+     */
     public function getNumber(): string
     {
         return $this->number;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getReceivedAt(): \DateTimeImmutable
+    {
+        return $this->receivedAt;
     }
 
     /**

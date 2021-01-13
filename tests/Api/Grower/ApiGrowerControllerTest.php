@@ -229,7 +229,7 @@ final class ApiGrowerControllerTest extends ApiTestCase
             );
             $grower->addHive(
                 "Breengrow{$i}",
-                '8491254561',
+                "8491254561{$i}",
                 "street test{$i}",
                 "city test{$i}",
                 '75000'

@@ -79,7 +79,13 @@ final class RegisterOrder
      */
     public function saveOrder(RegisterOrderRequest $request, RegisterOrderResponse $response): void
     {
-        $order = new Order($request->consumerId, $this->idGenerator->nextIdentity(), Order::ORDER_PENDING);
+        $order = new Order(
+            $request->consumerId,
+            $request->hive_siret,
+            new \DateTimeImmutable('midnight'),
+            $this->idGenerator->nextIdentity(),
+            Order::ORDER_PENDING
+        );
 
         foreach ($request->orderLines as $orderLine) {
             $order->addOrderLine($orderLine->productId, $orderLine->quantity, $orderLine->linePrice);

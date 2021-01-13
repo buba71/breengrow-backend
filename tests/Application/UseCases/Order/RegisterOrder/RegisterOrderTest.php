@@ -103,7 +103,7 @@ final class RegisterOrderTest extends TestCase
 
     public static function createOrder(RegisterOrderRequest $request)
     {
-        $order =  new Order($request->consumerId, $request->number, $request->status);
+        $order =  new Order($request->consumerId, $request->hive_siret, new \DateTimeImmutable('midnight'), $request->number, $request->status);
 
         foreach ($request->orderLines as $orderLine) {
             $order->addOrderLine($orderLine->productId, $orderLine->quantity, $orderLine->linePrice);

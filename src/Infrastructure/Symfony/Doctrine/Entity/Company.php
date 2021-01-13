@@ -16,12 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Company
 {
     /**
-     * @var int
+     * @var string
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer", name="id")
+     * @ORM\Column(type="string", name="id")
      */
-    private int $id;
+    private string $siretNumber;
 
     /**
      * @var string
@@ -38,12 +37,6 @@ class Company
      *     )
      */
     private Collection $products;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", name="siret_number")
-     */
-    private string $siretNumber;
 
     /**
      * @var string
@@ -75,22 +68,6 @@ class Company
     public function __construct()
     {
         $this->products = new ArrayCollection();
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     /**

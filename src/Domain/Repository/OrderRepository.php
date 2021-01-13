@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Repository;
 
 use App\Domain\Model\Order\Order;
-use App\Domain\Model\Order\OrderLine;
 
 interface OrderRepository
 {
@@ -16,7 +15,19 @@ interface OrderRepository
     public function addOrder(Order $order);
 
     /**
-     * @return mixed
+     * @return array<Order>
      */
-    public function getAllOrders();
+    public function getAllOrders(): array;
+
+    /**
+     * @param string $hiveId
+     * @return array<Order>
+     */
+    public function getOrdersByHive(string $hiveId): array;
+
+    /**
+     * @param string $consumerId
+     * @return array<Order>
+     */
+    public function getOrdersByConsumer(string $consumerId): array;
 }

@@ -51,11 +51,6 @@ class Product
      */
     private float $price;
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTimeImmutable();
-    }
-
     /**
      * @return string
      */
@@ -94,6 +89,14 @@ class Product
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $createdAt
+     */
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 
     /**

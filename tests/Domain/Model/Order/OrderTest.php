@@ -14,7 +14,7 @@ final class OrderTest extends TestCase
      */
     public function testTotalAmountCalculation()
     {
-        $order = new Order('consumerIdTest123', 'OrderNumber123', 7);
+        $order = new Order('consumerIdTest123', '845126849', new \DateTimeImmutable('midnight'), 'OrderNumber123', 7);
         $order->addOrderLine('productIdTest1', 2, 4.9);
         $order->addOrderLine('productIdTest2', 3, 10.5);
 

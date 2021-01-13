@@ -26,31 +26,120 @@ class OrderDoctrineRepository extends ServiceEntityRepository implements OrderRe
      */
     public function addOrder(Order $order): OrderEntity
     {
-        $orderEntity = new OrderEntity();
+        $orderDoctrineEntity = new OrderEntity();
         
-        $orderEntity->setNumber($order->getNumber());
-        $orderEntity->setConsumerId($order->getConsumerId());
-        $orderEntity->setStatus($order->getStatus());
-        $orderEntity->setAmount($order->getAmount());
+        $orderDoctrineEntity->setNumber($order->getNumber());
+        $orderDoctrineEntity->setConsumerId($order->getConsumerId());
+        $orderDoctrineEntity->setCompanySiret($order->getHiveSiret());
+        $orderDoctrineEntity->setReceivedAt($order->getReceivedAt());
+        $orderDoctrineEntity->setStatus($order->getStatus());
+        $orderDoctrineEntity->setAmount($order->getAmount());
 
         foreach ($order->getOrderLines() as $orderLine) {
-            $orderLineEntity = new OrderLineEntity();
-            $orderLineEntity->setOrder($orderEntity);
-            $orderLineEntity->setProductId($orderLine->getProductId());
-            $orderLineEntity->setQuantity($orderLine->getQuantity());
-            $orderLineEntity->setPrice($orderLine->getLinePrice());
+            $orderLineDoctrineEntity = new OrderLineEntity();
+            $orderLineDoctrineEntity->setOrder($orderDoctrineEntity);
+            $orderLineDoctrineEntity->setProductId($orderLine->getProductId());
+            $orderLineDoctrineEntity->setQuantity($orderLine->getQuantity());
+            $orderLineDoctrineEntity->setPrice($orderLine->getLinePrice());
 
-            $orderEntity->addOrderLine($orderLineEntity);
+            $orderDoctrineEntity->addOrderLine($orderLineDoctrineEntity);
         }
 
-        $this->getEntityManager()->persist($orderEntity);
+        $this->getEntityManager()->persist($orderDoctrineEntity);
         $this->getEntityManager()->flush();
 
-        return $orderEntity;
+        return $orderDoctrineEntity;
     }
 
-    public function getAllOrders()
+    /**
+     * @return array<Order>
+     */
+    public function getAllOrders(): array
     {
-        // TODO: Implement getAllOrders() method.
+        $orderCollection =  $this->findAll();
+        $orders = [];
+
+        foreach ($orderCollection as $orderDoctrineEntity) {
+            $order = new Order(
+                $orderDoctrineEntity->getConsumer(),
+                $orderDoctrineEntity->getCompanySiret(),
+                $orderDoctrineEntity->getDate(),
+                $orderDoctrineEntity->getNumber(),
+                $orderDoctrineEntity->getStatus()
+            );
+            foreach ($orderDoctrineEntity->getOrderLines() as $orderLineDoctrineEntity) {
+                $order->addOrderLine(
+                    $orderLineDoctrineEntity->getProductId(),
+                    $orderLineDoctrineEntity->getQuantity(),
+                    $orderLineDoctrineEntity->getPrice()
+                );
+            }
+
+            $orders[] = $order;
+        }
+
+        return $orders;
+    }
+
+    /**
+     * @param string $hiveSiret
+     * @return array<Order>
+     */
+    public function getOrdersByHive(string $hiveSiret): array
+    {
+        $orderCollection =  $this->findBy(['companySiret' => $hiveSiret]);
+        $orders = [];
+
+        foreach ($orderCollection as $orderDoctrineEntity) {
+            $order = new Order(
+                $orderDoctrineEntity->getConsumer(),
+                $orderDoctrineEntity->getCompanySiret(),
+                $orderDoctrineEntity->getDate(),
+                $orderDoctrineEntity->getNumber(),
+                $orderDoctrineEntity->getStatus()
+            );
+            foreach ($orderDoctrineEntity->getOrderLines() as $orderLineDoctrineEntity) {
+                $order->addOrderLine(
+                    $orderLineDoctrineEntity->getProductId(),
+                    $orderLineDoctrineEntity->getQuantity(),
+                    $orderLineDoctrineEntity->getPrice()
+                );
+            }
+
+            $orders[] = $order;
+        }
+
+        return $orders;
+    }
+
+    /**
+     * @param string $consumerId
+     * @return array<Order>
+     */
+    public function getOrdersByConsumer(string $consumerId): array
+    {
+        $orderCollection =  $this->findBy(['consumerId' => $consumerId]);
+        $orders = [];
+
+        foreach ($orderCollection as $orderDoctrineEntity) {
+            $order = new Order(
+                $orderDoctrineEntity->getConsumer(),
+                $orderDoctrineEntity->getCompanySiret(),
+                $orderDoctrineEntity->getDate(),
+                $orderDoctrineEntity->getNumber(),
+                $orderDoctrineEntity->getStatus()
+            );
+            foreach ($orderDoctrineEntity->getOrderLines() as $orderLineDoctrineEntity) {
+                $order->addOrderLine(
+                    $orderLineDoctrineEntity->getProductId(),
+                    $orderLineDoctrineEntity->getQuantity(),
+                    $orderLineDoctrineEntity->getPrice()
+                );
+            }
+
+            $orders[] = $order;
+        }
+
+        return $orders;
     }
 }

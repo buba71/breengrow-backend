@@ -28,6 +28,8 @@ class Hive
 
     /**
      * @var string
+     * Hive identity(unique constraint).
+     * Could reference a value object.
      */
     private string $siretNumber;
 

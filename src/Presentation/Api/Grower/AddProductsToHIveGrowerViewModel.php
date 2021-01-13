@@ -7,12 +7,12 @@ use App\Domain\Model\Grower\Grower;
 class AddProductsToHIveGrowerViewModel
 {
     /**
-     * @var array<array>
+     * @var array[]|int[]
      */
     public array $data = [];
 
     /**
-     * @var array<array>
+     * @var array[]
      */
     public array $products;
 

@@ -82,7 +82,7 @@ final class RegisterGrowerTest extends TestCase
     public function testSaveGrower(): void
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
-        $grower = self::createGrower($request);
+        $grower = static::createGrower($request);
 
         $this->idGenerator
             ->method('nextIdentity')
@@ -103,7 +103,7 @@ final class RegisterGrowerTest extends TestCase
     public function testResponseIfGrowerIsValid(): void
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
-        $growerRegistered = self::createGrower($request);
+        $growerRegistered = static::createGrower($request);
 
         // Should be.
         $this->response->setGrower($growerRegistered);
@@ -145,7 +145,7 @@ final class RegisterGrowerTest extends TestCase
     public function testFailsWhenEmailAlreadyExist()
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
-        $grower = self::createGrower($request);
+        $grower = static::createGrower($request);
 
         $this->growerRepository->addGrower($grower);
         $this->register->validateGrower($request, $this->response);

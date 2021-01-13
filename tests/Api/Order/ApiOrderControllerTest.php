@@ -32,6 +32,7 @@ final class ApiOrderControllerTest extends ApiTestCase
     {
         $data = [
             "consumerId" => "14c72359-f051-4681-a8a1-67037c6340df",
+            "hive_siret" => "849512624",
             "orderLines" => [
                 [
                     "productId" => "1",

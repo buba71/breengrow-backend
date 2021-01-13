@@ -17,8 +17,18 @@ final class InMemoryOrderRepository implements OrderRepository
         $this->orders[] = $order;
     }
 
-    public function getAllOrders()
+    public function getAllOrders(): array
     {
         return $this->orders;
+    }
+
+    public function getOrdersByHive(string $hiveId): array
+    {
+        return array_filter($this->orders, fn(Order $order) => $order->getHiveSiret() === $hiveId);
+    }
+
+    public function getOrdersByConsumer(string $consumerId): array
+    {
+        return array_filter($this->orders, fn(Order $order) => $order->getConsumerId() === $consumerId);
     }
 }
