@@ -5,10 +5,12 @@ App\Presentation\Api\Consumer\Model\ConsumerModel:
       method: POST
       path: /consumer/create
       controller: App\Presentation\Api\Handler\RegisterConsumerHandler
-
-    #get_consumers:
-    #  method: GET
-
+  itemOperations:
+    show_consumers:
+      method: GET
+      path: /consumers/{id}
+      controller: App\Presentation\Api\Handler\ShowConsumerHandler
+      #security: is_granted('ROLE_CONSUMER')
 
 # DELIVER DTO
 App\Presentation\Api\Deliverer\Model\DelivererModel:

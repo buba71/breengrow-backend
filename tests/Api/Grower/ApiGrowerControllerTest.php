@@ -69,6 +69,7 @@ final class ApiGrowerControllerTest extends ApiTestCase
 
     public function testShowGrower()
     {
+        // Login user to allow loading grower information.
         $user = new User();
         $user->setEmail('johndoe@test.com');
         $user->setParentId('fakeId');

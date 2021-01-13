@@ -54,11 +54,6 @@ class Consumer
     private array $addresses;
 
     /**
-     * @var array<Order>
-     */
-    private array $orders = [];
-
-    /**
      * Consumer constructor.
      * @param string $id
      * @param string $firstName
