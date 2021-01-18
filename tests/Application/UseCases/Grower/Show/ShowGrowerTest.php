@@ -27,14 +27,18 @@ final class ShowGrowerTest extends TestCase
                                 ->setMethods(['present'])
                                 ->getMock();
         $this->response = new ShowGrowerResponse();
+
+        // First Add Grower entity to InMemory.
+        $this->growerRepository->addGrower(static::createGrower());
     }
 
     public function testIfReturnAGrower()
     {
+        // Given request.
         $request =  ShowGrowerRequestBuilder::default()->build();
-        $this->growerRepository->addGrower(self::createGrower());
 
-        $this->response->setGrower(self::createGrower());
+        // Then Response Should be.
+        $this->response->setGrower(static::createGrower());
         $this->response->setStatus(200);
 
         $this->presenter->expects($this->once())

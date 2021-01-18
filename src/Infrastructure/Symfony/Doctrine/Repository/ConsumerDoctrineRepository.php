@@ -60,11 +60,41 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * @param string $id
+     * @return Consumer|null
+     */
     public function getConsumerById(string $id): ?Consumer
     {
-        return null;
+        $consumerDoctrineEntity = $this->findOneBy(['id' => $id]);
+
+        $consumer = new Consumer(
+            $consumerDoctrineEntity->getId(),
+            $consumerDoctrineEntity->getFirstName(),
+            $consumerDoctrineEntity->getLastName(),
+            $consumerDoctrineEntity->getUser()->getEmail(),
+            $consumerDoctrineEntity->getUser()->getPassword(),
+            $consumerDoctrineEntity->getUser()->getSalt(),
+            $consumerDoctrineEntity->getUser()->getRoles()
+        );
+
+        foreach ($consumerDoctrineEntity->getConsumerAddresses() as $address) {
+            $consumer->addAddress(
+                $address->getFirstName(),
+                $address->getLastName(),
+                $address->getStreet(),
+                $address->getZipCode(),
+                $address->getCity()
+            );
+        }
+
+        return $consumer;
     }
 
+    /**
+     * @param string $email
+     * @return mixed|void
+     */
     public function getConsumerByEmail(string $email)
     {
         // TODO: Implement getConsumerByEmail() method.
