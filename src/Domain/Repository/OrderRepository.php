@@ -30,4 +30,10 @@ interface OrderRepository
      * @return array<Order>
      */
     public function getOrdersByConsumer(string $consumerId): array;
+
+    /**
+     * @param string $orderId
+     * @return Order
+     */
+    public function getOrderById(string $orderId): Order;
 }

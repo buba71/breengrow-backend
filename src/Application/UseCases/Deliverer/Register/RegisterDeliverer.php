@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Deliverer\Register;
 
-use App\Application\Services\IdGenerator;
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Domain\Model\Deliverer\Deliverer;
 use App\Domain\Repository\DelivererRepository;
 use App\SharedKernel\Error\Error;

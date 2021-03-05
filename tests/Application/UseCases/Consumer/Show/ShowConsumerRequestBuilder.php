@@ -10,7 +10,10 @@ final class ShowConsumerRequestBuilder extends ShowConsumerRequest
 {
     private const CONSUMER_ID = '12345';
 
-    public function build()
+    /**
+     * @return ShowConsumerRequest
+     */
+    public function build(): ShowConsumerRequest
     {
         $request = new ShowConsumerRequest();
         $request->id = $this->id;
@@ -18,7 +21,10 @@ final class ShowConsumerRequestBuilder extends ShowConsumerRequest
         return $request;
     }
 
-    public static function default()
+    /**
+     * @return self
+     */
+    public static function default(): self
     {
         $request = new static();
         $request->id = self::CONSUMER_ID;

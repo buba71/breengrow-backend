@@ -16,7 +16,7 @@ final class ShowGrowerTest extends TestCase
 {
     private ShowGrower $showGrower;
     private GrowerRepository $growerRepository;
-    private ShowGrowerPresenter $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
     private ShowGrowerResponse $response;
 
     protected function setUp(): void
@@ -32,7 +32,7 @@ final class ShowGrowerTest extends TestCase
         $this->growerRepository->addGrower(static::createGrower());
     }
 
-    public function testIfReturnAGrower()
+    public function testIfReturnAGrower(): void
     {
         // Given request.
         $request =  ShowGrowerRequestBuilder::default()->build();
@@ -48,7 +48,10 @@ final class ShowGrowerTest extends TestCase
         $this->showGrower->execute($request, $this->presenter);
     }
 
-    public static function createGrower()
+    /**
+     * @return Grower
+     */
+    public static function createGrower(): Grower
     {
         return new Grower(
             '12345',

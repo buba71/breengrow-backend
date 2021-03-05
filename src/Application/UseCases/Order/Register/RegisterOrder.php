@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Order\Register;
 
-use App\Application\Services\IdGenerator;
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Domain\Model\Order\Order;
 use App\Domain\Repository\OrderRepository;
+use App\Domain\Shared\Bus\EventBus;
 use App\SharedKernel\Error\Error;
 use Assert\Assert;
 use Assert\LazyAssertionException;
@@ -17,6 +18,7 @@ final class RegisterOrder
      * @var IdGenerator
      * @var OrderRepository
      */
+    private EventBus $eventBus;
     private IdGenerator $idGenerator;
     private OrderRepository $repository;
 
@@ -24,10 +26,12 @@ final class RegisterOrder
      * RegisterOrder constructor.
      * @param IdGenerator $idGenerator
      * @param OrderRepository $repository
+     * @param EventBus $eventBus
      */
-    public function __construct(IdGenerator $idGenerator, OrderRepository $repository)
+    public function __construct(IdGenerator $idGenerator, OrderRepository $repository, EventBus $eventBus)
     {
         $this->idGenerator = $idGenerator;
+        $this->eventBus = $eventBus;
         $this->repository = $repository;
     }
 
@@ -92,6 +96,9 @@ final class RegisterOrder
         }
 
         $this->repository->addOrder($order);
+
+        // Publish events on message bus.
+        $this->eventBus->publish(...$order->pullDomainEvents());
         $response->setOrder($order);
     }
 }

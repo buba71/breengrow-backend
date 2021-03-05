@@ -10,14 +10,20 @@ final class ShowGrowerRequestBuilder extends ShowGrowerRequest
 {
     private const GROWER_ID = '12345';
 
-    public function build()
+    /**
+     * @return ShowGrowerRequest
+     */
+    public function build(): ShowGrowerRequest
     {
         $request = new ShowGrowerRequest();
         $request->id = $this->id;
         return $request;
     }
 
-    public static function default()
+    /**
+     * @return static
+     */
+    public static function default(): self
     {
         $request = new static();
         $request->id = self::GROWER_ID;

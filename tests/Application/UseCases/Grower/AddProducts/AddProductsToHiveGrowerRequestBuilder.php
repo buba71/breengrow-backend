@@ -24,6 +24,9 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
     private const HIVE_ZIP_CODE = '71160';
     private const HIVE_GEO_POINT = [ 48.314, 3.312];
 
+    /**
+     * @return self
+     */
     public static function defaultRequest(): self
     {
         $request = new static();
@@ -38,7 +41,10 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
         return $request;
     }
 
-    public function build()
+    /**
+     * @return AddProductsToHiveGrowerRequest
+     */
+    public function build(): AddProductsToHiveGrowerRequest
     {
         $request = new AddProductsToHiveGrowerRequest();
         $request->firstName = $this->firstName;
@@ -52,6 +58,9 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
         return $request;
     }
 
+    /**
+     * @return HiveModel
+     */
     private static function createHive(): HiveModel
     {
         $hive = new HiveModel();
@@ -66,7 +75,10 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
         return $hive;
     }
 
-    private static function createValidProduct()
+    /**
+     * @return ProductModel[]
+     */
+    private static function createValidProduct(): array
     {
         $products = [];
 
@@ -80,7 +92,10 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
         return $products;
     }
 
-    private static function createInvalidProduct()
+    /**
+     * @return ProductModel[]
+     */
+    private static function createInvalidProduct(): array
     {
         $products = [];
         $product = new ProductModel();
@@ -93,13 +108,20 @@ final class AddProductsToHiveGrowerRequestBuilder extends AddProductsToHiveGrowe
         return $products;
     }
 
-    public function withFirstName(string $firstName)
+    /**
+     * @param string $firstName
+     * @return self
+     */
+    public function withFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
         return $this;
     }
 
-    public function withInvalidProductsHive()
+    /**
+     * @return self
+     */
+    public function withInvalidProductsHive(): self
     {
         $this->hive = new HiveModel();
         $this->hive->name = self::HIVE_NAME;

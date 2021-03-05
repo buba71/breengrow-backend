@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Mock\Domain;
 
 use App\Domain\Model\Grower\Grower;
+use App\Domain\Model\Grower\Product;
 use App\Domain\Repository\GrowerRepository;
 
 final class InMemoryGrowerRepository implements GrowerRepository
 {
+    /**
+     * @var Grower[]
+     */
     private array $growers = [];
 
     /**
@@ -55,11 +59,27 @@ final class InMemoryGrowerRepository implements GrowerRepository
         return null;
     }
 
-    public function updateGrower(Grower $grower)
+    /**
+     * @param string $productId
+     * @return Product
+     */
+    public function getProductHiveById(string $productId): Product
+    {
+        return new Product('123', new \DateTimeImmutable('midnight'), 'product test', 'product description', 4.2);
+    }
+
+    /**
+     * @param Grower $grower
+     * @return void
+     */
+    public function updateGrower(Grower $grower): void
     {
         echo 'i am on InMemory Grower repository: method "updateGrower"';
     }
 
+    /**
+     * @return Grower[]
+     */
     public function getAllGrowers(): array
     {
         return $this->growers;

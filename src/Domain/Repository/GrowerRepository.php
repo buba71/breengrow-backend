@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Domain\Repository;
 
 use App\Domain\Model\Grower\Grower;
+use App\Domain\Model\Grower\Product;
 
 interface GrowerRepository
 {
@@ -30,6 +31,12 @@ interface GrowerRepository
      * @return mixed
      */
     public function getGrowerByEmail(string $email);
+
+    /**
+     * @param string $productId
+     * @return Product
+     */
+    public function getProductHiveById(string $productId): Product;
 
     /**
      * @param Grower $grower

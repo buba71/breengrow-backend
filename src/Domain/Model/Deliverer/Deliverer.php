@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Deliverer;
 
-class Deliverer
+use App\Domain\Shared\Aggregate\AggregateRoot;
+
+class Deliverer extends AggregateRoot
 {
     /**
      * @var string

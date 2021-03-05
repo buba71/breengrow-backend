@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Application\UseCases\Grower\Register;
 
-use App\Application\Services\IdGenerator;
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Application\UseCases\Grower\Register\RegisterGrower;
 use App\Application\UseCases\Grower\Register\RegisterGrowerPresenter;
 use App\Application\UseCases\Grower\Register\RegisterGrowerRequest;
@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
  */
 final class RegisterGrowerTest extends TestCase
 {
-    private IdGenerator $idGenerator;
+    private \PHPUnit\Framework\MockObject\MockObject $idGenerator;
     private InMemoryGrowerRepository $growerRepository;
-    private PasswordHash $passwordHasher;
-    private $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $passwordHasher;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
     private RegisterGrower $register;
     private RegisterGrowerResponse $response;
 
@@ -142,7 +142,7 @@ final class RegisterGrowerTest extends TestCase
         $this->register->execute($request, $this->presenter);
     }
 
-    public function testFailsWhenEmailAlreadyExist()
+    public function testFailsWhenEmailAlreadyExist(): void
     {
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
         $grower = static::createGrower($request);
@@ -156,7 +156,11 @@ final class RegisterGrowerTest extends TestCase
         static::assertEquals($shouldBe, $this->response->getNotifier());
     }
 
-    public static function createGrower(RegisterGrowerRequest $request)
+    /**
+     * @param RegisterGrowerRequest $request
+     * @return Grower
+     */
+    public static function createGrower(RegisterGrowerRequest $request): Grower
     {
         $grower = new Grower(
             '1',

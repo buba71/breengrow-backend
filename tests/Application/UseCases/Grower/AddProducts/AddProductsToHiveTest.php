@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Application\UseCases\Grower\AddProducts;
 
-use App\Application\Services\IdGenerator;
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Application\UseCases\Grower\AddProducts\AddProductsToHive;
+use App\Application\UseCases\Grower\AddProducts\AddProductsToHiveGrowerRequest;
 use App\Application\UseCases\Grower\AddProducts\AddProductsToHiveGrowerResponse;
 use App\Application\UseCases\Grower\AddProducts\AddProductsToHivePresenter;
 use App\Application\UseCases\Grower\Register\RegisterGrower;
@@ -20,10 +21,10 @@ use PHPUnit\Framework\TestCase;
 final class AddProductsToHiveTest extends TestCase
 {
     private AddProductsToHive $addProductToHive;
-    private IdGenerator $idGenerator;
+    private \PHPUnit\Framework\MockObject\MockObject $idGenerator;
     private InMemoryGrowerRepository $growerRepository;
-    private PasswordHash $passwordHasher;
-    private AddProductsToHivePresenter $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $passwordHasher;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
     private RegisterGrower $registerGrower;
     private AddProductsToHiveGrowerResponse $updateGrowerResponse;
     private RegisterGrowerResponse $registerGrowerResponse;
@@ -43,7 +44,7 @@ final class AddProductsToHiveTest extends TestCase
         $this->updateGrowerResponse = new AddProductsToHiveGrowerResponse();
     }
 
-    public function testInputGrowerUpdateIsValid()
+    public function testInputGrowerUpdateIsValid(): void
     {
         $request = AddProductsToHiveGrowerRequestBuilder::defaultRequest()->build();
         $result = $this->addProductToHive->checkRequest($request, $this->updateGrowerResponse);
@@ -51,7 +52,7 @@ final class AddProductsToHiveTest extends TestCase
         static::assertTrue($result);
     }
 
-    public function testInputGrowerUpdateNotValid()
+    public function testInputGrowerUpdateNotValid(): void
     {
         $request = AddProductsToHiveGrowerRequestBuilder::defaultRequest()->withInvalidProductsHive()->build();
         $result = $this->addProductToHive->checkRequest($request, $this->updateGrowerResponse);
@@ -59,7 +60,7 @@ final class AddProductsToHiveTest extends TestCase
         static::assertFalse($result);
     }
 
-    public function testGrowerUpdated()
+    public function testGrowerUpdated(): void
     {
         // At the begin, register a grower in Bdd(InMemory).
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
@@ -82,7 +83,7 @@ final class AddProductsToHiveTest extends TestCase
         static::assertEquals(1, count($products));
     }
 
-    public function testResponseGrowerUpdateIsValid()
+    public function testResponseGrowerUpdateIsValid(): void
     {
         // At the begin, register a grower in Bdd(InMemory).
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
@@ -119,7 +120,7 @@ final class AddProductsToHiveTest extends TestCase
         $this->addProductToHive->execute($growerUpdatedRequest, '1', $this->presenter);
     }
 
-    public function testResponseGrowerUpdateNotValid()
+    public function testResponseGrowerUpdateNotValid(): void
     {
         // At the begin, register a grower in Bdd(InMemory).
         $request = RegisterGrowerRequestBuilder::defaultRequest()->build();
@@ -156,7 +157,11 @@ final class AddProductsToHiveTest extends TestCase
         $this->addProductToHive->execute($growerUpdatedRequest, '1', $this->presenter);
     }
 
-    private static function createGrower($request)
+    /**
+     * @param AddProductsToHiveGrowerRequest $request
+     * @return Grower
+     */
+    private static function createGrower(AddProductsToHiveGrowerRequest $request): Grower
     {
         $grower = new Grower(
             '1',

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Grower;
 
+use App\Domain\Shared\Aggregate\AggregateRoot;
+
 /**
  * Class Grower
  * @package App\Domain\Model
  * Entity
  */
-class Grower
+class Grower extends AggregateRoot
 {
     /**
      * @var string
@@ -40,11 +42,6 @@ class Grower
      * @var string
      */
     private string $password;
-
-    /**
-     * @var array<Product>
-     */
-    private array $products;
 
     /**
      * @var string|null

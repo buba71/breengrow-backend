@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Grower\AddProducts;
 
-use App\Application\Services\IdGenerator;
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Domain\Repository\GrowerRepository;
 use App\SharedKernel\Error\Error;
 use Assert\Assert;

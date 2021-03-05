@@ -28,7 +28,7 @@ final class ApiOrderControllerTest extends ApiTestCase
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function testRegisterOrder()
+    public function testRegisterOrder(): void
     {
         $data = [
             "consumerId" => "14c72359-f051-4681-a8a1-67037c6340df",
@@ -41,6 +41,9 @@ final class ApiOrderControllerTest extends ApiTestCase
                 ]
             ]
         ];
+
+        // $transport = self::$container->get('messenger.transport.async');
+        // dd($transport);
         $response = $this->client->request('POST', '/api/orders', ['json' => $data]);
 
         static::assertResponseIsSuccessful();

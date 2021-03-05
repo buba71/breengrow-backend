@@ -156,5 +156,4 @@ class Consumer
     {
         return $this->consumerAddresses;
     }
-
 }

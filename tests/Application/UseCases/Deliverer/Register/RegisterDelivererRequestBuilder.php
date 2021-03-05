@@ -17,7 +17,7 @@ final class RegisterDelivererRequestBuilder extends RegisterDelivererRequest
     private const ROLE = ['ROLE_DELIVERER'];
 
     /**
-     * @return static
+     * @return self
      */
     public static function defaultRequest(): self
     {

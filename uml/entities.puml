@@ -11,8 +11,25 @@ class DeliveryAddress
 
 Together {
 class Order
-class OrderLine
+class OrderLine {
+    - productId
+    - quantity
+    - price
+}
 class Product
+class Invoice {
+    - number
+    - filePath
+    - invoiceLines
+    - totalAmount
+}
+
+class InvoiceLine {
+    - productDescription
+    - quantity
+    - price
+}
+
 }
 
 Together {

@@ -14,7 +14,10 @@ final class RegisterOrderRequestBuilder extends RegisterOrderRequest
     private const ORDER_NUMBER = '123456789';
     private const ORDER_STATUS = 7;
 
-    public static function defaultRequest()
+    /**
+     * @return self
+     */
+    public static function defaultRequest(): self
     {
         $request = new self();
         $request->number = self::ORDER_NUMBER;
@@ -26,7 +29,10 @@ final class RegisterOrderRequestBuilder extends RegisterOrderRequest
         return $request;
     }
 
-    public function build()
+    /**
+     * @return self
+     */
+    public function build(): self
     {
         $request = new self();
         $request->number = $this->number;
@@ -38,7 +44,10 @@ final class RegisterOrderRequestBuilder extends RegisterOrderRequest
         return $request;
     }
 
-    private static function createOrderLine()
+    /**
+     * @return OrderLine[]
+     */
+    private static function createOrderLine(): array
     {
         $orderLine = new OrderLine();
         $orderLine->productId = '123456789';
@@ -48,7 +57,10 @@ final class RegisterOrderRequestBuilder extends RegisterOrderRequest
         return [$orderLine];
     }
 
-    public function withoutOrderLines()
+    /**
+     * @return self
+     */
+    public function withoutOrderLines(): self
     {
         $this->orderLines = [];
         return $this;
