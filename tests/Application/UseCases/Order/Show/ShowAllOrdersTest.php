@@ -19,7 +19,7 @@ final class ShowAllOrdersTest extends TestCase
     /**
      * @var ShowAllOrdersPresenter|\PHPUnit\Framework\MockObject\MockObject
      */
-    private $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
     
     /**
      * @var InMemoryOrderRepository
@@ -61,11 +61,11 @@ final class ShowAllOrdersTest extends TestCase
 
     /**
      * @dataProvider provideRequestFilters
-     * @param array $requestFilters
-     * @param array $orderListFiltered
+     * @param string[] $requestFilters
+     * @param Order[] $orderListFiltered
      * If request contains filter, use case should return the valid order list(ordersByHive, ordersByConsumer).
      */
-    public function testIfReturnValidOrderList(array $requestFilters, array $orderListFiltered)
+    public function testIfReturnValidOrderList(array $requestFilters, array $orderListFiltered): void
     {
         // The response should be.
         $this->response->setOrders($orderListFiltered);
@@ -81,7 +81,7 @@ final class ShowAllOrdersTest extends TestCase
     /**
      * Use case should return all orders if request does not contain any filter.
      */
-    public function testIfReturnAllOrdersList()
+    public function testIfReturnAllOrdersList(): void
     {
         // Given request filters = null.
         $requestFilters = [];
@@ -99,7 +99,10 @@ final class ShowAllOrdersTest extends TestCase
         $this->showAllOrdersUseCase->execute($requestFilters, $this->presenter);
     }
 
-    public static function createOrders()
+    /**
+     * @return Order[]
+     */
+    public static function createOrders(): array
     {
         $orders = [];
 
@@ -119,7 +122,7 @@ final class ShowAllOrdersTest extends TestCase
     /**
      * @return string[][][]
      */
-    public function provideRequestFilters()
+    public function provideRequestFilters(): array
     {
         $orderListFiltered = [new Order('consumerId0', 'hiveSiret0', new \DateTimeImmutable('midnight'), '0', 7)];
 

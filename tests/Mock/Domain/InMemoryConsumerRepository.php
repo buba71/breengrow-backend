@@ -9,17 +9,24 @@ use App\Domain\Repository\ConsumerRepository;
 
 final class InMemoryConsumerRepository implements ConsumerRepository
 {
+    /**
+     * @var Consumer[]
+     */
     private array $consumers = [];
 
     /**
      * @param Consumer $consumer
-     * @return mixed|void
+     * @return void
      */
-    public function addConsumer(Consumer $consumer)
+    public function addConsumer(Consumer $consumer): void
     {
         $this->consumers[] = $consumer;
     }
 
+    /**
+     * @param string $id
+     * @return Consumer|null
+     */
     public function getConsumerById(string $id): ?Consumer
     {
         $consumerFound = array_filter($this->consumers, fn(Consumer $consumer) => $consumer->getId() === $id);
@@ -30,15 +37,20 @@ final class InMemoryConsumerRepository implements ConsumerRepository
         return null;
     }
 
+
     /**
-     * @return array
+     * @return Consumer[]
      */
-    public function getConsumers()
+    public function getConsumers(): array
     {
         return $this->consumers;
     }
 
-    public function getConsumerByEmail(string $email)
+    /**
+     * @param string $email
+     * @return Consumer|null
+     */
+    public function getConsumerByEmail(string $email): ?Consumer
     {
         $consumerFound = array_filter($this->consumers, fn(Consumer $consumer) => $consumer->getEmail() === $email);
 

@@ -56,7 +56,10 @@ final class ApiConsumerControllerTest extends ApiTestCase
         static::assertArrayHasKey('consumer', json_decode($response->getContent(), true));
     }
 
-    public function testShowConsumer()
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testShowConsumer(): void
     {
         // Login user to allow loading consumer information.
         $user = new User();
@@ -98,7 +101,10 @@ final class ApiConsumerControllerTest extends ApiTestCase
         );
     }
 
-    public static function consumerProvider()
+    /**
+     * @return Consumer
+     */
+    public static function consumerProvider(): Consumer
     {
         $consumer = new Consumer(
             '12345',

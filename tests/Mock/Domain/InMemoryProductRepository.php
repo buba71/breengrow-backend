@@ -4,23 +4,37 @@ declare(strict_types=1);
 
 namespace App\Tests\Mock\Domain;
 
-use App\Domain\Model\Product\Product;
+use App\Domain\Model\Grower\Product;
 use App\Domain\Repository\ProductRepository;
 
 final class InMemoryProductRepository implements ProductRepository
 {
+    /**
+     * @var Product[]
+     */
     private array $products;
 
+    /**
+     * InMemoryProductRepository constructor.
+     */
     public function __construct()
     {
         $this->products = [];
     }
 
-    public function addProduct(Product $product)
+    /**
+     * @param Product $product
+     * @return void
+     */
+    public function addProduct(Product $product): void
     {
         $this->products[] = $product;
     }
 
+    /**
+     * @param string $id
+     * @return Product|null
+     */
     public function getProductById(string $id): ?Product
     {
         $productFounded = array_filter($this->products, fn(Product $product) => $product->getId() === $id);

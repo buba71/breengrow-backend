@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Application\UseCases\Order\ShowAllOrders;
 
 use App\Application\Services\OrdersLoader\LoadOrdersResolver;
-use App\Domain\Repository\OrderRepository;
 
 final class ShowAllOrders extends LoadOrdersResolver
 {

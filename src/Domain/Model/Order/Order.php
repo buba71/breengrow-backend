@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Order;
 
+use App\Domain\Model\Order\Events\OrderWasPlaced;
+use App\Domain\Shared\Aggregate\AggregateRoot;
+
 /**
  * Class Order
  * @package App\Domain\Model\Order
  * Entity
  */
-class Order
+class Order extends AggregateRoot
 {
     public const ORDER_DELIVERED = 0;
     public const ORDER_IN_TRANSIT = 1;
@@ -57,7 +60,6 @@ class Order
      */
     private ?int $status;
 
-
     /**
      * Order constructor.
      * @param string $consumerId
@@ -78,6 +80,8 @@ class Order
         $this->number = $number;
         $this->receivedAt = $receivedAt;
         $this->status = $status;
+
+        $this->recordThat(new OrderWasPlaced($this));
     }
 
     /**

@@ -1,2 +1,6 @@
 parameters:
+  bootstrapFiles:
+    - bin/.phpunit/phpunit-7.5-0/vendor/autoload.php
   checkGenericClassInNonGenericObjectType: false
+  ignoreErrors:
+    - '#Call to an undefined method [a-zA-Z0-9\\_]+::get[a-zA-Z]()#'

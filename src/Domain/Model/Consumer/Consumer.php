@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Consumer;
 
-use App\Domain\Model\Order\Order;
+use App\Domain\Shared\Aggregate\AggregateRoot;
 
 /**
  * Class Consumer
  * @package App\Domain\Model\Consumer
  * Entity
  */
-class Consumer
+class Consumer extends AggregateRoot
 {
     /**
      * @var string

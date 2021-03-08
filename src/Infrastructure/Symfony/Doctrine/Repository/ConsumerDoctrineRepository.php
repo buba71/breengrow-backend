@@ -9,12 +9,15 @@ use App\Domain\Repository\ConsumerRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Infrastructure\Symfony\Doctrine\Entity\Consumer as ConsumerEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\ConsumerAddress as ConsumerAddressEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\Order as OrderEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ConsumerDoctrineRepository extends ServiceEntityRepository implements ConsumerRepository
 {
+    /**
+     * ConsumerDoctrineRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ConsumerEntity::class);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Application\UseCases\Consumer\Register;
 
-use App\Application\Services\IdGenerator;
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Application\UseCases\Consumer\Register\RegisterConsumer;
 use App\Application\UseCases\Consumer\Register\RegisterConsumerPresenter;
 use App\Application\UseCases\Consumer\Register\RegisterConsumerRequest;
@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
  */
 final class RegisterConsumerTest extends TestCase
 {
-    private IdGenerator $idGenerator;
+    private \PHPUnit\Framework\MockObject\MockObject $idGenerator;
     private inMemoryConsumerRepository $consumerRepository;
-    private PasswordHash $passwordHasher;
-    private $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $passwordHasher;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
     private RegisterConsumer $registerConsumer;
     private RegisterConsumerResponse $response;
 

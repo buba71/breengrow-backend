@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Application\UseCases\Deliverer\Register;
 
-use App\Application\Services\IdGenerator;
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Application\UseCases\Deliverer\Register\RegisterDeliverer;
 use App\Application\UseCases\Deliverer\Register\RegisterDelivererPresenter;
 use App\Application\UseCases\Deliverer\Register\RegisterDelivererRequest;
@@ -18,10 +18,10 @@ use PHPUnit\Framework\TestCase;
 
 final class RegisterDelivererTest extends TestCase
 {
-    private IdGenerator $idGenerator;
+    private \PHPUnit\Framework\MockObject\MockObject $idGenerator;
     private InMemoryDelivererRepository $delivererRepository;
-    private PasswordHash $passwordHasher;
-    private $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $passwordHasher;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
     private RegisterDeliverer $registerDeliverer;
     private RegisterDelivererResponse $response;
 
@@ -61,7 +61,7 @@ final class RegisterDelivererTest extends TestCase
         static::assertFalse($result);
     }
 
-    public function testSaveDeliverer()
+    public function testSaveDeliverer(): void
     {
         $request = RegisterDelivererRequestBuilder::defaultRequest()->build();
         $deliverer = self::createDeliverer($request);
@@ -79,7 +79,7 @@ final class RegisterDelivererTest extends TestCase
         static::assertEquals($deliverer, $this->delivererRepository->getDelivererById($deliverer->getId()));
     }
 
-    public function testResponseIfDelivererIsValid()
+    public function testResponseIfDelivererIsValid(): void
     {
         $request = RegisterDelivererRequestBuilder::defaultRequest()->build();
         $deliverer = self::createDeliverer($request);
@@ -102,7 +102,7 @@ final class RegisterDelivererTest extends TestCase
         $this->registerDeliverer->execute($request, $this->presenter);
     }
 
-    public function testResponseIfDelivererNotValid()
+    public function testResponseIfDelivererNotValid(): void
     {
         $request = RegisterDelivererRequestBuilder::defaultRequest()->withFirstName('')->build();
 
@@ -124,7 +124,7 @@ final class RegisterDelivererTest extends TestCase
         $this->registerDeliverer->execute($request, $this->presenter);
     }
 
-    public function testFailsWhenEmailAlreadyExist()
+    public function testFailsWhenEmailAlreadyExist(): void
     {
         $request = RegisterDelivererRequestBuilder::defaultRequest()->withFirstName('')->build();
         $deliverer = self::createDeliverer($request);

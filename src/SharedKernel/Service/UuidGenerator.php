@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Service;
 
+use App\Application\Services\IdGenerator\IdGenerator;
 use Ramsey\Uuid\Uuid;
-use App\Application\Services\IdGenerator;
 
 /**
  * Class IdGenerator

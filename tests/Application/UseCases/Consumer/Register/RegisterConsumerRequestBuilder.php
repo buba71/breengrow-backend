@@ -14,9 +14,6 @@ use App\Presentation\Api\Order\Model\OrderModel;
  */
 final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
 {
-    /**
-     *
-     */
     private const FIRST_NAME = 'David';
     private const LAST_NAME = 'De Lima';
     private const EMAIL = 'davdelima71@gmail.com';
@@ -25,7 +22,7 @@ final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
     private const ROLES = ['CONSUMER_ROLE'];
 
     /**
-     * @return static
+     * @return self
      */
     public static function defaultRequest(): self
     {
@@ -42,7 +39,10 @@ final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
         return $request;
     }
 
-    public static function defaultAddress()
+    /**
+     * @return ConsumerAddressModel
+     */
+    public static function defaultAddress(): ConsumerAddressModel
     {
         $address = new ConsumerAddressModel();
         $address->firstName = 'David';
@@ -54,7 +54,10 @@ final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
         return $address;
     }
 
-    public static function defaultOrder()
+    /**
+     * @return OrderModel
+     */
+    public static function defaultOrder(): OrderModel
     {
         $order = new OrderModel();
         $order->amount = 25;
@@ -84,9 +87,9 @@ final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
 
     /**
      * @param string $firstName
-     * @return $this
+     * @return self
      */
-    public function withFirstName(string $firstName)
+    public function withFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
         return $this;

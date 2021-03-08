@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Grower\Register;
 
+use App\Application\Services\IdGenerator\IdGenerator;
 use App\Domain\Model\Grower\Grower;
 use App\Domain\Repository\GrowerRepository;
 use App\SharedKernel\Error\Error;
-use App\Application\Services\IdGenerator;
 use App\SharedKernel\Service\PasswordHash;
 use Assert\Assert;
 use Assert\LazyAssertionException;

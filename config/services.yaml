@@ -11,8 +11,8 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    App\Application\Services\GetOrdersManager\OrderStrategyManager:
-        public: true
+    #App\Application\Services\GetOrdersManager\OrderStrategyManager:
+    #    public: true
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -39,6 +39,16 @@ services:
         arguments: ['%lexik_jwt_authentication.token_ttl%']
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: OnAuthenticationSuccess}
+
+    # Message handlers
+    # App\Infrastructure\Services\InvoiceServices\Presentation\Handler\InvoicePdfGenerator:
+    #    tags:
+    #        - { name: messenger.message_handler }
+
+    App\Application\Services\InvoiceService\InvoiceService:
+        tags:
+            - { name: messenger.message_handler }
+
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

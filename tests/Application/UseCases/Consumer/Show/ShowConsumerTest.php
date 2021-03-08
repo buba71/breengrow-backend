@@ -17,7 +17,7 @@ final class ShowConsumerTest extends TestCase
 
     private ShowConsumer $showConsumer;
 
-    private $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
 
     private ShowConsumerResponse $response;
 
@@ -34,7 +34,7 @@ final class ShowConsumerTest extends TestCase
         $this->repository->addConsumer(static::createConsumer());
     }
 
-    public function testIfReturnConsumer()
+    public function testIfReturnConsumer(): void
     {
         // Given request
         $request = ShowConsumerRequestBuilder::default()->build();
@@ -50,7 +50,7 @@ final class ShowConsumerTest extends TestCase
         $this->showConsumer->execute($request, $this->presenter);
     }
 
-    public static function createConsumer()
+    public static function createConsumer(): Consumer
     {
         return new Consumer(
             '12345',

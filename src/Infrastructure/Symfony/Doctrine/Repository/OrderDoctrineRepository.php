@@ -9,6 +9,7 @@ use App\Domain\Repository\OrderRepository;
 use App\Infrastructure\Symfony\Doctrine\Entity\Order as OrderEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\OrderLine as OrderLineEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\DBALException;
 use Doctrine\Persistence\ManagerRegistry;
 
 class OrderDoctrineRepository extends ServiceEntityRepository implements OrderRepository
@@ -20,11 +21,11 @@ class OrderDoctrineRepository extends ServiceEntityRepository implements OrderRe
 
     /**
      * @param Order $order
-     * @return OrderEntity
+
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addOrder(Order $order): OrderEntity
+    public function addOrder(Order $order)
     {
         $orderDoctrineEntity = new OrderEntity();
         
@@ -141,5 +142,22 @@ class OrderDoctrineRepository extends ServiceEntityRepository implements OrderRe
         }
 
         return $orders;
+    }
+
+    public function getOrderById(string $orderId): Order
+    {
+        $orderEntity = $this->findOneBy(['number' => $orderId]);
+        $order = new Order(
+            $orderEntity->getConsumer(),
+            $orderEntity->getCompanySiret(),
+            $orderEntity->getReceivedAt(),
+            $orderEntity->getNumber(),
+            $orderEntity->getStatus()
+        );
+
+        foreach ($orderEntity->getOrderLines() as $orderLine) {
+            $order->addOrderLine($orderLine->getProductId(), $orderLine->getQuantity(), $orderLine->getPrice());
+        }
+        return $order;
     }
 }

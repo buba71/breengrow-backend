@@ -19,7 +19,7 @@ final class GrowerDataProvider implements ItemDataProviderInterface
 {
     /**
      * @param string $resourceClass
-     * @param array<array>|int|string $id
+     * @param string $id
      * @param string|null $operationName
      * @param array<array> $context
      * @return ShowGrowerRequest

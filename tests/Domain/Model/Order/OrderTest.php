@@ -11,8 +11,9 @@ final class OrderTest extends TestCase
 {
     /**
      * Check if order Model return the right amount.
+     * @return void
      */
-    public function testTotalAmountCalculation()
+    public function testTotalAmountCalculation(): void
     {
         $order = new Order('consumerIdTest123', '845126849', new \DateTimeImmutable('midnight'), 'OrderNumber123', 7);
         $order->addOrderLine('productIdTest1', 2, 4.9);

@@ -67,7 +67,10 @@ final class ApiGrowerControllerTest extends ApiTestCase
         );
     }
 
-    public function testShowGrower()
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testShowGrower(): void
     {
         // Login user to allow loading grower information.
         $user = new User();
@@ -114,7 +117,13 @@ final class ApiGrowerControllerTest extends ApiTestCase
         );
     }
 
-    public function testShowAllGrowers()
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testShowAllGrowers(): void
     {
         $registeredGrower = self::$container->get(GrowerDoctrineRepository::class);
 
@@ -130,7 +139,10 @@ final class ApiGrowerControllerTest extends ApiTestCase
         static::assertCount(3, json_decode($response->getContent(), true)['growers']);
     }
 
-    public function testUpdateGrower()
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testUpdateGrower(): void
     {
         $user = new User();
         $user->setEmail('johndoe@test.com');
@@ -191,7 +203,10 @@ final class ApiGrowerControllerTest extends ApiTestCase
         );
     }
 
-    public static function growerProvider()
+    /**
+     * @return Grower
+     */
+    public static function growerProvider(): Grower
     {
         $grower =  new Grower(
             '12345',
@@ -215,7 +230,10 @@ final class ApiGrowerControllerTest extends ApiTestCase
         return $grower;
     }
 
-    public static function growerListProvider()
+    /**
+     * @return Grower[]
+     */
+    public static function growerListProvider(): array
     {
         $growerList = [];
         for ($i = 0; $i <= 2; $i++) {

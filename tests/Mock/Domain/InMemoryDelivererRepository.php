@@ -9,18 +9,24 @@ use App\Domain\Repository\DelivererRepository;
 
 final class InMemoryDelivererRepository implements DelivererRepository
 {
-    private array $deliverers;
+    /**
+     * @var Deliverer[]
+     */
+    private array $deliverers = [];
 
-    public function __construct()
-    {
-        $this->deliverers = [];
-    }
-
-    public function addDeliverer(Deliverer $deliverer)
+    /**
+     * @param Deliverer $deliverer
+     * @return void
+     */
+    public function addDeliverer(Deliverer $deliverer): void
     {
         $this->deliverers[] = $deliverer;
     }
 
+    /**
+     * @param string $id
+     * @return Deliverer|null
+     */
     public function getDelivererById(string $id): ?Deliverer
     {
         $delivererFound = array_filter($this->deliverers, fn($deliverer) => $deliverer->getId() === $id);
@@ -31,6 +37,10 @@ final class InMemoryDelivererRepository implements DelivererRepository
         return null;
     }
 
+    /**
+     * @param string $email
+     * @return Deliverer|null
+     */
     public function getDelivererByEmail(string $email): ?Deliverer
     {
         $delivererFound = array_filter($this->deliverers, fn($deliverer) => $deliverer->getEmail() === $email);

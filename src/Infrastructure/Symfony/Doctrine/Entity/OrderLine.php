@@ -25,7 +25,8 @@ class OrderLine
      * @var Order
      * @ORM\ManyToOne(
      *     targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Order",
-     *     inversedBy="orderlines")
+     *     inversedBy="orderlines"
+     * )
      * @ORM\JoinColumn(name="order_id", referencedColumnName="order_number")
      */
     private Order $order;

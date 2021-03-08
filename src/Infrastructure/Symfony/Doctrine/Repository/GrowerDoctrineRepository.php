@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Symfony\Doctrine\Repository;
 
 use App\Domain\Model\Grower\Grower;
+use App\Domain\Model\Grower\Product;
 use App\Infrastructure\Symfony\Doctrine\Entity\Company as CompanyEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\GeoPoint as GeoPointEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
@@ -16,9 +17,15 @@ use App\Domain\Repository\GrowerRepository;
 
 class GrowerDoctrineRepository extends ServiceEntityRepository implements GrowerRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**$
+     * @var ProductDoctrineRepository
+     */
+    private ProductDoctrineRepository $productRepository;
+    
+    public function __construct(ManagerRegistry $registry, ProductDoctrineRepository $productRepository)
     {
         parent::__construct($registry, GrowerEntity::class);
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -179,6 +186,19 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
             );
         }
          return $grower;
+    }
+
+    public function getProductHiveById(string $productId): Product
+    {
+        $productDoctrineEntity =  $this->productRepository->findOneBy(['id' => $productId]);
+
+        return new Product(
+            $productDoctrineEntity->getId(),
+            $productDoctrineEntity->getCreatedAt(),
+            $productDoctrineEntity->getName(),
+            $productDoctrineEntity->getDescription(),
+            $productDoctrineEntity->getPrice()
+        );
     }
 
     /**

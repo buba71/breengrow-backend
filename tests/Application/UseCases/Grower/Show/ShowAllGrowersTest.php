@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class ShowAllGrowersTest extends TestCase
 {
     private InMemoryGrowerRepository $repository;
-    private ShowAllGrowersPresenter $presenter;
+    private \PHPUnit\Framework\MockObject\MockObject $presenter;
     private ShowAllGRowersResponse $response;
     private ShowAllGrowers $showAllGrowersUseCase;
 
@@ -28,7 +28,7 @@ final class ShowAllGrowersTest extends TestCase
         $this->showAllGrowersUseCase = new ShowAllGrowers($this->repository);
     }
 
-    public function testIfReturnGrowerList()
+    public function testIfReturnGrowerList(): void
     {
         $growerList = static::createGrowers();
 
@@ -46,7 +46,10 @@ final class ShowAllGrowersTest extends TestCase
         $this->showAllGrowersUseCase->execute($this->presenter);
     }
 
-    public static function createGrowers()
+    /**
+     * @return Grower[]
+     */
+    public static function createGrowers(): array
     {
         $growers = [];
         for ($i = 1; $i >= 0; $i--) {
