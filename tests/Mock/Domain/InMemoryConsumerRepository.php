@@ -7,6 +7,10 @@ namespace App\Tests\Mock\Domain;
 use App\Domain\Model\Consumer\Consumer;
 use App\Domain\Repository\ConsumerRepository;
 
+/**
+ * Class InMemoryConsumerRepository
+ * @package App\Tests\Mock\Domain
+ */
 final class InMemoryConsumerRepository implements ConsumerRepository
 {
     /**

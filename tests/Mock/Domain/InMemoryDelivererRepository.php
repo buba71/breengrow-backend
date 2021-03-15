@@ -7,6 +7,10 @@ namespace App\Tests\Mock\Domain;
 use App\Domain\Model\Deliverer\Deliverer;
 use App\Domain\Repository\DelivererRepository;
 
+/**
+ * Class InMemoryDelivererRepository
+ * @package App\Tests\Mock\Domain
+ */
 final class InMemoryDelivererRepository implements DelivererRepository
 {
     /**

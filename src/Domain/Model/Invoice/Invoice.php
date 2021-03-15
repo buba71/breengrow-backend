@@ -8,18 +8,24 @@ use App\Domain\Shared\Aggregate\AggregateRoot;
 
 final class Invoice extends AggregateRoot
 {
+    /**
+     * @var InvoiceNumber
+     */
     private InvoiceNumber $number;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private ?string $filePath = null;
+    private string $fileName;
 
     /**
      * @var InvoiceLine[]
      */
     private array $invoiceLines;
 
+    /**
+     * @var float
+     */
     private float $totalAmount;
 
     /**
@@ -27,10 +33,20 @@ final class Invoice extends AggregateRoot
      * @param InvoiceNumber $invoiceNumber
      * @param float $totalAmount
      */
-    public function __construct(InvoiceNumber $invoiceNumber, float $totalAmount)
+    public function __construct(InvoiceNumber $invoiceNumber, float $totalAmount = 0)
     {
         $this->number = $invoiceNumber;
+        $this->fileName = $this->buildFileName($this->number);
         $this->totalAmount = $totalAmount;
+    }
+
+    private function buildFileName(InvoiceNumber $invoiceNumber): string
+    {
+        return str_replace(
+            '-',
+            '',
+            str_replace(' ', '', (string)$invoiceNumber)
+        );
     }
 
     /**
@@ -44,9 +60,9 @@ final class Invoice extends AggregateRoot
     /**
      * @return string|null
      */
-    public function getFilePath(): ?string
+    public function getFileName(): ?string
     {
-        return $this->filePath;
+        return $this->fileName;
     }
 
     /**

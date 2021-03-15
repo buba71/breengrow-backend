@@ -5,11 +5,14 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
+
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $publicPath: '%kernel.project_dir%/public/'
 
     #App\Application\Services\GetOrdersManager\OrderStrategyManager:
     #    public: true
