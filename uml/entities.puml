@@ -19,7 +19,7 @@ class OrderLine {
 class Product
 class Invoice {
     - number
-    - filePath
+    - fileName
     - invoiceLines
     - totalAmount
 }
@@ -43,6 +43,8 @@ Grower o-- Hive
 Order *-- OrderLine
 
 Hive o-- Product
+
+Order *-- Invoice
 
 OrderLine *-- Product
 

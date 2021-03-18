@@ -33,6 +33,7 @@ final class InvoiceService
 
     /**
      * @param OrderWasPlaced $orderWasPlaced
+     * OrderWasPlaced Event handler
      */
     public function __invoke(OrderWasPlaced $orderWasPlaced): void
     {

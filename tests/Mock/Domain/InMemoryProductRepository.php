@@ -7,6 +7,10 @@ namespace App\Tests\Mock\Domain;
 use App\Domain\Model\Grower\Product;
 use App\Domain\Repository\ProductRepository;
 
+/**
+ * Class InMemoryProductRepository
+ * @package App\Tests\Mock\Domain
+ */
 final class InMemoryProductRepository implements ProductRepository
 {
     /**

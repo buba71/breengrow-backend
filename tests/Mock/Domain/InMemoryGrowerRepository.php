@@ -8,6 +8,10 @@ use App\Domain\Model\Grower\Grower;
 use App\Domain\Model\Grower\Product;
 use App\Domain\Repository\GrowerRepository;
 
+/**
+ * Class InMemoryGrowerRepository
+ * @package App\Tests\Mock\Domain
+ */
 final class InMemoryGrowerRepository implements GrowerRepository
 {
     /**

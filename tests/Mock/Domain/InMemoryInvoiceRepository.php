@@ -7,6 +7,10 @@ namespace App\Tests\Mock\Domain;
 use App\Domain\Model\Invoice\Invoice;
 use App\Domain\Repository\InvoiceRepository;
 
+/**
+ * Class InMemoryInvoiceRepository
+ * @package App\Tests\Mock\Domain
+ */
 final class InMemoryInvoiceRepository implements InvoiceRepository
 {
     /**

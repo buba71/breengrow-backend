@@ -1,6 +1,6 @@
 # 1 . CreateInvoiceFromOrder service:
 
-> CreateInvoiceFromOrder allow creating an invoice from Order when OrderWasPlaced event is raised.
+> CreateInvoiceFromOrder service allow creating an invoice from Order when OrderWasPlaced event is raised.
 
 # 2. InvoiceNumberGenerator service:
 

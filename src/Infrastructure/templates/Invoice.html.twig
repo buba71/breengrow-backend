@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+{% for invoiceLine in invoiceLines %}
+
+    <table>
+        <thead>
+        <tr>
+            <th>Number: {{ invoiceNumber }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>description</td>
+            <td>quantity</td>
+            <td>price</td>
+        </tr>
+        <tr>
+            <td>{{ invoiceLine.productDescription }}</td>
+            <td>{{ invoiceLine.quantity }}</td>
+            <td>{{ invoiceLine.linePrice }}</td>
+        </tr>
+        <tr>
+            <td>Total amount</td>
+            <td>{{ amount }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endfor %}
+
+</body>
+
+
+</html>
+

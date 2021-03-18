@@ -7,6 +7,10 @@ namespace App\Tests\Mock\Domain;
 use App\Domain\Model\Order\Order;
 use App\Domain\Repository\OrderRepository;
 
+/**
+ * Class InMemoryOrderRepository
+ * @package App\Tests\Mock\Domain
+ */
 final class InMemoryOrderRepository implements OrderRepository
 {
     /**
