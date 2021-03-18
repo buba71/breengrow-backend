@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Infrastructure\Symfony\Doctrine\Repository;
 
 use App\Domain\Model\Consumer\Consumer;
+use App\Domain\Model\Invoice\BillingAddress;
 use App\Domain\Repository\ConsumerRepository;
+use App\Infrastructure\Symfony\Doctrine\Mappers\ConsumerMap;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Infrastructure\Symfony\Doctrine\Entity\Consumer as ConsumerEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\ConsumerAddress as ConsumerAddressEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ConsumerDoctrineRepository extends ServiceEntityRepository implements ConsumerRepository
@@ -31,33 +31,7 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
      */
     public function addConsumer(Consumer $consumer)
     {
-        $consumerEntity = new ConsumerEntity();
-
-        $consumerEntity->setId($consumer->getId());
-        $consumerEntity->setFirstName($consumer->getFirstName());
-        $consumerEntity->setLastName($consumer->getLastName());
-
-
-        $userEntity = new UserEntity();
-
-        $userEntity->setEmail($consumer->getEmail());
-        $userEntity->setParentId($consumer->getId());
-        $userEntity->setPassword($consumer->getPassword());
-        $userEntity->setSalt($consumer->getSalt());
-        $userEntity->setRoles($consumer->getRole());
-        $consumerEntity->setUser($userEntity);
-
-        foreach ($consumer->getAddresses() as $address) {
-            $consumerAddressEntity = new ConsumerAddressEntity();
-
-            $consumerAddressEntity->setConsumer($consumerEntity);
-            $consumerAddressEntity->setFirstName($address->getFirstName());
-            $consumerAddressEntity->setLastName($address->getLastName());
-            $consumerAddressEntity->setStreet($address->getStreet());
-            $consumerAddressEntity->setZipCode($address->getZipCode());
-            $consumerAddressEntity->setCity($address->getCity());
-            $consumerEntity->addAddress($consumerAddressEntity);
-        }
+        $consumerEntity = ConsumerMap::domainToPersistence($consumer);
 
         $this->getEntityManager()->persist($consumerEntity);
         $this->getEntityManager()->flush();
@@ -71,27 +45,7 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
     {
         $consumerDoctrineEntity = $this->findOneBy(['id' => $id]);
 
-        $consumer = new Consumer(
-            $consumerDoctrineEntity->getId(),
-            $consumerDoctrineEntity->getFirstName(),
-            $consumerDoctrineEntity->getLastName(),
-            $consumerDoctrineEntity->getUser()->getEmail(),
-            $consumerDoctrineEntity->getUser()->getPassword(),
-            $consumerDoctrineEntity->getUser()->getSalt(),
-            $consumerDoctrineEntity->getUser()->getRoles()
-        );
-
-        foreach ($consumerDoctrineEntity->getConsumerAddresses() as $address) {
-            $consumer->addAddress(
-                $address->getFirstName(),
-                $address->getLastName(),
-                $address->getStreet(),
-                $address->getZipCode(),
-                $address->getCity()
-            );
-        }
-
-        return $consumer;
+        return ConsumerMap::persistenceToDomain($consumerDoctrineEntity);
     }
 
     /**
@@ -101,5 +55,28 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
     public function getConsumerByEmail(string $email)
     {
         // TODO: Implement getConsumerByEmail() method.
+    }
+
+    public function getBillingAddress(string $consumerId): BillingAddress
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder->innerJoin('c.consumerAddresses', 'a')
+                     ->addSelect('a')
+                     ->where('a.type = ?0')
+                     ->setParameter(0, 'BILL');
+
+        $result = $queryBuilder->getQuery()->getOneOrNullResult();
+
+        $address =  $result->getConsumerAddresses()[0];
+
+
+        return new BillingAddress(
+            $address->getFirstName(),
+            $address->getLastName(),
+            $address->getStreet(),
+            $address->getZipCode(),
+            $address->getCity(),
+            $address->getType()
+        );
     }
 }

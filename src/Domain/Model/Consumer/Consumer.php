@@ -143,10 +143,17 @@ class Consumer extends AggregateRoot
      * @param string $street
      * @param string $zipCode
      * @param string $city
+     * @param string|null $type
      */
-    public function addAddress(string $firstName, string $lastName, string $street, string $zipCode, string $city): void
-    {
-        $this->addresses[] = new ConsumerAddress($firstName, $lastName, $street, $zipCode, $city);
+    public function addAddress(
+        string $firstName,
+        string $lastName,
+        string $street,
+        string $zipCode,
+        string $city,
+        ?string $type
+    ): void {
+        $this->addresses[] = new ConsumerAddress($firstName, $lastName, $street, $zipCode, $city, $type);
     }
 
     /**

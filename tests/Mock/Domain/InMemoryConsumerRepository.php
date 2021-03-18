@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Mock\Domain;
 
 use App\Domain\Model\Consumer\Consumer;
+use App\Domain\Model\Invoice\BillingAddress;
 use App\Domain\Repository\ConsumerRepository;
 
 /**
@@ -62,5 +63,10 @@ final class InMemoryConsumerRepository implements ConsumerRepository
             return $consumerFound[0];
         }
         return null;
+    }
+
+    public function getBillingAddress(string $consumerId): BillingAddress
+    {
+        return new BillingAddress('Consumer', 'test', 'street test', '00000', 'test city', 'BILL');
     }
 }

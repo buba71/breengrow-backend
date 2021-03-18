@@ -7,6 +7,8 @@ namespace App\Tests\Infrastructure\Services\Export;
 use App\Domain\Model\Invoice\Invoice;
 use App\Domain\Model\Invoice\InvoiceNumber;
 use App\Infrastructure\Services\Export\ExportInvoiceToPdf;
+use App\Tests\Mock\Domain\InMemoryConsumerRepository;
+use App\Tests\Mock\Domain\InMemoryGrowerRepository;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
@@ -67,9 +69,9 @@ class ExportInvoiceToPdfTest extends WebTestCase
 
         // Then HTML template should contend.
         static::assertEquals('Number: F 2021-03-09 1000', $crawler->filter('thead tr th')->text());
-        static::assertEquals('description', $crawler->filter('tbody tr td:nth-child(1)')->text());
-        static::assertEquals('quantity', $crawler->filter('tbody tr td:nth-child(2)')->text());
-        static::assertEquals('price', $crawler->filter('tbody tr td:nth-child(3)')->text());
+        static::assertEquals('Description', $crawler->filter('tbody tr td:nth-child(1)')->text());
+        static::assertEquals('Quantity', $crawler->filter('tbody tr td:nth-child(2)')->text());
+        static::assertEquals('Price', $crawler->filter('tbody tr td:nth-child(3)')->text());
     }
 
 
@@ -111,8 +113,15 @@ class ExportInvoiceToPdfTest extends WebTestCase
     {
         $invoiceDate = new \DateTimeImmutable('2021-03-09');
         $invoiceNumber =  new InvoiceNumber(1000, $invoiceDate);
+        $growerRepository = new InMemoryGrowerRepository();
+        $consumerRepository = new InMemoryConsumerRepository();
 
-        $invoice =  new Invoice($invoiceNumber, 4.99);
+        $invoice =  new Invoice(
+            $invoiceNumber,
+            4.99,
+            $consumerRepository->getBillingAddress('consumerId'),
+            $growerRepository->getHiveAddress('hiveSiret')
+        );
         $invoice->addInvoiceLine('description', 1, 4.99);
 
         return $invoice;

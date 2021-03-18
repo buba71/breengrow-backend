@@ -106,7 +106,8 @@ final class RegisterConsumer
                 $address->lastName,
                 $address->street,
                 $address->zipCode,
-                $address->city
+                $address->city,
+                $address->type
             );
         }
 

@@ -7,6 +7,8 @@ namespace App\Tests\Domain\Services\InvoiceServices;
 use App\Domain\Model\Invoice\Invoice;
 use App\Domain\Model\Invoice\InvoiceNumber;
 use App\Domain\Model\Order\Order;
+use App\Tests\Mock\Domain\InMemoryConsumerRepository;
+use App\Tests\Mock\Domain\InMemoryGrowerRepository;
 use App\Tests\Mock\Domain\InMemoryInvoiceRepository;
 use App\Tests\Mock\SharedKernel\SystemClock\FakeClock;
 use PHPUnit\Framework\TestCase;
@@ -17,10 +19,26 @@ final class InvoiceNumberGeneratorTest extends TestCase
      * @var InMemoryInvoiceRepository
      */
     private static InMemoryInvoiceRepository $inMemoryInvoiceRepository;
+    
+    /**
+     * @var InMemoryConsumerRepository
+     */
+    private InMemoryConsumerRepository $inMemoryConsumerRepository;
+    
+    /**
+     * @var InMemoryGrowerRepository
+     */
+    private InMemoryGrowerRepository $inMemoryGrowerRepository;
 
     public static function setupBeforeClass(): void
     {
         self::$inMemoryInvoiceRepository = new InMemoryInvoiceRepository();
+    }
+    
+    protected function setUp(): void
+    {
+        $this->inMemoryConsumerRepository = new InMemoryConsumerRepository();
+        $this->inMemoryGrowerRepository = new InMemoryGrowerRepository();
     }
 
     /**
@@ -38,7 +56,9 @@ final class InvoiceNumberGeneratorTest extends TestCase
         // And the invoice number generator.
         $invoice = new Invoice(
             InvoiceNumber::generate(self::$inMemoryInvoiceRepository, $date),
-            $order->getAmount()
+            $order->getAmount(),
+            $this->inMemoryConsumerRepository->getBillingAddress('123'),
+            $this->inMemoryGrowerRepository->getHiveAddress('123')
         );
 
         // Refactoring....

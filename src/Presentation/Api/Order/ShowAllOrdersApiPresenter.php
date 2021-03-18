@@ -18,7 +18,14 @@ final class ShowAllOrdersApiPresenter implements ShowAllOrdersPresenter
     {
         $this->viewModel = new ShowAllOrdersApiViewModel();
 
-        $this->viewModel->modelTransformer($response->getOrders());
+        if ($response->getNotifier()->hasErrors()) {
+            foreach ($response->getNotifier()->getErrors() as $error) {
+                $this->viewModel->addNotification($error->fieldName(), $error->message());
+            }
+        } else {
+            $this->viewModel->modelTransformer($response->getOrders());
+        }
+
         $this->viewModel->status = $response->getStatus();
     }
 

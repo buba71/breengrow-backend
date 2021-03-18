@@ -6,11 +6,10 @@ namespace App\Infrastructure\Symfony\Doctrine\Repository;
 
 use App\Domain\Model\Grower\Grower;
 use App\Domain\Model\Grower\Product;
-use App\Infrastructure\Symfony\Doctrine\Entity\Company as CompanyEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\GeoPoint as GeoPointEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
+use App\Domain\Model\Invoice\SellerAddress;
 use App\Infrastructure\Symfony\Doctrine\Entity\Grower as GrowerEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Product as ProductEntity;
+use App\Infrastructure\Symfony\Doctrine\Mappers\GrowerMap;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Domain\Repository\GrowerRepository;
@@ -36,48 +35,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
      */
     public function addGrower(Grower $grower): GrowerEntity
     {
-        $userEntity = new UserEntity();
-
-        $userEntity->setEmail($grower->getEmail());
-        $userEntity->setParentId($grower->getId());
-        $userEntity->setPassword($grower->getPassword());
-        $userEntity->setSalt($grower->getSalt());
-        $userEntity->setRoles($grower->getRole());
-
-        $companyEntity = new CompanyEntity();
-        $hive = $grower->getHive();
-
-        $geoPointEntity = new GeoPointEntity();
-        $geoPointEntity->setLatitude($hive->getGeoPoint()->getLatitude());
-        $geoPointEntity->setLongitude($hive->getGeoPoint()->getLongitude());
-
-        $companyEntity->setName($hive->getName());
-        $companyEntity->setSiretNumber($hive->getSiretNumber());
-        $companyEntity->setStreet($hive->getStreet());
-        $companyEntity->setCity($hive->getCity());
-        $companyEntity->setGeoPoint($geoPointEntity);
-        $companyEntity->setZipCode($hive->getZipCode());
-
-        foreach ($grower->getHive()->getProducts() as $product) {
-            $productEntity = new ProductEntity();
-            $productEntity->setCompany($companyEntity);
-            $productEntity->setId($product->getId());
-            $productEntity->setName($product->getName());
-            $productEntity->setDescription($product->getDescription());
-            $productEntity->setPrice($product->getPrice());
-
-            $companyEntity->addProduct($productEntity);
-        }
-
-        $growerDoctrineEntity = new GrowerEntity();
-
-        $growerDoctrineEntity->setId($grower->getId());
-        $growerDoctrineEntity->setFirstName($grower->getFirstName());
-        $growerDoctrineEntity->setLastName($grower->getLastName());
-        $growerDoctrineEntity->setUser($userEntity);
-
-        // Set company static data.
-        $growerDoctrineEntity->setCompany($companyEntity);
+        $growerDoctrineEntity = GrowerMap::domainToPersistence($grower);
 
         $this->getEntityManager()->persist($growerDoctrineEntity);
         $this->getEntityManager()->flush();
@@ -94,36 +52,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
         $growers = [];
         
         foreach ($growerCollection as $growerDoctrineEntity) {
-            $grower = new Grower(
-                $growerDoctrineEntity->getId(),
-                $growerDoctrineEntity->getFirstName(),
-                $growerDoctrineEntity->getLastName(),
-                $growerDoctrineEntity->getUser()->getEmail(),
-                $growerDoctrineEntity->getUser()->getPassword(),
-                $growerDoctrineEntity->getUser()->getSalt(),
-                $growerDoctrineEntity->getUser()->getRoles()
-            );
-            $grower->addHive(
-                $growerDoctrineEntity->getCompany()->getName(),
-                $growerDoctrineEntity->getCompany()->getSiretNumber(),
-                $growerDoctrineEntity->getCompany()->getStreet(),
-                $growerDoctrineEntity->getCompany()->getCity(),
-                $growerDoctrineEntity->getCompany()->getZipCode()
-            );
-            $grower->getHive()->addGeoPoint(
-                $growerDoctrineEntity->getCompany()->getGeoPoint()->getLatitude(),
-                $growerDoctrineEntity->getCompany()->getGeoPoint()->getLongitude()
-            );
-
-            foreach ($growerDoctrineEntity->getCompany()->getProducts() as $product) {
-                $grower->getHive()->addProduct(
-                    $product->getId(),
-                    $product->getCreatedAt(),
-                    $product->getName(),
-                    $product->getDescription(),
-                    $product->getPrice()
-                );
-            }
+            $grower = GrowerMap::persistenceToDomain($growerDoctrineEntity);
             $growers[] = $grower;
         }
         return $growers;
@@ -155,39 +84,13 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
     {
         $growerDoctrineEntity = $this->findOneBy(['id' => $id]);
 
-         $grower = new Grower(
-             $growerDoctrineEntity->getId(),
-             $growerDoctrineEntity->getFirstName(),
-             $growerDoctrineEntity->getLastName(),
-             $growerDoctrineEntity->getUser()->getEmail(),
-             $growerDoctrineEntity->getUser()->getPassword(),
-             $growerDoctrineEntity->getUser()->getSalt(),
-             $growerDoctrineEntity->getUser()->getRoles()
-         );
-         $grower->addHive(
-             $growerDoctrineEntity->getCompany()->getName(),
-             $growerDoctrineEntity->getCompany()->getSiretNumber(),
-             $growerDoctrineEntity->getCompany()->getStreet(),
-             $growerDoctrineEntity->getCompany()->getCity(),
-             $growerDoctrineEntity->getCompany()->getZipCode()
-         );
-         $grower->getHive()->addGeoPoint(
-             $growerDoctrineEntity->getCompany()->getGeoPoint()->getLatitude(),
-             $growerDoctrineEntity->getCompany()->getGeoPoint()->getLongitude()
-         );
-
-        foreach ($growerDoctrineEntity->getCompany()->getProducts() as $product) {
-            $grower->getHive()->addProduct(
-                $product->getId(),
-                $product->getCreatedAt(),
-                $product->getName(),
-                $product->getDescription(),
-                $product->getPrice()
-            );
-        }
-         return $grower;
+        return GrowerMap::persistenceToDomain($growerDoctrineEntity);
     }
 
+    /**
+     * @param string $productId
+     * @return Product
+     */
     public function getProductHiveById(string $productId): Product
     {
         $productDoctrineEntity =  $this->productRepository->findOneBy(['id' => $productId]);
@@ -223,5 +126,31 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
             $growerDoctrineEntity->getCompany()->addProduct($productDoctrineEntity);
         }
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param string $hiveSiret
+     * @return SellerAddress
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getHiveAddress(string $hiveSiret): SellerAddress
+    {
+        $queryBuilder = $this->createQueryBuilder('g');
+        $queryBuilder->select('g')
+                     ->innerJoin('g.company', 'c')
+                     ->addSelect('c')
+                     ->where('c.siretNumber = ?0')
+                     ->setParameter(0, $hiveSiret);
+
+        $result = $queryBuilder->getQuery()->getOneOrNullResult();
+        $sellerAddress = $result->getCompany();
+
+        return new SellerAddress(
+            $sellerAddress->getName(),
+            $sellerAddress->getSiretNumber(),
+            $sellerAddress->getStreet(),
+            $sellerAddress->getCity(),
+            $sellerAddress->getZipCode()
+        );
     }
 }

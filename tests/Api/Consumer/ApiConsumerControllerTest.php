@@ -38,7 +38,8 @@ final class ApiConsumerControllerTest extends ApiTestCase
                     "lastName" => "De Lima",
                     "street" => "20, rue François Ducarouge",
                     "zipCode" => "71160",
-                    "city" => "Digoin"
+                    "city" => "Digoin",
+                    "type"  => null
                 ]
             ],
             "orders" => [
@@ -121,7 +122,8 @@ final class ApiConsumerControllerTest extends ApiTestCase
             'Doe',
             'street test',
             '75000',
-            'city test'
+            'city test',
+            null
         );
         return $consumer;
     }

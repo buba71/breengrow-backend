@@ -5,14 +5,15 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Grower\Grower;
 use App\Domain\Model\Grower\Product;
+use App\Domain\Model\Invoice\SellerAddress;
 
 interface GrowerRepository
 {
     /**
-     * @param Grower $user
+     * @param Grower $grower
      * @return mixed
      */
-    public function addGrower(Grower $user);
+    public function addGrower(Grower $grower);
 
 
     /**
@@ -43,4 +44,10 @@ interface GrowerRepository
      * @return mixed
      */
     public function updateGrower(Grower $grower);
+
+    /**
+     * @param string $hiveSiret
+     * @return SellerAddress
+     */
+    public function getHiveAddress(string $hiveSiret): SellerAddress;
 }

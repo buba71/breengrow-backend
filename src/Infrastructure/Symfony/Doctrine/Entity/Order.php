@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Entity()
  * @ORM\Table(name="`order`")
  */
-class Order
+class Order implements DoctrineEntity
 {
     /**
      * @var string

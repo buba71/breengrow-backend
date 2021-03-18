@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Application\Services\OrdersLoader;
 
 use App\Application\UseCases\Order\ShowAllOrders\ShowAllOrdersResponse;
+use App\Domain\Model\Order\OrdersNotfoundException;
+use App\SharedKernel\Error\Error;
 
 final class OrdersLoader
 {
@@ -33,7 +35,13 @@ final class OrdersLoader
      */
     public function execute(ShowAllOrdersResponse $response): void
     {
-        $response->setOrders($this->provider->getOrders($this->requestFilter));
-        $response->setStatus(ShowAllOrdersResponse::HTTP_OK);
+        try {
+            $orders = $this->provider->getOrders($this->requestFilter);
+            $response->setOrders($orders);
+            $response->setStatus(ShowAllOrdersResponse::HTTP_OK);
+        } catch (OrdersNotfoundException $exception) {
+            $response->getNotifier()->addError(new Error('orders', $exception->getErrorMessage()));
+            $response->setStatus(ShowAllOrdersResponse::HTTP_NOT_FOUND);
+        }
     }
 }

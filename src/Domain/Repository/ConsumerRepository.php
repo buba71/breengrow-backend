@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Repository;
 
 use App\Domain\Model\Consumer\Consumer;
+use App\Domain\Model\Invoice\BillingAddress;
 
 interface ConsumerRepository
 {
@@ -25,4 +26,10 @@ interface ConsumerRepository
      * @return mixed
      */
     public function getConsumerByEmail(string $email);
+
+    /**
+     * @param string $consumerId
+     * @return BillingAddress
+     */
+    public function getBillingAddress(string $consumerId): BillingAddress;
 }

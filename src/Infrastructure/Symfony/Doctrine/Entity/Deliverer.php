@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  * @ORM\Entity()
  */
-class Deliverer
+class Deliverer implements DoctrineEntity
 {
     /**
      * @var string

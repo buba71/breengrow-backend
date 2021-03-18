@@ -37,12 +37,12 @@ final class InMemoryOrderRepository implements OrderRepository
     }
 
     /**
-     * @param string $hiveId
+     * @param string $hiveSiret
      * @return Order[]
      */
-    public function getOrdersByHive(string $hiveId): array
+    public function getOrdersByHive(string $hiveSiret): array
     {
-        return array_filter($this->orders, fn(Order $order) => $order->getHiveSiret() === $hiveId);
+        return array_filter($this->orders, fn(Order $order) => $order->getHiveSiret() === $hiveSiret);
     }
 
     /**

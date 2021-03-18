@@ -11,6 +11,9 @@ namespace App\Domain\Model\Consumer;
  */
 class ConsumerAddress
 {
+    private const SHIPPING_ADDR = 'SHIP';
+
+    private const BILLING_ADDR  = 'BILL';
 
     /**
      * @var string
@@ -38,25 +41,33 @@ class ConsumerAddress
     private string $city;
 
     /**
+     * @var string|null
+     */
+    private ?string $type = null;
+
+    /**
      * ConsumerAddress constructor.
      * @param string $firstName
      * @param string $lastName
      * @param string $street
      * @param string $zipCode
      * @param string $city
+     * @param string|null $type
      */
     public function __construct(
         string $firstName,
         string $lastName,
         string $street,
         string $zipCode,
-        string $city
+        string $city,
+        ?string $type
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->street = $street;
         $this->zipCode = $zipCode;
         $this->city = $city;
+        $this->type = $type;
     }
 
 
@@ -95,5 +106,21 @@ class ConsumerAddress
     public function getCity(): string
     {
         return $this->city;
+    }
+
+    /**
+     * @param string|null $type
+     */
+    public function updateType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 }
