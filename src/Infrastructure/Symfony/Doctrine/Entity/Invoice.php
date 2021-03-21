@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  * @ORM\Entity()
  */
-class Invoice
+class Invoice implements DoctrineEntity
 {
     /**
      * @var string
@@ -27,6 +27,18 @@ class Invoice
      * @ORM\Column(type="string", name="invoiceFile_path", nullable=true)
      */
     private ?string $invoiceFilePath = null;
+
+    /**
+     * @var BillingAddress
+     * @ORM\Embedded(class="BillingAddress", columnPrefix=false)
+     */
+    private BillingAddress $billingAddress;
+
+    /**
+     * @var SellerAddress
+     * @ORM\Embedded(class="SellerAddress", columnPrefix=false)
+     */
+    private SellerAddress $sellerAddress;
 
     /**
      * @var Collection
@@ -79,6 +91,38 @@ class Invoice
     public function setFilePath(?string $filePath): void
     {
         $this->invoiceFilePath = $filePath;
+    }
+
+    /**
+     * @return BillingAddress
+     */
+    public function getBillingAddress(): BillingAddress
+    {
+        return $this->billingAddress;
+    }
+
+    /**
+     * @param BillingAddress $billingAddress
+     */
+    public function setBillingAddress(BillingAddress $billingAddress): void
+    {
+        $this->billingAddress = $billingAddress;
+    }
+
+    /**
+     * @return SellerAddress
+     */
+    public function getSellerAddress(): SellerAddress
+    {
+        return $this->sellerAddress;
+    }
+
+    /**
+     * @param SellerAddress $sellerAddress
+     */
+    public function setSellerAddress(SellerAddress $sellerAddress): void
+    {
+        $this->sellerAddress = $sellerAddress;
     }
 
     /**

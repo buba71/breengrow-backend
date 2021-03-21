@@ -7,7 +7,7 @@ namespace App\Infrastructure\Symfony\Doctrine\Repository;
 use App\Domain\Model\Deliverer\Deliverer;
 use App\Domain\Repository\DelivererRepository;
 use App\Infrastructure\Symfony\Doctrine\Entity\Deliverer as DelivererEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
+use App\Infrastructure\Symfony\Doctrine\Mappers\DelivererMap;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,22 +20,7 @@ class DelivererDoctrineRepository extends ServiceEntityRepository implements Del
 
     public function addDeliverer(Deliverer $deliverer)
     {
-        $delivererEntity = new DelivererEntity();
-        $delivererEntity->setId($deliverer->getId());
-        $delivererEntity->setFirstName($deliverer->getFirstName());
-        $delivererEntity->setLastName($deliverer->getLastName());
-        $delivererEntity->setPhone($deliverer->getPhone());
-
-        $userEntity = new userEntity();
-        $userEntity->setEmail($deliverer->getEmail());
-        $userEntity->setParentId($deliverer->getId());
-        $userEntity->setPassword($deliverer->getPassword());
-        $userEntity->setSalt($deliverer->getSalt());
-        $userEntity->setRoles($deliverer->getRole());
-        
-        $delivererEntity->setUser($userEntity);
-        
-        
+        $delivererEntity = DelivererMap::domainToPersistence($deliverer);
 
         $this->getEntityManager()->persist($delivererEntity);
         $this->getEntityManager()->flush();

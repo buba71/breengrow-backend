@@ -6,6 +6,8 @@ namespace App\Tests\Api\Order;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use App\Domain\Model\Order\Order;
+use App\Infrastructure\Symfony\Doctrine\Repository\OrderDoctrineRepository;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 final class ApiOrderControllerTest extends ApiTestCase
@@ -17,9 +19,15 @@ final class ApiOrderControllerTest extends ApiTestCase
      */
     protected Client $client;
 
+    /**
+     * @var OrderDoctrineRepository|object|null
+     */
+    private $orderRepository;
+
     protected function setUp(): void
     {
         $this->client = static::createClient();
+        $this->orderRepository = static::$container->get(OrderDoctrineRepository::class);
     }
 
     /**
@@ -48,5 +56,56 @@ final class ApiOrderControllerTest extends ApiTestCase
 
         static::assertResponseIsSuccessful();
         static::assertArrayHasKey('order', json_decode($response->getContent(), true));
+    }
+    
+    public function testOrdersNotFound(): void
+    {
+        $this->client->request('GET', '/api/orders');
+        static::assertResponseStatusCodeSame(404);
+    }
+    
+    public function testShowAllOrdersOfConsumer(): void
+    {
+        foreach (self::orderListProvider() as $order) {
+            $this->orderRepository->addOrder($order);
+        }
+
+        $response = $this->client->request('GET', '/api/orders?consumerId=1230');
+        
+        static::assertResponseIsSuccessful();
+        static::assertArrayHasKey('orders', json_decode($response->getContent(), true));
+    }
+
+    public function testShowAllOrdersOfHive(): void
+    {
+        foreach (self::orderListProvider() as $order) {
+            $this->orderRepository->addOrder($order);
+        }
+
+        $response = $this->client->request('GET', '/api/orders?hiveSiret=8400');
+
+        static::assertResponseIsSuccessful();
+        static::assertArrayHasKey('orders', json_decode($response->getContent(), true));
+    }
+
+    /**
+     * @return Order[]
+     */
+    public static function orderListProvider(): array
+    {
+        $orders = [];
+        for ($i = 0; $i <= 4; $i++) {
+            $order = new Order(
+                "123{$i}",
+                "840{$i}",
+                new \DateTimeImmutable('midnight'),
+                "123{$i}",
+                7
+            );
+            $order->addOrderLine('123', 1, 2.2);
+            $orders[] = $order;
+        }
+
+        return $orders;
     }
 }

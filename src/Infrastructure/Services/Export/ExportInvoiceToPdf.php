@@ -61,7 +61,6 @@ final class ExportInvoiceToPdf implements ExportDomain
             }
             $this->pdf->generateFromHtml($htmlTemplate, $file);
             return $invoiceFileName;
-
         } catch (\Exception $exception) {
             throw new \Exception('Error on creating file: ', 0, $exception);
         }
@@ -77,9 +76,11 @@ final class ExportInvoiceToPdf implements ExportDomain
     public function buildHtmlTemplate(AggregateRoot $invoiceDomainModel): string
     {
         $templateData = [
-            'invoiceNumber' => $invoiceDomainModel->getNumber(),
-            'invoiceLines'  => $invoiceDomainModel->getInvoiceLines(),
-            'amount'        => $invoiceDomainModel->getTotalAmount()
+            'billingAddress' => $invoiceDomainModel->getBillingAddress(),
+            'sellerAddress'  => $invoiceDomainModel->getSellerAddress(),
+            'invoiceNumber'  => $invoiceDomainModel->getNumber(),
+            'invoiceLines'   => $invoiceDomainModel->getInvoiceLines(),
+            'amount'         => $invoiceDomainModel->getTotalAmount()
         ];
 
         return $this->twig->render('Invoice.html.twig', $templateData);

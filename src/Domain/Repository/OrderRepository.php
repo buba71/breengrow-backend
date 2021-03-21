@@ -20,10 +20,10 @@ interface OrderRepository
     public function getAllOrders(): array;
 
     /**
-     * @param string $hiveId
+     * @param string $hiveSiret
      * @return array<Order>
      */
-    public function getOrdersByHive(string $hiveId): array;
+    public function getOrdersByHive(string $hiveSiret): array;
 
     /**
      * @param string $consumerId

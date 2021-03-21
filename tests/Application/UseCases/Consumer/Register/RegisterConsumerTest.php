@@ -162,7 +162,8 @@ final class RegisterConsumerTest extends TestCase
                 $address->lastName,
                 $address->street,
                 $address->zipCode,
-                $address->city
+                $address->city,
+                $address->type
             );
         }
 

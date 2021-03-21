@@ -41,4 +41,10 @@ class ConsumerAddressModel
      * @ApiProperty()
      */
     public string $city;
+
+    /**
+     * $var string|null
+     * @ApiProperty()
+     */
+    public ?string $type;
 }

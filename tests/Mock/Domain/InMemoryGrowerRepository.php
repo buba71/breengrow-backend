@@ -6,6 +6,7 @@ namespace App\Tests\Mock\Domain;
 
 use App\Domain\Model\Grower\Grower;
 use App\Domain\Model\Grower\Product;
+use App\Domain\Model\Invoice\SellerAddress;
 use App\Domain\Repository\GrowerRepository;
 
 /**
@@ -87,5 +88,10 @@ final class InMemoryGrowerRepository implements GrowerRepository
     public function getAllGrowers(): array
     {
         return $this->growers;
+    }
+
+    public function getHiveAddress(string $hiveSiret): SellerAddress
+    {
+        return new SellerAddress('breengrowTest', '849849849', 'street test', 'city test', '00000');
     }
 }

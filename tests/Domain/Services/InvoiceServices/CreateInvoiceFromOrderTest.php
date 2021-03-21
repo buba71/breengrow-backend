@@ -8,6 +8,7 @@ use App\Domain\Model\Invoice\Invoice;
 use App\Domain\Model\Invoice\InvoiceNumber;
 use App\Domain\Model\Order\Order;
 use App\Domain\Services\InvoiceServices\CreateInvoiceFromOrder;
+use App\Tests\Mock\Domain\InMemoryConsumerRepository;
 use App\Tests\Mock\Domain\InMemoryGrowerRepository;
 use App\Tests\Mock\Domain\InMemoryInvoiceRepository;
 use App\Tests\Mock\Infrastructue\Services\Export\ExportToPdfMock;
@@ -20,16 +21,23 @@ final class CreateInvoiceFromOrderTest extends TestCase
      */
     private CreateInvoiceFromOrder $createInvoiceFromOrder;
 
+    private InMemoryConsumerRepository $inMemoryConsumerRepository;
+
+    private InMemoryGrowerRepository $inMemoryGrowerRepository;
+
     private InMemoryInvoiceRepository $inMemoryInvoiceRepository;
 
     protected function setUp(): void
     {
         $exportDomain = new ExportToPdfMock();
 
+        $this->inMemoryConsumerRepository = new InMemoryConsumerRepository();
+        $this->inMemoryGrowerRepository = new InMemoryGrowerRepository();
         $this->inMemoryInvoiceRepository = new InMemoryInvoiceRepository();
 
         $this->createInvoiceFromOrder = new CreateInvoiceFromOrder(
-            new InMemoryGrowerRepository(),
+            $this->inMemoryConsumerRepository,
+            $this->inMemoryGrowerRepository,
             $this->inMemoryInvoiceRepository,
             $exportDomain
         );
@@ -45,7 +53,16 @@ final class CreateInvoiceFromOrderTest extends TestCase
         $invoice = $this->createInvoiceFromOrder->execute($order);
         
         // Then Invoice expected should be.
-        $shouldBe = new Invoice(new InvoiceNumber(1000, new \DateTimeImmutable('midnight')), $order->getAmount());
+        $shouldBe = new Invoice(
+            new InvoiceNumber(
+                1000,
+                new \DateTimeImmutable('midnight')
+            ),
+            $order->getAmount(),
+            $this->inMemoryConsumerRepository->getBillingAddress('123'),
+            $this->inMemoryGrowerRepository->getHiveAddress('123')
+        );
+
         $shouldBe->addInvoiceLine('product description', 2, 4.9);
 
         static::assertEquals($shouldBe, $this->inMemoryInvoiceRepository->getLastRecord());

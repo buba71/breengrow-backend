@@ -29,7 +29,4 @@ class ShowAllOrdersResponse extends Response
     {
         $this->orders = $orders;
     }
-
-
-
 }

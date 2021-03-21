@@ -50,6 +50,7 @@ final class RegisterConsumerRequestBuilder extends RegisterConsumerRequest
         $address->street = '20, rue François Ducarouge';
         $address->city = 'Digoin';
         $address->zipCode = '71160';
+        $address->type = null;
 
         return $address;
     }

@@ -19,6 +19,16 @@ final class Invoice extends AggregateRoot
     private string $fileName;
 
     /**
+     * @var BillingAddress
+     */
+    private BillingAddress $billingAddress;
+
+    /**
+     * @var SellerAddress
+     */
+    private SellerAddress $sellerAddress;
+
+    /**
      * @var InvoiceLine[]
      */
     private array $invoiceLines;
@@ -32,14 +42,26 @@ final class Invoice extends AggregateRoot
      * Invoice constructor.
      * @param InvoiceNumber $invoiceNumber
      * @param float $totalAmount
+     * @param BillingAddress $billingAddress
+     * @param SellerAddress $sellerAddress
      */
-    public function __construct(InvoiceNumber $invoiceNumber, float $totalAmount = 0)
-    {
+    public function __construct(
+        InvoiceNumber $invoiceNumber,
+        float $totalAmount,
+        BillingAddress $billingAddress,
+        SellerAddress $sellerAddress
+    ) {
         $this->number = $invoiceNumber;
+        $this->billingAddress = $billingAddress;
         $this->fileName = $this->buildFileName($this->number);
+        $this->sellerAddress = $sellerAddress;
         $this->totalAmount = $totalAmount;
     }
 
+    /**
+     * @param InvoiceNumber $invoiceNumber
+     * @return string
+     */
     private function buildFileName(InvoiceNumber $invoiceNumber): string
     {
         return str_replace(
@@ -55,6 +77,22 @@ final class Invoice extends AggregateRoot
     public function getNumber(): InvoiceNumber
     {
         return $this->number;
+    }
+
+    /**
+     * @return BillingAddress
+     */
+    public function getBillingAddress(): BillingAddress
+    {
+        return $this->billingAddress;
+    }
+
+    /**
+     * @return SellerAddress
+     */
+    public function getSellerAddress(): SellerAddress
+    {
+        return $this->sellerAddress;
     }
 
     /**
