@@ -54,6 +54,7 @@
 
 <body>
     <div class="wrapper">
+
         <section class="sell-address">
             <h3>Seller address</h3>
             <span class="sell-siret">Siret: {{ sellerAddress.hiveSiret }}</span><br/>
@@ -61,7 +62,9 @@
             <span class="sell-street">{{ sellerAddress.streetAddress }}</span><br/>
             <span class="sell-city">{{ sellerAddress.zipCode }} {{ sellerAddress.cityAddress }}</span><br/>
         </section>
+
         <h1 class="document-title">Invoice {{ invoiceNumber }}</h1>
+
         <section class="bill-address">
             <h3>Billing address</h3>
             <span class="customer-name">{{ billingAddress.firstName }} {{ billingAddress.lastName }}</span><br/>
@@ -70,7 +73,6 @@
         </section>
 
         <section class="invoice-details">
-
 
             <table class="">
                 <thead>
@@ -101,8 +103,6 @@
             </table>
 
         </section>
-
-
 
     </div>
 </body>

@@ -9,6 +9,7 @@
 /src/Infrastructure/Symfony/Migrations/
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+/public/invoices/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

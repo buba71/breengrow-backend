@@ -16,4 +16,5 @@ return [
     Hautelook\AliceBundle\HautelookAliceBundle::class => ['dev' => true, 'test' => true],
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
+    Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
 ];

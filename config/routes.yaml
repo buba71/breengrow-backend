@@ -8,3 +8,7 @@ api_login_check:
 logged_user:
   path: /api/user
   controller: App\Presentation\Api\Handler\Security\GetLoggedInUser
+
+invoice_pdf:
+  path: /api/invoice/download/{filename}
+  controller: App\Presentation\Api\Handler\DownloadInvoicePdfHandler

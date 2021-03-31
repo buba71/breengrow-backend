@@ -9,6 +9,7 @@ use App\Domain\Model\Invoice\InvoiceNumber;
 use App\Infrastructure\Services\Export\ExportInvoiceToPdf;
 use App\Tests\Mock\Domain\InMemoryConsumerRepository;
 use App\Tests\Mock\Domain\InMemoryGrowerRepository;
+use App\Tests\Mock\Domain\ModelProviders\InvoiceProvider;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
@@ -59,7 +60,7 @@ class ExportInvoiceToPdfTest extends WebTestCase
     public function testIfGenerateInvoiceHtmlTemplate(): void
     {
         // Given an invoice.
-        $invoice = static::provideAnInvoice();
+        $invoice = InvoiceProvider::provideInvoice();
 
         // When generate a new invoice.
         $exportService = $this->exportService;
@@ -78,7 +79,7 @@ class ExportInvoiceToPdfTest extends WebTestCase
     public function testCreatePdfSuccessFull(): void
     {
         // Given an invoice.
-        $invoice =  static::provideAnInvoice();
+        $invoice =  InvoiceProvider::provideInvoice();
 
         $exportService = $this->exportService;
 
@@ -92,7 +93,7 @@ class ExportInvoiceToPdfTest extends WebTestCase
     public function testCreatePdfFail(): void
     {
         // Given an invoice.
-        $invoice =  static::provideAnInvoice();
+        $invoice =  InvoiceProvider::provideInvoice();
 
         $exportService = $this->exportService;
 
@@ -104,26 +105,5 @@ class ExportInvoiceToPdfTest extends WebTestCase
 
         // When this file already exist.
         $exportService->export($invoice);
-    }
-
-    /**
-     * @return Invoice
-     */
-    public static function provideAnInvoice(): Invoice
-    {
-        $invoiceDate = new \DateTimeImmutable('2021-03-09');
-        $invoiceNumber =  new InvoiceNumber(1000, $invoiceDate);
-        $growerRepository = new InMemoryGrowerRepository();
-        $consumerRepository = new InMemoryConsumerRepository();
-
-        $invoice =  new Invoice(
-            $invoiceNumber,
-            4.99,
-            $consumerRepository->getBillingAddress('consumerId'),
-            $growerRepository->getHiveAddress('hiveSiret')
-        );
-        $invoice->addInvoiceLine('description', 1, 4.99);
-
-        return $invoice;
     }
 }
