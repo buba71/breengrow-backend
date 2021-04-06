@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  * @ORM\Embeddable()
  */
-class BillingAddress implements DoctrineEntity
+class BillingAddress
 {
     /**
      * @var string

@@ -11,7 +11,9 @@ framework:
     # https://symfony.com/doc/current/messenger.html#transport-configuration
     # async: '%env(MESSENGER_TRANSPORT_DSN)%'
     # failed: 'doctrine://default?queue_name=failed'
-        async: 'in-memory://'
+      async: 'in-memory://'
+
+
 
 
     routing:

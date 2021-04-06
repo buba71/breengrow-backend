@@ -34,7 +34,7 @@ final class ApiInvoiceControllerTest extends ApiTestCase
     {
         self::bootKernel();
         $kernel = self::$kernel;
-        $this->publicPath = $kernel->getProjectDir() . '/var/tmp';
+        $this->publicPath = $kernel->getProjectDir() . '/public';
 
         $this->client = static::createClient();
         $twig = $this->client->getContainer()->get('twig');
@@ -61,7 +61,7 @@ final class ApiInvoiceControllerTest extends ApiTestCase
         $this->exportService->export($invoice);
 
         //When request downloading the invoice pdf file.
-        $this->client->request('GET', '/api/invoice/download/F202103231000');
+        $response = $this->client->request('GET', '/api/invoice/download/F202103091000');
 
         // The file is downloaded.
         static::assertResponseIsSuccessful();

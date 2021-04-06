@@ -8,6 +8,7 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use App\Domain\Model\Order\Order;
 use App\Infrastructure\Symfony\Doctrine\Repository\OrderDoctrineRepository;
+use App\Tests\Mock\Domain\ModelProviders\InvoiceProvider;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 final class ApiOrderControllerTest extends ApiTestCase
@@ -38,7 +39,7 @@ final class ApiOrderControllerTest extends ApiTestCase
      */
     public function testRegisterOrder(): void
     {
-        $data = [
+        $dataOrder = [
             "consumerId" => "14c72359-f051-4681-a8a1-67037c6340df",
             "hive_siret" => "849512624",
             "orderLines" => [
@@ -50,9 +51,10 @@ final class ApiOrderControllerTest extends ApiTestCase
             ]
         ];
 
-        // $transport = self::$container->get('messenger.transport.async');
+        $response = $this->client->request('POST', '/api/orders', ['json' => $dataOrder]);
+
+        // $transport = self::$container->get('messenger.transport.sync');
         // dd($transport);
-        $response = $this->client->request('POST', '/api/orders', ['json' => $data]);
 
         static::assertResponseIsSuccessful();
         static::assertArrayHasKey('order', json_decode($response->getContent(), true));
@@ -68,6 +70,7 @@ final class ApiOrderControllerTest extends ApiTestCase
     {
         foreach (self::orderListProvider() as $order) {
             $this->orderRepository->addOrder($order);
+            $this->orderRepository->update($order);  // Update order with invoice.
         }
 
         $response = $this->client->request('GET', '/api/orders?consumerId=1230');
@@ -80,6 +83,7 @@ final class ApiOrderControllerTest extends ApiTestCase
     {
         foreach (self::orderListProvider() as $order) {
             $this->orderRepository->addOrder($order);
+            $this->orderRepository->update($order);  // Update order with invoice.
         }
 
         $response = $this->client->request('GET', '/api/orders?hiveSiret=8400');
@@ -103,6 +107,7 @@ final class ApiOrderControllerTest extends ApiTestCase
                 7
             );
             $order->addOrderLine('123', 1, 2.2);
+            $order->joinInvoice(InvoiceProvider::provideInvoice($i));
             $orders[] = $order;
         }
 

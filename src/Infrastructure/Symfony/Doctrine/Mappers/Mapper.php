@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Symfony\Doctrine\Mappers;
 
 use App\Domain\Shared\Aggregate\AggregateRoot;
-use App\Infrastructure\Symfony\Doctrine\Entity\DoctrineEntity;
 
 interface Mapper
 {
@@ -16,8 +15,8 @@ interface Mapper
     public static function domainToPersistence(AggregateRoot $model);
 
     /**
-     * @param DoctrineEntity $persistenceEntity
+     * @param object $persistenceEntity
      * @return mixed
      */
-    public static function persistenceToDomain(DoctrineEntity $persistenceEntity);
+    public static function persistenceToDomain(object $persistenceEntity);
 }

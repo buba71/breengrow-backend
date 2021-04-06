@@ -11,11 +11,11 @@ final class DownloadInvoicePdf
     /**
      * @var string
      */
-    private string $rootDir;
+    private string $publicPath;
 
     public function __construct(string $publicPath)
     {
-        $this->rootDir = $publicPath;
+        $this->publicPath = $publicPath;
     }
 
     /**
@@ -26,7 +26,7 @@ final class DownloadInvoicePdf
     {
         // TODO checking if user is logged in and is owner before downloading file.
 
-        $file_path = $this->rootDir . 'invoices/' . $request->fileName . '.pdf';
+        $file_path = $this->publicPath . 'invoices/' . $request->fileName . '.pdf';
 
         if (!file_exists($file_path)) {
             $message = sprintf('The file %s.pdf doest not exist.', $request->fileName);

@@ -16,6 +16,7 @@ final class DownloadInvoicePdfHandler
      * @ParamConverter(name="downloadInvoiceRequest")
      * @param DownloadInvoiceRequest $downloadInvoiceRequest
      * @param DownloadInvoicePdf $useCase
+     * @return BinaryFileResponse
      */
     public function __invoke(
         DownloadInvoiceRequest $downloadInvoiceRequest,

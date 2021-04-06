@@ -36,4 +36,10 @@ interface OrderRepository
      * @return Order
      */
     public function getOrderById(string $orderId): Order;
+
+    /**
+     * @param Order $order
+     * @return mixed
+     */
+    public function update(Order $order);
 }

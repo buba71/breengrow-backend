@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  * @ORM\Entity()
  */
-class Invoice implements DoctrineEntity
+class Invoice
 {
     /**
      * @var string

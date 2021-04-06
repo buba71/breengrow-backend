@@ -29,8 +29,6 @@ final class CreateInvoiceFromOrderTest extends TestCase
 
     protected function setUp(): void
     {
-        $exportDomain = new ExportToPdfMock();
-
         $this->inMemoryConsumerRepository = new InMemoryConsumerRepository();
         $this->inMemoryGrowerRepository = new InMemoryGrowerRepository();
         $this->inMemoryInvoiceRepository = new InMemoryInvoiceRepository();
@@ -39,7 +37,6 @@ final class CreateInvoiceFromOrderTest extends TestCase
             $this->inMemoryConsumerRepository,
             $this->inMemoryGrowerRepository,
             $this->inMemoryInvoiceRepository,
-            $exportDomain
         );
     }
 
@@ -65,6 +62,6 @@ final class CreateInvoiceFromOrderTest extends TestCase
 
         $shouldBe->addInvoiceLine('product description', 2, 4.9);
 
-        static::assertEquals($shouldBe, $this->inMemoryInvoiceRepository->getLastRecord());
+        static::assertEquals($shouldBe, $invoice);
     }
 }

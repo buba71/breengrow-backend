@@ -7,7 +7,6 @@ namespace App\Infrastructure\Symfony\Doctrine\Mappers;
 use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Infrastructure\Symfony\Doctrine\Entity\Deliverer;
 use App\Infrastructure\Symfony\Doctrine\Entity\Deliverer as DelivererEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\DoctrineEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
 
 final class DelivererMap implements Mapper
@@ -38,10 +37,10 @@ final class DelivererMap implements Mapper
     }
 
     /**
-     * @param DoctrineEntity $persistenceEntity
+     * @param object $persistenceEntity
      * @return mixed|void
      */
-    public static function persistenceToDomain(DoctrineEntity $persistenceEntity)
+    public static function persistenceToDomain(object $persistenceEntity)
     {
         // TODO: Implement persistenceToDomain() method.
     }

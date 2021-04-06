@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @package App\Infrastructure\Symfony\Doctrine\Entity
  */
-class Grower implements DoctrineEntity
+class Grower
 {
     /**
      * @ORM\Id()

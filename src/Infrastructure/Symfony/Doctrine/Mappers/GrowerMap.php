@@ -7,7 +7,6 @@ namespace App\Infrastructure\Symfony\Doctrine\Mappers;
 use App\Domain\Model\Grower\Grower;
 use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Infrastructure\Symfony\Doctrine\Entity\Company as CompanyEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\DoctrineEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\GeoPoint as GeoPointEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Grower as GrowerEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Product as ProductEntity;
@@ -69,10 +68,10 @@ final class GrowerMap implements Mapper
     }
 
     /**
-     * @param DoctrineEntity $persistenceEntity
+     * @param object $persistenceEntity
      * @return Grower
      */
-    public static function persistenceToDomain(DoctrineEntity $persistenceEntity): Grower
+    public static function persistenceToDomain(object $persistenceEntity): Grower
     {
         $grower = new Grower(
             $persistenceEntity->getId(),

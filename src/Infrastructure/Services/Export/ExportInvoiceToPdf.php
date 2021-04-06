@@ -61,6 +61,7 @@ final class ExportInvoiceToPdf implements ExportDomain
             }
             $this->pdf->generateFromHtml($htmlTemplate, $file);
             return $invoiceFileName;
+
         } catch (\Exception $exception) {
             throw new \Exception('Error on creating file: ', 0, $exception);
         }

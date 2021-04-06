@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Entity()
  * @ORM\Table(name="`order`")
  */
-class Order implements DoctrineEntity
+class Order
 {
     /**
      * @var string
@@ -52,6 +52,13 @@ class Order implements DoctrineEntity
      * @ORM\Column(type="string", name="company_siret", nullable=false)
      */
     private string $companySiret;
+
+    /**
+     * @var Invoice|null
+     * @ORM\OneToOne(targetEntity="App\Infrastructure\Symfony\Doctrine\Entity\Invoice", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(referencedColumnName="invoice_number")
+     */
+    private ?Invoice $invoice = null;
 
     /**
      * @var Collection
@@ -173,6 +180,22 @@ class Order implements DoctrineEntity
     public function setCompanySiret(string $companySiret): void
     {
         $this->companySiret = $companySiret;
+    }
+
+    /**
+     * @return Invoice|null
+     */
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    /**
+     * @param Invoice $invoice
+     */
+    public function setInvoice(Invoice $invoice): void
+    {
+        $this->invoice = $invoice;
     }
 
     /**

@@ -10,25 +10,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class InvoiceRequestConverter
+ * Class InvoiceRequestParamConverter
  * @package App\Infrastructure\Symfony\ParamConverters
  * Build invoice request for pdf download.
  */
-final class InvoiceRequestConverter implements ParamConverterInterface
+final class InvoiceRequestParamConverter implements ParamConverterInterface
 {
-
     /**
      * @param Request $request
      * @param ParamConverter $configuration
-     * @return bool|void
-     * Transform request param into DownloadInvoiceRequest.
+     * @return bool
      */
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        $DownloadFileRequest = new DownloadInvoiceRequest();
-        $DownloadFileRequest->fileName = $request->get('filename');
+        $downloadFileRequest = new DownloadInvoiceRequest();
+        $downloadFileRequest->fileName = $request->get('filename');
 
-        $request->attributes->set($configuration->getName(), $DownloadFileRequest);
+        $request->attributes->set($configuration->getName(), $downloadFileRequest);
 
         return true;
     }
