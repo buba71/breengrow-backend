@@ -22,13 +22,13 @@ final class DownloadInvoicePdfHandler
         DownloadInvoiceRequest $downloadInvoiceRequest,
         DownloadInvoicePdf $useCase
     ): BinaryFileResponse {
+
         $file_name = $downloadInvoiceRequest->fileName . '.pdf';
+
         $file_path = $useCase->execute($downloadInvoiceRequest);
-
         $response = new BinaryFileResponse($file_path);
-
         $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-Length', filesize($file_path));
+        $response->headers->set('Content-Length', 'filesize($file_path)');
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, $file_name);
 
         return $response;

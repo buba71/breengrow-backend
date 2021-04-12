@@ -3,9 +3,13 @@
     "license": "proprietary",
     "name": "buba71/breengrow",
     "description": "breengrow-backend",
-    "authors": [{
-        "name": "David De Lima"
-    }],
+    "authors": [
+        {
+            "name": "David De Lima",
+            "email": "davdelima71@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha",
     "require": {
         "php": "^7.4.1",
         "ext-ctype": "*",

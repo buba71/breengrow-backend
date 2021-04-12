@@ -22,18 +22,16 @@ class OrderDoctrineRepository extends ServiceEntityRepository implements OrderRe
 
     /**
      * @param Order $order
-     * @return OrderEntity
+     * @return void
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addOrder(Order $order)
+    public function addOrder(Order $order): void
     {
         $orderDoctrineEntity = OrderMap::domainToPersistence($order);
 
         $this->getEntityManager()->persist($orderDoctrineEntity);
         $this->getEntityManager()->flush();
-
-        return $orderDoctrineEntity;
     }
 
     /**

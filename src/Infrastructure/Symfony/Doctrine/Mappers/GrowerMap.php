@@ -68,11 +68,15 @@ final class GrowerMap implements Mapper
     }
 
     /**
-     * @param object $persistenceEntity
-     * @return Grower
+     * @param object|null $persistenceEntity
+     * @return Grower|null
      */
-    public static function persistenceToDomain(object $persistenceEntity): Grower
+    public static function persistenceToDomain(?object $persistenceEntity): ?Grower
     {
+        if (!$persistenceEntity) {
+            return null;
+        }
+
         $grower = new Grower(
             $persistenceEntity->getId(),
             $persistenceEntity->getFirstName(),

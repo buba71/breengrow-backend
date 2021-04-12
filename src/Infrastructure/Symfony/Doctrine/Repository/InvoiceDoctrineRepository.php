@@ -41,7 +41,7 @@ class InvoiceDoctrineRepository extends ServiceEntityRepository implements Invoi
      */
     public function getAllInvoices(): array
     {
-        return [];
+        return $this->findAll();
     }
 
     /**

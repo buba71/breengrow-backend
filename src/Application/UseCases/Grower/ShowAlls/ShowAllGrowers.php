@@ -6,6 +6,7 @@ namespace App\Application\UseCases\Grower\ShowAlls;
 
 use App\Domain\Model\Grower\Grower;
 use App\Domain\Repository\GrowerRepository;
+use App\Domain\Shared\Exceptions\DomainResourcesNotFoundHttpException;
 
 final class ShowAllGrowers
 {
@@ -31,6 +32,11 @@ final class ShowAllGrowers
         $response = new ShowAllGrowersResponse();
 
         $growerCollection =  $this->repository->getAllGrowers();
+
+        if (!$growerCollection) {
+            throw new DomainResourcesNotFoundHttpException('Growers');
+        }
+
         $response->setGrowers($growerCollection);
         $response->setStatus(ShowAllGrowersResponse::HTTP_OK);
         

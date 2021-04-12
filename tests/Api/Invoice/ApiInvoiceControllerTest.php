@@ -6,10 +6,13 @@ namespace App\Tests\Api\Invoice;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use App\Domain\Model\Invoice\InvoiceFileNotFoundException;
+use App\Domain\Shared\Exceptions\DomainException;
 use App\Infrastructure\Services\Export\ExportInvoiceToPdf;
 use App\Tests\Mock\Domain\ModelProviders\InvoiceProvider;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ApiInvoiceControllerTest extends ApiTestCase
 {
@@ -71,9 +74,9 @@ final class ApiInvoiceControllerTest extends ApiTestCase
     public function testPdfNotFound(): void
     {
         // Given a user who request a file that does not exist.
-        $response = $this->client->request('GET', '/api/invoice/download/fake');
+        $this->client->request('GET', '/api/invoice/download/fake');
 
-        // Then the response status code should be.
-        static::assertEquals(404, $response->getStatusCode());
+        // Then the response status code should be 404.
+        static::assertResponseStatusCodeSame(404);
     }
 }

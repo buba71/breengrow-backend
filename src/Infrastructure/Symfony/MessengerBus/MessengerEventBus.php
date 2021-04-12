@@ -6,10 +6,12 @@ namespace App\Infrastructure\Symfony\MessengerBus;
 
 use App\Domain\Shared\Bus\DomainEvent;
 use App\Domain\Shared\Bus\EventBus;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class MessengerEventBus implements EventBus
 {
+    private LoggerInterface $logger;
     /**
      * @var MessageBusInterface
      */
@@ -17,10 +19,12 @@ class MessengerEventBus implements EventBus
 
     /**
      * MessengerEventBus constructor.
+     * @param LoggerInterface $logger
      * @param MessageBusInterface $messageBus
      */
-    public function __construct(MessageBusInterface $messageBus)
+    public function __construct(LoggerInterface $logger, MessageBusInterface $messageBus)
     {
+        $this->logger = $logger;
         $this->messageBus = $messageBus;
     }
 
@@ -29,6 +33,10 @@ class MessengerEventBus implements EventBus
      */
     public function publish(DomainEvent $event): void
     {
+        $eventId = get_class($event);
+
         $this->messageBus->dispatch($event);
+
+        $this->logger->info(sprintf('An event %s was occurred', $eventId));
     }
 }
