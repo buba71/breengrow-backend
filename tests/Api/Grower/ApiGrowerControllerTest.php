@@ -116,6 +116,18 @@ final class ApiGrowerControllerTest extends ApiTestCase
             "geoPoint":{"latitude":48.314,"longitude":3.412}}}'
         );
     }
+    
+    public function testGrowerNotFound(): void
+    {
+        // Given a user who request grower does not exist in Bdd.
+        $response = $this->client->request('GET', '/api/growers/12345');
+
+        $formattedResponseContent = json_decode($response->getContent(false), true);
+
+        // Then the response status code should be 404(Throw a DomainResourceNotFoundException).
+        static::assertResponseStatusCodeSame(404);
+        static::assertEquals('Grower with id: 12345 not found', $formattedResponseContent['hydra:description']);
+    }
 
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
@@ -137,6 +149,17 @@ final class ApiGrowerControllerTest extends ApiTestCase
         static::assertResponseHeaderSame('content-type', 'application/json');
         static::assertMatchesResourceCollectionJsonSchema(GrowerModel::class);
         static::assertCount(3, json_decode($response->getContent(), true)['growers']);
+    }
+
+    public function testGrowersNotFound(): void
+    {
+        // Given a user who request growers that not exist into bdd.
+        $response = $this->client->request('GET', '/api/growers');
+        $formattedResponseContent = json_decode($response->getContent(false), true);
+
+        // Then Response status code should be 404.
+        static::assertResponseStatusCodeSame(404);
+        static::assertEquals('Growers not found', $formattedResponseContent['hydra:description']);
     }
 
     /**

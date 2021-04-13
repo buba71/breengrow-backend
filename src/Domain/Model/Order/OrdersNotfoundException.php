@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Order;
 
-use App\Domain\Shared\Exceptions\DomainException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class OrdersNotfoundException extends DomainException
+final class OrdersNotfoundException extends NotFoundHttpException
 {
-
     /**
-     * @return string
+     * OrdersNotfoundException constructor.
      */
-    public function getErrorCode(): string
+    public function __construct()
     {
-        return 'no_order';
+        parent::__construct($this->getErrorMessage());
     }
 
     /**

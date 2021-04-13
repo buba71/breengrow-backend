@@ -87,9 +87,7 @@ final class ApiConsumerControllerTest extends ApiTestCase
         $registeredConsumer = static::$container->get(ConsumerDoctrineRepository::class);
         $registeredConsumer->addConsumer(static::consumerProvider());
 
-        $response = $this->client->request('GET', '/api/consumers/12345');
-
-        //dd($response->getContent());
+        $this->client->request('GET', '/api/consumers/12345');
 
         static::assertResponseIsSuccessful();
         static::assertMatchesJsonSchema(
@@ -100,6 +98,23 @@ final class ApiConsumerControllerTest extends ApiTestCase
             ]
             }'
         );
+    }
+
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testConsumerNotFound(): void
+    {
+        // Given a request that consumer does not exist.
+        $response = $this->client->request('GET', '/api/consumers/12345');
+        $formattedResponseContent = json_decode($response->getContent(false), true);
+
+        // Then the response Status code should be 404.
+        static::assertResponseStatusCodeSame(404);
+        static::assertEquals('Consumer with id: 12345 not found', $formattedResponseContent['hydra:description']);
     }
 
     /**
@@ -127,5 +142,5 @@ final class ApiConsumerControllerTest extends ApiTestCase
         );
         return $consumer;
     }
-
 }
+

@@ -52,11 +52,15 @@ final class ConsumerMap implements Mapper
     }
 
     /**
-     * @param Object $persistenceEntity
-     * @return Consumer
+     * @param object|null $persistenceEntity
+     * @return Consumer|null
      */
-    public static function persistenceToDomain(object $persistenceEntity): Consumer
+    public static function persistenceToDomain(?object $persistenceEntity): ?Consumer
     {
+        if (!$persistenceEntity) {
+            return null;
+        }
+
         $consumer = new Consumer(
             $persistenceEntity->getId(),
             $persistenceEntity->getFirstName(),

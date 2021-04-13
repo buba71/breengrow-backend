@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Invoice\DownloadInvoicePdf;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Domain\Model\Invoice\InvoiceFileNotFoundException;
 
 final class DownloadInvoicePdf
 {
@@ -29,8 +29,7 @@ final class DownloadInvoicePdf
         $file_path = $this->publicPath . 'invoices/' . $request->fileName . '.pdf';
 
         if (!file_exists($file_path)) {
-            $message = sprintf('The file %s.pdf doest not exist.', $request->fileName);
-            throw new NotFoundHttpException($message);
+            throw new InvoiceFileNotFoundException(sprintf('The file %s.pdf doest not exist.', $request->fileName));
         }
 
         return $file_path;
