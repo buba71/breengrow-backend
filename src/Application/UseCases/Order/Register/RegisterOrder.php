@@ -61,7 +61,7 @@ final class RegisterOrder
      * @param RegisterOrderResponse $response
      * @return bool
      */
-    public function checkRequest(RegisterOrderRequest $request, RegisterOrderResponse $response)
+    public function checkRequest(RegisterOrderRequest $request, RegisterOrderResponse $response): bool
     {
         try {
             Assert::lazy()

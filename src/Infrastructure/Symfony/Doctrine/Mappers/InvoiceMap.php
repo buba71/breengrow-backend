@@ -8,7 +8,6 @@ use App\Domain\Model\Invoice\Invoice;
 use App\Domain\Model\Invoice\InvoiceNumber;
 use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Infrastructure\Symfony\Doctrine\Entity\BillingAddress;
-use App\Infrastructure\Symfony\Doctrine\Entity\DoctrineEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Invoice as InvoiceEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\InvoiceLine;
 use App\Infrastructure\Symfony\Doctrine\Entity\SellerAddress;
@@ -58,11 +57,11 @@ final class InvoiceMap implements Mapper
 
 
     /**
-     * @param DoctrineEntity $persistenceEntity
+     * @param object $persistenceEntity
      * @return Invoice
      * @throws \Exception
      */
-    public static function persistenceToDomain(DoctrineEntity $persistenceEntity): Invoice
+    public static function persistenceToDomain(object $persistenceEntity): Invoice
     {
         /// Extract invoice number and build new Invoice number model value object.
         list($prefix, $date, $sequenceNumber) = explode(' ', $persistenceEntity->getNumber());
@@ -86,6 +85,8 @@ final class InvoiceMap implements Mapper
             $sellerAddressDoctrine->getCity(),
             $sellerAddressDoctrine->getZipCode()
         );
+
+        // TODO mapping invoice lines two.
 
 
         return new Invoice(

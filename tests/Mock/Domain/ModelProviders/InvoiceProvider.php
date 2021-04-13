@@ -12,12 +12,13 @@ use App\Tests\Mock\Domain\InMemoryGrowerRepository;
 final class InvoiceProvider
 {
     /**
+     * @param int $counter
      * @return Invoice
      */
-    public static function provideInvoice(): Invoice
+    public static function provideInvoice(int $counter = 0): Invoice
     {
         $invoiceDate = new \DateTimeImmutable('2021-03-09');
-        $invoiceNumber =  new InvoiceNumber(1000, $invoiceDate);
+        $invoiceNumber =  new InvoiceNumber((1000 + $counter), $invoiceDate);
         $growerRepository = new InMemoryGrowerRepository();
         $consumerRepository = new InMemoryConsumerRepository();
 

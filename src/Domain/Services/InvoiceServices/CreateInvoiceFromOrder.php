@@ -26,11 +26,6 @@ final class CreateInvoiceFromOrder
     private GrowerRepository $growerRepository;
 
     /**
-     * @var ExportDomain
-     */
-    private ExportDomain $pdfGenerator;
-
-    /**
      * @var InvoiceRepository
      */
     private InvoiceRepository $invoiceRepository;
@@ -40,28 +35,24 @@ final class CreateInvoiceFromOrder
      * @param ConsumerRepository $consumerRepository
      * @param GrowerRepository $growerRepository
      * @param InvoiceRepository $invoiceRepository
-     * @param ExportDomain $exportDomain
      */
     public function __construct(
         ConsumerRepository $consumerRepository,
         GrowerRepository $growerRepository,
-        InvoiceRepository $invoiceRepository,
-        ExportDomain $exportDomain
+        InvoiceRepository $invoiceRepository
     ) {
         $this->consumerRepository = $consumerRepository;
         $this->growerRepository = $growerRepository;
         $this->invoiceRepository = $invoiceRepository;
-        $this->pdfGenerator = $exportDomain;
     }
 
     /**
      * @param Order $order
-     * @return string
+     * @return Invoice
      */
-    public function execute(Order $order): string
+    public function execute(Order $order)
     {
         $billingAddress = $this->consumerRepository->getBillingAddress($order->getConsumerId());
-
         $sellerAddress = $this->growerRepository->getHiveAddress($order->getHiveSiret());
 
         $invoice = new Invoice(
@@ -76,14 +67,6 @@ final class CreateInvoiceFromOrder
             $invoice->addInvoiceLine($product->getDescription(), $orderLine->getQuantity(), $orderLine->getLinePrice());
         }
 
-        // Create the invoice file or throw an exception if already exist.
-        try {
-            $pdfFileName = $this->pdfGenerator->export($invoice);
-            $this->invoiceRepository->addInvoice($invoice);
-
-            return $pdfFileName;
-        } catch (\Exception $exception) {
-            return $exception->getMessage() . $exception->getPrevious()->getMessage();
-        }
+        return $invoice;
     }
 }

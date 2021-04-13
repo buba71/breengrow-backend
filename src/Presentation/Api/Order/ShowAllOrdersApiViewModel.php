@@ -56,6 +56,7 @@ final class ShowAllOrdersApiViewModel
             $this->orders['orders'][] = [
                 'number'        => $order->getNumber(),
                 'registeredAt'  => $order->getReceivedAt(),
+                'invoiceFile'   => $order->getInvoice()->getFileName(),
                 'orderlines'    => $orderLines,
                 'amount'        => $order->getAmount(),
                 'status'        => $order->getStatus(),

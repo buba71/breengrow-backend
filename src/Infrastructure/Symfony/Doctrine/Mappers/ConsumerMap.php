@@ -8,7 +8,6 @@ use App\Domain\Model\Consumer\Consumer;
 use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Infrastructure\Symfony\Doctrine\Entity\Consumer as ConsumerEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\ConsumerAddress as ConsumerAddressEntity;
-use App\Infrastructure\Symfony\Doctrine\Entity\DoctrineEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\User as UserEntity;
 
 final class ConsumerMap implements Mapper
@@ -53,10 +52,10 @@ final class ConsumerMap implements Mapper
     }
 
     /**
-     * @param DoctrineEntity $persistenceEntity
+     * @param Object $persistenceEntity
      * @return Consumer
      */
-    public static function persistenceToDomain(DoctrineEntity $persistenceEntity): Consumer
+    public static function persistenceToDomain(object $persistenceEntity): Consumer
     {
         $consumer = new Consumer(
             $persistenceEntity->getId(),

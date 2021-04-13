@@ -48,7 +48,7 @@ services:
     #    tags:
     #        - { name: messenger.message_handler }
 
-    App\Application\Services\InvoiceService\InvoiceService:
+    App\Application\Services\InvoiceService\InvoiceGeneratorService:
         tags:
             - { name: messenger.message_handler }
 

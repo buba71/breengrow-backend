@@ -6,7 +6,6 @@ namespace App\Infrastructure\Symfony\Doctrine\Mappers;
 
 use App\Domain\Model\Order\Order;
 use App\Domain\Shared\Aggregate\AggregateRoot;
-use App\Infrastructure\Symfony\Doctrine\Entity\DoctrineEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Order as OrderEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\OrderLine as OrderLineEntity;
 
@@ -42,10 +41,10 @@ final class OrderMap implements Mapper
     }
 
     /**
-     * @param DoctrineEntity $persistenceEntity
+     * @param object $persistenceEntity
      * @return Order
      */
-    public static function persistenceToDomain(DoctrineEntity $persistenceEntity): Order
+    public static function persistenceToDomain(object $persistenceEntity): Order
     {
         $order = new Order(
             $persistenceEntity->getConsumer(),
@@ -62,6 +61,11 @@ final class OrderMap implements Mapper
                 $orderLineDoctrineEntity->getPrice()
             );
         }
+
+        if ($persistenceEntity->getInvoice()) {
+            $order->joinInvoice(InvoiceMap::persistenceToDomain($persistenceEntity->getInvoice()));
+        }
+        
         return $order;
     }
 }

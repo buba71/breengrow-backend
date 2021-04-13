@@ -62,4 +62,9 @@ final class InMemoryOrderRepository implements OrderRepository
     {
         // TODO: Implement getOrderById() method.
     }
+
+    public function update(Order $order)
+    {
+        // TODO: Implement update() method.
+    }
 }

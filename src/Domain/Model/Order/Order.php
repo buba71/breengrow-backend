@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Order;
 
+use App\Domain\Model\Invoice\Invoice;
 use App\Domain\Model\Order\Events\OrderWasPlaced;
 use App\Domain\Shared\Aggregate\AggregateRoot;
 
@@ -14,6 +15,7 @@ use App\Domain\Shared\Aggregate\AggregateRoot;
  */
 class Order extends AggregateRoot
 {
+    // Enums....
     public const ORDER_DELIVERED = 0;
     public const ORDER_IN_TRANSIT = 1;
     public const ORDER_PAID = 2;
@@ -37,6 +39,11 @@ class Order extends AggregateRoot
      * @var string
      */
     private string $hiveSiret;
+
+    /**
+     * @var Invoice|null
+     */
+    private ?Invoice $invoice = null;
 
     /**
      * @var string
@@ -109,6 +116,14 @@ class Order extends AggregateRoot
     }
 
     /**
+     * @return Invoice
+     */
+    public function getInvoice(): Invoice
+    {
+        return $this->invoice;
+    }
+
+    /**
      * @return string
      */
     public function getNumber(): string
@@ -158,5 +173,14 @@ class Order extends AggregateRoot
             fn($accumulator, $orderLine) => $accumulator += $orderLine->getQuantity() * $orderLine->getLinePrice()
         );
         $this->amount = round($totalAmount, 2);
+    }
+
+    /**
+     * @param Invoice|null $invoice
+     * @return void
+     */
+    public function joinInvoice(?Invoice $invoice): void
+    {
+        $this->invoice = $invoice;
     }
 }
