@@ -1,5 +1,5 @@
 ### **This is the backend part of BREENGROW application.**
-*Api symfony project built with clean domain driven design.*
+*Api symfony project built with domain driven design.*
 
 # Table of contents
 
