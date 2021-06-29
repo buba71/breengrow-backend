@@ -11,8 +11,8 @@ use App\Infrastructure\Symfony\Doctrine\Entity\Grower as GrowerEntity;
 use App\Infrastructure\Symfony\Doctrine\Entity\Product as ProductEntity;
 use App\Infrastructure\Symfony\Doctrine\Mappers\GrowerMap;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Domain\Repository\GrowerRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 class GrowerDoctrineRepository extends ServiceEntityRepository implements GrowerRepository
 {
@@ -20,7 +20,7 @@ class GrowerDoctrineRepository extends ServiceEntityRepository implements Grower
      * @var ProductDoctrineRepository
      */
     private ProductDoctrineRepository $productRepository;
-    
+
     public function __construct(ManagerRegistry $registry, ProductDoctrineRepository $productRepository)
     {
         parent::__construct($registry, GrowerEntity::class);

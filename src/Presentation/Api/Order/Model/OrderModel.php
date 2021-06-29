@@ -15,6 +15,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 class OrderModel
 {
     /**
+     * @var string
+     * @ApiProperty(identifier=true)
+     */
+    public string $id;
+
+    /**
      * @var string|null
      * @ApiProperty()
      */

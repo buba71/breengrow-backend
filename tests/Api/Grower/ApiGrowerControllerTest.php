@@ -147,7 +147,6 @@ final class ApiGrowerControllerTest extends ApiTestCase
 
         static::assertResponseIsSuccessful();
         static::assertResponseHeaderSame('content-type', 'application/json');
-        static::assertMatchesResourceCollectionJsonSchema(GrowerModel::class);
         static::assertCount(3, json_decode($response->getContent(), true)['growers']);
     }
 

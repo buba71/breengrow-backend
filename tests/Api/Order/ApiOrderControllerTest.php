@@ -65,7 +65,7 @@ final class ApiOrderControllerTest extends ApiTestCase
         $response = $this->client->request('GET', '/api/orders');
         $formattedResponse = json_decode($response->getContent(false), true);
 
-        static::assertResponseStatusCodeSame(404);
+        static::assertResponseStatusCodeSame(200);
         static::assertEquals('no orders found', $formattedResponse['errors']['orders']);
     }
     

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Services\InvoiceServices;
 
+use App\Domain\Model\Consumer\BillingAddressNotFoundException;
 use App\Domain\Model\Invoice\Invoice;
 use App\Domain\Model\Invoice\InvoiceNumber;
 use App\Domain\Model\Order\Order;
 use App\Domain\Repository\ConsumerRepository;
 use App\Domain\Repository\GrowerRepository;
 use App\Domain\Repository\InvoiceRepository;
-use App\Domain\Services\ExportDomain;
 use App\SharedKernel\SystemClock\SystemClock;
 
 final class CreateInvoiceFromOrder
@@ -53,6 +53,11 @@ final class CreateInvoiceFromOrder
     public function execute(Order $order)
     {
         $billingAddress = $this->consumerRepository->getBillingAddress($order->getConsumerId());
+
+        if (!$billingAddress) {
+            throw new BillingAddressNotFoundException();
+        }
+
         $sellerAddress = $this->growerRepository->getHiveAddress($order->getHiveSiret());
 
         $invoice = new Invoice(

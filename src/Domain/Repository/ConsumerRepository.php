@@ -31,5 +31,5 @@ interface ConsumerRepository
      * @param string $consumerId
      * @return BillingAddress
      */
-    public function getBillingAddress(string $consumerId): BillingAddress;
+    public function getBillingAddress(string $consumerId): ?BillingAddress;
 }
