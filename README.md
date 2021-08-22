@@ -7,10 +7,10 @@ This project is still in development.
 
 # Table of contents
 
-[Introduction]()  
-[Application structure]()  
-- [My approach]()  
-- [A better approach]()   
+[Introduction](#introduction)  
+[Application structure](#application-structure)  
+- [My approach](#my-approach)  
+- [A better approach](#a-better-approach)   
 
 ##Introduction
 
