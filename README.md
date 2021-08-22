@@ -1,19 +1,16 @@
-# **This is the API part of BREENGROW application project.**
+# This is the API part of BREENGROW application project.**
 
 *Api platform project on domain driven design*.  
 
 This project is still in development.
 
-
-# Table of contents
+## Table of contents
 
 [Introduction](#introduction)  
 [Application structure](#application-structure)  
 
 - [My approach](#my-approach)  
 - [A better approach](#a-better-approach)
-
-## Introduction
 
 This project is a collaborative platform about local commerce.
 
@@ -23,7 +20,7 @@ The purpose of this project is learning the different concepts of DDD:
 - Entities
 - Domain Model  
 - Aggregate root
-- Application layer 
+- Application layer
 - Application services
 - Domain layer
 - Domain services
@@ -52,6 +49,7 @@ Api platform gives you all the tools necessary to facilitate its use on a Domain
 ### My approach
 
 ```bash
+
 Application
 |_  Services
     |_  IdGenerator
@@ -93,6 +91,7 @@ Shared
 A better approach is to separate the application into modules(or Bounded context).
 
 ```bash
+
 Consumer
 |_  Application
 |_  Domain
@@ -129,5 +128,3 @@ Order
 |_  Shared
 
 Shared
-
-```
