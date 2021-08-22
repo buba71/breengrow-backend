@@ -91,7 +91,6 @@ Shared
 A better approach is to separate the application into modules(or Bounded context).
 
 ```bash
-
 Consumer
 |_  Application
 |_  Domain
