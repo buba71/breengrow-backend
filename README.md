@@ -12,6 +12,8 @@ This project is still in development.
 
 - [My approach](#my-approach)  
 - [A better approach](#a-better-approach)
+  
+[Contributing](#contributing)
 
 ## Introduction
 
@@ -131,3 +133,8 @@ Order
 Shared
 
 ```
+
+## Contributing
+
+---
+
