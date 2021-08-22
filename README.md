@@ -1,4 +1,6 @@
-### **This is the API part of BREENGROW application project.**
+
+# **This is the API part of BREENGROW application project.**
+
 *Api platform project on domain driven design*.  
 
 This project is still in development.
@@ -9,10 +11,11 @@ This project is still in development.
 
 [Introduction](#introduction)  
 [Application structure](#application-structure)  
-- [My approach](#my-approach)  
-- [A better approach](#a-better-approach)   
 
-##Introduction
+- [My approach](#my-approach)  
+- [A better approach](#a-better-approach)
+
+## Introduction
 
 This project is a collaborative platform about local commerce.
 
@@ -46,11 +49,11 @@ Api platform gives you all the tools necessary to facilitate its use on a Domain
 - Use of DTO
 - etc..
 
-##Application structure
-###My approach
+## Application structure
 
+### My approach
 
-```
+```bash
 Application
 |_  Services
     |_  IdGenerator
@@ -86,11 +89,12 @@ Shared
 |_  SystemClock
 
 ```
-###A better approach
+
+### A better approach
 
 A better approach is to separate the application into modules(or Bounded context).
 
-```
+```bash
 Consumer
 |_  Application
 |_  Domain
