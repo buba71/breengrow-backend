@@ -57,7 +57,12 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
         // TODO: Implement getConsumerByEmail() method.
     }
 
-    public function getBillingAddress(string $consumerId): BillingAddress
+    /**
+     * @param string $consumerId
+     * @return BillingAddress|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getBillingAddress(string $consumerId): ?BillingAddress
     {
         $queryBuilder = $this->createQueryBuilder('c');
         $queryBuilder->innerJoin('c.consumerAddresses', 'a')
@@ -67,8 +72,11 @@ class ConsumerDoctrineRepository extends ServiceEntityRepository implements Cons
 
         $result = $queryBuilder->getQuery()->getOneOrNullResult();
 
-        $address =  $result->getConsumerAddresses()[0];
+        if (null === $result) {
+            return null;
+        }
 
+        $address =  $result->getConsumerAddresses()[0];
 
         return new BillingAddress(
             $address->getFirstName(),

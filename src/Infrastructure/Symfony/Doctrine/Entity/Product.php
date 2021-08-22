@@ -92,11 +92,11 @@ class Product
     }
 
     /**
-     * @param \DateTimeImmutable $createdAt
+     *
      */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    public function setCreatedAt(): void
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     /**

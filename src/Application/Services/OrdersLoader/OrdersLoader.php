@@ -41,7 +41,7 @@ final class OrdersLoader
             $response->setStatus(ShowAllOrdersResponse::HTTP_OK);
         } catch (OrdersNotfoundException $exception) {
             $response->getNotifier()->addError(new Error('orders', $exception->getErrorMessage()));
-            $response->setStatus(ShowAllOrdersResponse::HTTP_NOT_FOUND);
+            $response->setStatus(ShowAllOrdersResponse::HTTP_OK);
         }
     }
 }

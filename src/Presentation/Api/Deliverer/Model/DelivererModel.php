@@ -20,6 +20,12 @@ class DelivererModel
 {
     /**
      * @var string
+     * @ApiProperty(identifier=true)
+     */
+    public string $id;
+
+    /**
+     * @var string
      * @ApiProperty()
      */
     public string $firstName;
