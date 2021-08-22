@@ -1,11 +1,9 @@
-
 # **This is the API part of BREENGROW application project.**
 
 *Api platform project on domain driven design*.  
 
 This project is still in development.
 
----
 
 # Table of contents
 
