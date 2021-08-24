@@ -17,8 +17,6 @@ This project is still in development.
 
 ## Introduction
 
----
-
 This project is a collaborative platform about local commerce.
 
 The purpose of this project is learning the different concepts of DDD:
@@ -52,8 +50,6 @@ Api platform gives you all the tools necessary to facilitate its use on a Domain
 - etc..
 
 ## Application structure
-
----
 
 ### My approach
 
@@ -139,5 +135,3 @@ Shared
 ```
 
 ## Contributing
-
----
