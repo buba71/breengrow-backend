@@ -1,4 +1,4 @@
-# This is the API part of BREENGROW application project.**
+# This is the API part of BREENGROW application project.
 
 *Api platform project on domain driven design*.  
 
@@ -130,9 +130,6 @@ Order
 |_  Shared
 
 Shared
-<<<<<<< HEAD
-=======
-
 ```
 
 ## Contributing
