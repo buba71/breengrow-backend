@@ -12,7 +12,7 @@ This project is still in development.
 - [My approach](#my-approach)  
 - [A better approach](#a-better-approach)
   
-[Contributiing](#contributing)
+[Contributing](#contributing)
 
 This project is a collaborative platform about local commerce.
 
@@ -137,4 +137,4 @@ Shared
 ## Contributing
 
 ---
->>>>>>> d660756 (doc: add section to README)
+
