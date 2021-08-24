@@ -1,4 +1,4 @@
-# This is the API part of BREENGROW application project.
+# This is the API part of BREENGROW application project
 
 *Api platform project on domain driven design*.  
 
@@ -14,6 +14,10 @@ This project is still in development.
 - [Structuring code in modules](#a-better-approach)
   
 ## [3 - Contributing](#contributing)
+
+## Introduction
+
+---
 
 This project is a collaborative platform about local commerce.
 
@@ -48,6 +52,8 @@ Api platform gives you all the tools necessary to facilitate its use on a Domain
 - etc..
 
 ## Application structure
+
+---
 
 ### My approach
 
