@@ -4,16 +4,16 @@
 
 This project is still in development.
 
+## TABLE OF CONTENTS
 
-# Table of contents
+## [1 - Introduction](#introduction)
 
-[Introduction](#introduction)  
-[Application structure](#application-structure)  
+## [2 - Application structure](#application-structure)  
 
 - [My approach](#my-approach)  
-- [A better approach](#a-better-approach)
+- [Structuring code in modules](#a-better-approach)
   
-[Contributing](#contributing)
+## [3 - Contributing](#contributing)
 
 ## Introduction
 
@@ -25,7 +25,7 @@ The purpose of this project is learning the different concepts of DDD:
 - Entities
 - Domain Model  
 - Aggregate root
-- Application layer 
+- Application layer
 - Application services
 - Domain layer
 - Domain services
@@ -90,7 +90,7 @@ Shared
 
 ```
 
-### A better approach
+### Structuring code in modules
 
 A better approach is to separate the application into modules(or Bounded context).
 
@@ -137,4 +137,3 @@ Shared
 ## Contributing
 
 ---
-
