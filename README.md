@@ -4,15 +4,16 @@
 
 This project is still in development.
 
-## Table of contents
+## TABLE OF CONTENTS
 
-[Introduction](#introduction)  
-[Application structure](#application-structure)  
+## [1 - Introduction](#introduction)
+
+## [2 - Application structure](#application-structure)  
 
 - [My approach](#my-approach)  
-- [A better approach](#a-better-approach)
+- [Structuring code in modules](#a-better-approach)
   
-[Contributing](#contributing)
+## [3 - Contributing](#contributing)
 
 This project is a collaborative platform about local commerce.
 
@@ -88,7 +89,7 @@ Shared
 
 ```
 
-### A better approach
+### Structuring code in modules
 
 A better approach is to separate the application into modules(or Bounded context).
 
@@ -137,4 +138,3 @@ Shared
 ## Contributing
 
 ---
-
