@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "name": "buba71/breengrow",
     "description": "breengrow-backend",
     "authors": [
