@@ -1,6 +1,6 @@
-# **This is the API part of BREENGROW application project.**
+# Symfony API(API Platform) of BREENGROW application project
 
-*Api platform project on domain driven design*.  
+*My approach with Domain Driven Design tactical pattern on implementing Api platform project.*  
 
 This project is still in development.
 
@@ -17,9 +17,9 @@ This project is still in development.
 
 ## Introduction
 
-This project is a collaborative platform about local commerce.
+This project is an open source collaborative platform about local commerce.
 
-The purpose of this project is learning the different concepts of DDD:
+The purpose of this project is learning the different concepts of DDD and others:
 
 - Value objects
 - Entities
@@ -41,7 +41,7 @@ The purpose of this project is learning the different concepts of DDD:
 For this I used **Symfony** coupled with **Api Platform** package, and so I share here my approach on implementing
 Api platform on a *Domain Driven Design* project.
 
-Api platform gives you all the tools necessary to facilitate its use on a Domain Driven Design project application:
+Api platform gives you usefull tools to facilitate its use on a Domain Driven Design project application:
 
 - Data Transformers
 - Data Providers
@@ -54,6 +54,7 @@ Api platform gives you all the tools necessary to facilitate its use on a Domain
 ### My approach
 
 ```bash
+
 Application
 |_  Services
     |_  IdGenerator
@@ -131,9 +132,6 @@ Order
 |_  Shared
 
 Shared
-
 ```
 
 ## Contributing
-
----
